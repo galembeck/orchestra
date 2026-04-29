@@ -1,5 +1,5 @@
 {
-  "name": "with-tailwind",
+  "name": "orchestra-frontend",
   "private": true,
   "scripts": {
     "build": "turbo run build",
@@ -11,7 +11,8 @@
   "devDependencies": {
     "prettier": "^3.6.0",
     "prettier-plugin-tailwindcss": "^0.7.1",
-    "turbo": "^2.9.6"
+    "turbo": "^2.9.6",
+    "typescript": "^6.0.3"
   },
   "packageManager": "pnpm@10.19.0",
   "engines": {
