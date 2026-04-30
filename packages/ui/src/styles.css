@@ -1,1 +1,11 @@
 @import "@repo/tailwind-config";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+.dark {
+	--color-surface: oklch(0.18 0.025 258.33);
+	--color-surface-raised: oklch(0.22 0.022 258.33);
+	--color-foreground-primary: oklch(0.93 0.012 258.33);
+	--color-foreground-secondary: oklch(0.67 0.025 257.28);
+	--color-border: oklch(0.32 0.025 258.33);
+}

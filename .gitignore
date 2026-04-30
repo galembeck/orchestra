@@ -36,3 +36,6 @@ yarn-error.log*
 dist/
 
 **/**/.tanstack/tmp/
+
+*storybook.log
+storybook-static

@@ -164,3 +164,49 @@ Biome is the underlying engine. Most issues are automatically fixable. Run `pnpm
 - Navigation components must provide a mobile-friendly alternative (e.g., hamburger menu with `lg:hidden` / `hidden lg:flex`)
 - Avoid fixed pixel widths; prefer `w-full`, `max-w-*`, or flexible layouts
 - Test at minimum: mobile (< 640 px), tablet (640–1024 px), desktop (> 1024 px)
+
+## Component Development Standards
+
+### Atomic Design
+
+Components in `packages/ui` follow Atomic Design hierarchy:
+
+```
+src/components/
+  atoms/       → Smallest building blocks (Button, Input, Badge…)
+  molecules/   → Composed of atoms (Logo, FormField, Card…)
+  organisms/   → Complex sections composed of molecules (Navbar, Footer, Hero…)
+```
+
+Every new component must:
+1. Live in its own directory matching the hierarchy: `src/components/<level>/<name>/<name>.tsx`
+2. Export a named function component and its props interface
+3. Accept a `className` prop via `ComponentProps<"element">` so callers can extend styles
+4. Use design-token utility classes (`bg-surface`, `text-foreground-primary`, etc.) — never raw color values
+5. Be responsive by default using the mobile-first Tailwind approach
+6. Come with a co-located story file: `<name>.stories.tsx`
+
+### Storybook
+
+Run Storybook for the UI package:
+
+```bash
+cd packages/ui
+pnpm storybook        # dev server on port 6006
+pnpm build-storybook  # static build
+```
+
+Every component **must** have a story file next to its source file. Story requirements:
+
+- Use CSF3 format with `satisfies Meta<typeof Component>`
+- Add `tags: ["autodocs"]` to auto-generate documentation from props
+- Set `layout: "centered"` for atoms/molecules, `layout: "fullscreen"` for organisms
+- Define `argTypes` with `control`, `description`, and `table.defaultValue` for every public prop
+- Export a named story for each meaningful visual state (e.g. `Primary`, `Secondary`, `Disabled`, `AllVariants`)
+- Components that depend on a router (TanStack Router `Link`) must use the `withRouter` decorator pattern — see `navbar.stories.tsx`
+
+### Theme toggle
+
+Storybook includes a **Theme** toolbar button (paintbrush icon) that switches between `light` and `dark` by toggling the `.dark` class on `<html>`. Dark-mode color overrides are defined in `src/styles.css` and follow the same token names as the light palette.
+
+To verify dark mode during development, click the Theme button in the Storybook toolbar.
