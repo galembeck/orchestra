@@ -1,0 +1,113 @@
+{
+	"extends": [
+		"//"
+	],
+	"tasks": {
+		"build": {
+			"dependsOn": [
+				"build:config",
+				"build:constants",
+				"build:enums",
+				"build:hooks",
+				"build:models",
+				"build:services",
+				"build:store",
+				"build:types"
+			]
+		},
+		"build:config": {
+			"outputs": [
+				"dist/**"
+			]
+		},
+		"build:constants": {
+			"outputs": [
+				"dist/**"
+			]
+		},
+		"build:enums": {
+			"outputs": [
+				"dist/**"
+			]
+		},
+		"build:hooks": {
+			"outputs": [
+				"dist/**"
+			]
+		},
+		"build:models": {
+			"outputs": [
+				"dist/**"
+			]
+		},
+		"build:services": {
+			"outputs": [
+				"dist/**"
+			]
+		},
+		"build:store": {
+			"outputs": [
+				"dist/**"
+			]
+		},
+		"build:types": {
+			"outputs": [
+				"dist/**"
+			]
+		},
+		"build:utils": {
+			"outputs": [
+				"dist/**"
+			]
+		},
+		"dev": {
+			"with": [
+				"dev:config",
+				"dev:constants",
+				"dev:enums",
+				"dev:hooks",
+				"dev:models",
+				"dev:services",
+				"dev:store",
+				"dev:types",
+				"dev:utils"
+			]
+		},
+		"dev:config": {
+			"cache": false,
+			"persistent": true
+		},
+		"dev:constants": {
+			"cache": false,
+			"persistent": true
+		},
+		"dev:enums": {
+			"cache": false,
+			"persistent": true
+		},
+		"dev:hooks": {
+			"cache": false,
+			"persistent": true
+		},
+		"dev:models": {
+			"cache": false,
+			"persistent": true
+		},
+		"dev:services": {
+			"cache": false,
+			"persistent": true
+		},
+		"dev:store": {
+			"cache": false,
+			"persistent": true
+		},
+		"dev:types": {
+			"cache": false,
+			"persistent": true
+		},
+		"dev:utils": {
+			"cache": false,
+			"persistent": true
+		}
+	}
+}

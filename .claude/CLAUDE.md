@@ -156,3 +156,11 @@ Biome is the underlying engine. Most issues are automatically fixable. Run `pnpm
 - Write assertions inside `it()` or `test()` blocks
 - Use async/await, not done callbacks
 - Don't commit `.only` or `.skip`
+
+### Responsive Design
+
+- Every component must work correctly on both mobile and desktop viewports
+- Use Tailwind's responsive prefixes with a **mobile-first** approach (`lg:`, `md:`, `sm:`)
+- Navigation components must provide a mobile-friendly alternative (e.g., hamburger menu with `lg:hidden` / `hidden lg:flex`)
+- Avoid fixed pixel widths; prefer `w-full`, `max-w-*`, or flexible layouts
+- Test at minimum: mobile (< 640 px), tablet (640–1024 px), desktop (> 1024 px)

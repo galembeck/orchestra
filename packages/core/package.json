@@ -1,0 +1,33 @@
+{
+	"name": "@repo/core",
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"build": "tsc -p tsconfig.build.json",
+		"check-types": "tsc --noEmit",
+		"dev": "tsc -p tsconfig.build.json --watch"
+	},
+	"exports": {
+		"./*": {
+			"types": "./dist/*.d.ts",
+			"default": "./dist/*.js"
+		}
+	},
+	"peerDependencies": {
+		"react": "^19"
+	},
+	"devDependencies": {
+		"@repo/eslint-config": "workspace:*",
+		"@repo/typescript-config": "workspace:*",
+		"@types/react": "^19.1.0",
+		"eslint": "^9.39.1",
+		"typescript": "^5.8.2"
+	},
+	"dependencies": {
+		"@reduxjs/toolkit": "^2.11.2",
+		"date-fns": "^4.1.0",
+		"imask": "^7.6.1",
+		"react-hot-toast": "^2.6.0",
+		"react-redux": "^9.2.0"
+	}
+}

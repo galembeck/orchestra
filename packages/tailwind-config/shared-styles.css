@@ -1,7 +1,15 @@
-@import "tailwindcss";
-
 @theme {
-  --color-blue-1000: #2a8af6;
-  --color-purple-1000: #a853ba;
-  --color-red-1000: #e92a67;
+	--font-afacad: "Afacad", sans-serif;
+	--font-instrument-serif: "Instrument Serif", serif;
+	--font-inter: "Inter", sans-serif;
+
+	--color-surface: oklch(0.9535 0.0172 84.59);
+	--color-surface-raised: oklch(0.9735 0.0139 88.68);
+
+	--color-foreground-primary: oklch(0.1998 0.0403 258.29);
+	--color-foreground-secondary: oklch(0.4455 0.0374 257.28);
+
+	--color-border: oklch(0.8807 0.0299 87.55);
+	--color-accent: oklch(0.4707 0.2134 266.52);
+	--color-ring: oklch(0.4707 0.2134 266.52);
 }
