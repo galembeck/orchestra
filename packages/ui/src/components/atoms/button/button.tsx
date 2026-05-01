@@ -13,7 +13,7 @@ export const buttonVariants = tv({
 			primary:
 				"bg-foreground-primary px-5.5 py-3.5 text-surface hover:bg-foreground-primary/90",
 			secondary:
-				"border border-border bg-surface-raised px-5.5 py-3.5 text-foreground-primary hover:bg-surface",
+				"border border-border bg-surface-raised px-5.5 py-3.5 text-foreground-primary hover:bg-surface-raised/80",
 			accent:
 				"gap-2 bg-accent px-5.5 py-3 text-surface hover:bg-accent/90 [&_svg]:size-4",
 		},
