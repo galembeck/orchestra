@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './pages/__root'
 import { Route as PublicLayoutRouteImport } from './pages/_public/layout'
 import { Route as PublicIndexRouteImport } from './pages/_public/index'
+import { Route as ErrorNotFoundIndexRouteImport } from './pages/_error/not-found/index'
+import { Route as AuthSignInIndexRouteImport } from './pages/_auth/sign-in/index'
 
 const PublicLayoutRoute = PublicLayoutRouteImport.update({
   id: '/_public',
@@ -21,28 +23,51 @@ const PublicIndexRoute = PublicIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PublicLayoutRoute,
 } as any)
+const ErrorNotFoundIndexRoute = ErrorNotFoundIndexRouteImport.update({
+  id: '/_error/not-found/',
+  path: '/not-found/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthSignInIndexRoute = AuthSignInIndexRouteImport.update({
+  id: '/_auth/sign-in/',
+  path: '/sign-in/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
+  '/sign-in/': typeof AuthSignInIndexRoute
+  '/not-found/': typeof ErrorNotFoundIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof PublicIndexRoute
+  '/sign-in': typeof AuthSignInIndexRoute
+  '/not-found': typeof ErrorNotFoundIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_public': typeof PublicLayoutRouteWithChildren
   '/_public/': typeof PublicIndexRoute
+  '/_auth/sign-in/': typeof AuthSignInIndexRoute
+  '/_error/not-found/': typeof ErrorNotFoundIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/sign-in/' | '/not-found/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/_public' | '/_public/'
+  to: '/' | '/sign-in' | '/not-found'
+  id:
+    | '__root__'
+    | '/_public'
+    | '/_public/'
+    | '/_auth/sign-in/'
+    | '/_error/not-found/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   PublicLayoutRoute: typeof PublicLayoutRouteWithChildren
+  AuthSignInIndexRoute: typeof AuthSignInIndexRoute
+  ErrorNotFoundIndexRoute: typeof ErrorNotFoundIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -61,6 +86,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicIndexRouteImport
       parentRoute: typeof PublicLayoutRoute
     }
+    '/_error/not-found/': {
+      id: '/_error/not-found/'
+      path: '/not-found'
+      fullPath: '/not-found/'
+      preLoaderRoute: typeof ErrorNotFoundIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_auth/sign-in/': {
+      id: '/_auth/sign-in/'
+      path: '/sign-in'
+      fullPath: '/sign-in/'
+      preLoaderRoute: typeof AuthSignInIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -78,6 +117,8 @@ const PublicLayoutRouteWithChildren = PublicLayoutRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   PublicLayoutRoute: PublicLayoutRouteWithChildren,
+  AuthSignInIndexRoute: AuthSignInIndexRoute,
+  ErrorNotFoundIndexRoute: ErrorNotFoundIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
