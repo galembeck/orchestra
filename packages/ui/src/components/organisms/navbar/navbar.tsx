@@ -1,5 +1,5 @@
 import { navLinks } from "@repo/core/constants/nav-links";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { LogIn, Menu, X } from "lucide-react";
 import type { ComponentProps } from "react";
 import { useState } from "react";
@@ -11,6 +11,8 @@ import { Logo } from "../../molecules/logo/logo";
 export interface NavbarProps extends ComponentProps<"header"> {}
 
 export function Navbar({ className, ...props }: NavbarProps) {
+	const navigate = useNavigate();
+
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
@@ -38,12 +40,17 @@ export function Navbar({ className, ...props }: NavbarProps) {
 					<div className="hidden items-center gap-3.5 lg:flex">
 						<Link
 							className="flex items-center gap-1 font-afacad font-medium text-foreground-primary"
-							to="/entrar"
+							to="/sign-in"
 						>
 							Entrar
 							<LogIn className="h-4 w-4" />
 						</Link>
-						<Button className="px-3 py-3 font-afacad">Cadastrar empresa</Button>
+						<Button
+							className="px-3 py-3 font-afacad"
+							onClick={() => navigate({ to: "/sign-up" })}
+						>
+							Cadastrar empresa
+						</Button>
 					</div>
 
 					<ThemeToggle />
@@ -78,14 +85,17 @@ export function Navbar({ className, ...props }: NavbarProps) {
 					<div className="flex flex-col gap-3">
 						<Button
 							className="w-full font-afacad text-base"
-							onClick={() => setIsOpen(false)}
+							onClick={() => {
+								setIsOpen(false);
+								navigate({ to: "/sign-up" });
+							}}
 						>
 							Cadastrar empresa
 						</Button>
 						<Link
 							className="text-center font-afacad font-medium text-foreground-primary"
 							onClick={() => setIsOpen(false)}
-							to="/entrar"
+							to="/sign-in"
 						>
 							Entrar
 						</Link>
