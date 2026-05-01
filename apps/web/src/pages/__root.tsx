@@ -1,3 +1,4 @@
+import { ThemeProvider } from "@repo/core/providers/theme-provider";
 import { createRootRoute, HeadContent, Outlet } from "@tanstack/react-router";
 
 export const Route = createRootRoute({
@@ -7,9 +8,9 @@ export const Route = createRootRoute({
 
 function RootComponent() {
 	return (
-		<>
+		<ThemeProvider defaultTheme="dark" storageKey="recycly-theme">
 			<HeadContent />
 			<Outlet />
-		</>
+		</ThemeProvider>
 	);
 }

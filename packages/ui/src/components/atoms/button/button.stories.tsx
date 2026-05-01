@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Star } from "lucide-react";
+import { Star, Sun } from "lucide-react";
 import { Button } from "./button";
 
 const meta = {
@@ -10,7 +10,7 @@ const meta = {
 		docs: {
 			description: {
 				component:
-					"A versatile button with three visual variants: `primary`, `secondary`, and `accent`. Built with `tailwind-variants` for consistent styling and supports disabled state via the `data-disabled` attribute.",
+					"A versatile button with three visual variants (`primary`, `secondary`, `accent`) and four sizes (`default`, `sm`, `lg`, `icon`). Built with `tailwind-variants`; supports disabled state via the `data-disabled` attribute.",
 			},
 		},
 	},
@@ -22,6 +22,15 @@ const meta = {
 			description: "The visual style variant of the button",
 			table: {
 				defaultValue: { summary: "primary" },
+			},
+		},
+		size: {
+			control: "select",
+			options: ["default", "sm", "lg", "icon"],
+			description:
+				"Controls padding and dimensions. Use `icon` for square icon-only buttons.",
+			table: {
+				defaultValue: { summary: "default" },
 			},
 		},
 		disabled: {
@@ -93,6 +102,27 @@ export const AllVariants: Story = {
 		docs: {
 			description: {
 				story: "All available button variants side by side.",
+			},
+		},
+	},
+};
+
+export const Sizes: Story = {
+	render: () => (
+		<div className="flex flex-wrap items-end gap-4">
+			<Button size="sm">Small</Button>
+			<Button size="default">Default</Button>
+			<Button size="lg">Large</Button>
+			<Button size="icon" variant="secondary">
+				<Sun />
+			</Button>
+		</div>
+	),
+	parameters: {
+		docs: {
+			description: {
+				story:
+					"All size variants. `icon` removes all padding and sets a fixed square dimension — ideal for toolbar toggles.",
 			},
 		},
 	},

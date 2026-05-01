@@ -5,6 +5,7 @@ import type { ComponentProps } from "react";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { Button } from "../../atoms/button/button";
+import { ThemeToggle } from "../../atoms/theme-toggle/theme-toggle";
 import { Logo } from "../../molecules/logo/logo";
 
 export interface NavbarProps extends ComponentProps<"header"> {}
@@ -33,28 +34,30 @@ export function Navbar({ className, ...props }: NavbarProps) {
 					))}
 				</nav>
 
-				<div className="hidden items-center gap-3.5 lg:flex">
-					<Link
-						className="flex items-center gap-1 font-afacad font-medium text-foreground-primary"
-						to="/entrar"
-					>
-						Entrar
-						<LogIn className="h-4 w-4" />
-					</Link>
-					<Button className="py-3 font-afacad text-sm">
-						Cadastrar empresa
-					</Button>
-				</div>
+				<div className="flex items-center gap-2">
+					<div className="hidden items-center gap-3.5 lg:flex">
+						<Link
+							className="flex items-center gap-1 font-afacad font-medium text-foreground-primary"
+							to="/entrar"
+						>
+							Entrar
+							<LogIn className="h-4 w-4" />
+						</Link>
+						<Button className="px-3 py-3 font-afacad">Cadastrar empresa</Button>
+					</div>
 
-				<button
-					aria-expanded={isOpen}
-					aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
-					className="cursor-pointer text-foreground-primary lg:hidden"
-					onClick={() => setIsOpen((prev) => !prev)}
-					type="button"
-				>
-					{isOpen ? <X className="size-6" /> : <Menu className="size-6" />}
-				</button>
+					<ThemeToggle />
+
+					<button
+						aria-expanded={isOpen}
+						aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
+						className="cursor-pointer text-foreground-primary lg:hidden"
+						onClick={() => setIsOpen((prev) => !prev)}
+						type="button"
+					>
+						{isOpen ? <X className="size-6" /> : <Menu className="size-6" />}
+					</button>
+				</div>
 			</div>
 
 			{isOpen && (

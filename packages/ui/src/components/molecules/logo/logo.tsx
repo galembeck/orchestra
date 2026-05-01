@@ -1,13 +1,21 @@
 import { AudioWaveform } from "lucide-react";
+import type { ComponentProps } from "react";
+import { cn } from "../../../lib/utils";
 
-export function Logo() {
+export interface LogoProps extends ComponentProps<"div"> {}
+
+export function Logo({ className, ...props }: LogoProps) {
 	return (
-		<div className="flex items-center gap-2.5">
-			<AudioWaveform className="h-7 w-7 text-foreground-primary" />
+		<div
+			className={cn(
+				"flex items-center gap-2.5 text-foreground-primary",
+				className
+			)}
+			{...props}
+		>
+			<AudioWaveform className="h-7 w-7" />
 
-			<h1 className="font-instrument-serif font-medium text-2xl text-foreground-primary">
-				Orchestra
-			</h1>
+			<h1 className="font-instrument-serif font-medium text-2xl">Orchestra</h1>
 		</div>
 	);
 }

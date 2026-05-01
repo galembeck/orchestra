@@ -3,9 +3,20 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 .dark {
-	--color-surface: oklch(0.18 0.025 258.33);
-	--color-surface-raised: oklch(0.22 0.022 258.33);
-	--color-foreground-primary: oklch(0.93 0.012 258.33);
-	--color-foreground-secondary: oklch(0.67 0.025 257.28);
-	--color-border: oklch(0.32 0.025 258.33);
+	--color-surface: oklch(0.1998 0.0403 258.29);
+	--color-surface-raised: oklch(0.2357 0.0509 259.41);
+	--color-surface-secondary: oklch(0.2357 0.0509 259.41);
+	--color-surface-tertiary: oklch(0.2515 0.0418 260.25);
+
+	--color-foreground-primary: oklch(0.9535 0.0172 84.59);
+	--color-foreground-secondary: oklch(0.7551 0.0282 262.31);
+	--color-foreground-tertiary: oklch(0.5724 0.0461 265.43);
+	--color-foreground-muted: oklch(0.4474 0.0343 261.32);
+
+	--color-border: oklch(0.2928 0.0481 260.77);
+	--color-border-strong: oklch(0.9535 0.0172 84.59);
+
+	--color-success: oklch(0.622 0.1489 150.76);
+	--color-warning: oklch(0.7356 0.1552 68.26);
+	--color-danger: oklch(0.6052 0.1816 24.34);
 }

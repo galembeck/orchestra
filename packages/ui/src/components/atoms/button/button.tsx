@@ -17,8 +17,14 @@ export const buttonVariants = tv({
 			accent:
 				"gap-2 bg-accent px-5.5 py-3 text-surface hover:bg-accent/90 [&_svg]:size-4",
 		},
+		size: {
+			default: "",
+			sm: "h-8 rounded-md px-3 py-1.5 text-xs",
+			lg: "h-12 px-8 py-4 text-base",
+			icon: "size-10 p-0",
+		},
 	},
-	defaultVariants: { variant: "primary" },
+	defaultVariants: { variant: "primary", size: "default" },
 });
 
 export interface ButtonProps
@@ -28,13 +34,14 @@ export interface ButtonProps
 export function Button({
 	className,
 	variant = "primary",
+	size = "default",
 	disabled,
 	children,
 	...props
 }: ButtonProps) {
 	return (
 		<button
-			className={twMerge(buttonVariants({ variant }), className)}
+			className={twMerge(buttonVariants({ variant, size }), className)}
 			data-disabled={disabled ? "" : undefined}
 			data-slot="button"
 			disabled={disabled}
