@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
+
+@import "tailwindcss";
+@import "@repo/tailwind-config";
+
+@source ".";
+@source "../../../packages/ui/src/**";
+
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: var(--color-surface);
+	border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--color-surface);
+	border-radius: 999px;
+	border: 2px solid var(--color-foreground-secondary);
+	opacity: 0.5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--color-accent);
+}
+
+* {
+	scrollbar-width: thin;
+	scrollbar-color: var(--color-surface) var(--color-foreground-secondary);
+}

@@ -1,0 +1,10 @@
+{
+	"root": true,
+	"files": {
+		"ignoreUnknown": false,
+		"includes": [
+			"**",
+			"!**/*.route-tree-gen.ts"
+		]
+	}
+}
