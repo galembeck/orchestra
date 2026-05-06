@@ -1,6 +1,6 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { type ReactNode, useContext } from "react";
-import { userService } from "../services/user.js";
+import { userService } from "../services/user.service.js";
 import type { ApiException } from "../types/api-error.js";
 import { AuthContext } from "../types/auth-context-value.js";
 

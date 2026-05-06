@@ -5,7 +5,7 @@ import type {
 	PasswordRecoveryVerifyDTO,
 	PasswordResetDTO,
 	RefreshTokenDTO,
-} from "../models/auth.js";
+} from "../models/auth.model.js";
 
 export const authService = {
 	signIn: (data: AuthenticateDTO) => API.post<void>("/auth", data),

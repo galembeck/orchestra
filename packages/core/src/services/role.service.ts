@@ -5,7 +5,7 @@ import type {
 	RoleDTO,
 	SetRolePermissionsDTO,
 	UpdateRoleDTO,
-} from "../models/role.js";
+} from "../models/role.model.js";
 
 const base = (companyId: string) => `/company/${companyId}/role`;
 

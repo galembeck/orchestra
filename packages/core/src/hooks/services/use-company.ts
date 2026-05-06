@@ -1,14 +1,14 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
 import type {
 	RegisterCompanyDTO,
 	RejectCompanyDTO,
 	UpdateCompanyDTO,
-} from "src/models/company.js";
+} from "@core/models/company.model.js";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { useAuth } from "../../providers/auth-provider.js";
-import { authService } from "../../services/auth.js";
-import { companyService } from "../../services/company.js";
+import { authService } from "../../services/auth.service.js";
+import { companyService } from "../../services/company.service.js";
 import type { ApiException } from "../../types/api-error.js";
 
 export function useRegisterCompany() {

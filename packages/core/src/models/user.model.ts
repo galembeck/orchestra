@@ -1,6 +1,6 @@
 import type { AccountType } from "@core/types/enums/account-type.js";
 import type { ProfileType } from "src/types/enums/profile-type.js";
-import type { AddressDTO } from "./commom/address.js";
+import type { AddressDTO } from "./commom/address.model.js";
 
 export interface CreateUserDTO extends AddressDTO {
 	acceptTerms: boolean;
@@ -51,4 +51,9 @@ export interface UpdateProfileDTO {
 	passwordConfirmation?: string;
 	receiveEmailOffers?: boolean;
 	receiveWhatsappOffers?: boolean;
+}
+
+export interface UserAvailabilityResponse {
+	documentAvailable: boolean;
+	emailAvailable: boolean;
 }

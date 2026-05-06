@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import type { PermissionKeyValue } from "../../constants/services/role/permissions.js";
-import type { CreateRoleDTO, UpdateRoleDTO } from "../../models/role.js";
-import { roleService } from "../../services/role.js";
+import type { CreateRoleDTO, UpdateRoleDTO } from "../../models/role.model.js";
+import { roleService } from "../../services/role.service.js";
 
 export function useRoles(companyId: string | undefined) {
 	return useQuery({

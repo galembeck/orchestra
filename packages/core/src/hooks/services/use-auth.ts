@@ -2,10 +2,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
-import type { AuthenticateDTO } from "../../models/auth.js";
-import type { PublicUserDTO } from "../../models/user.js";
+import type { AuthenticateDTO } from "../../models/auth.model.js";
+import type { PublicUserDTO } from "../../models/user.model.js";
 import { useAuth as useAuthProvider } from "../../providers/auth-provider.js";
-import { authService } from "../../services/auth.js";
+import { authService } from "../../services/auth.service.js";
 import type { ApiException } from "../../types/api-error.js";
 import { ACCOUNT_TYPE } from "../../types/enums/account-type.js";
 

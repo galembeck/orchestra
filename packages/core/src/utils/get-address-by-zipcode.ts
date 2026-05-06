@@ -1,5 +1,5 @@
 import { toast } from "sonner";
-import type { ZipcodeAddressResponseDTO } from "../models/commom/address.js";
+import type { ZipcodeAddressResponseDTO } from "../models/commom/address.model.js";
 
 export async function getAddressByZipcode(
 	zipcode: string

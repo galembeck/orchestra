@@ -3,10 +3,14 @@ import type {
 	CreateUserDTO,
 	PublicUserDTO,
 	UpdateProfileDTO,
-} from "../models/user.js";
+	UserAvailabilityResponse,
+} from "../models/user.model.js";
 
 export const userService = {
 	register: (data: CreateUserDTO) => API.post<PublicUserDTO>("/user", data),
+
+	checkAvailability: (params: { email?: string; document?: string }) =>
+		API.post<UserAvailabilityResponse>("/user/check-availability", params),
 
 	getMe: () => API.get<PublicUserDTO>("/user"),
 

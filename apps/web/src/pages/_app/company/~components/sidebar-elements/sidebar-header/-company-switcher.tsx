@@ -1,4 +1,4 @@
-import type { PublicCompanyDTO } from "@repo/core/models/company";
+import type { PublicCompanyDTO } from "@repo/core/models/company.model";
 import {
 	DropdownMenu,
 	DropdownMenuContent,

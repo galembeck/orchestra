@@ -1,4 +1,4 @@
-import type { PublicUserDTO } from "@repo/core/models/user";
+import type { PublicUserDTO } from "@repo/core/models/user.model";
 import { ThemeProvider } from "@repo/core/providers/theme-provider";
 import { Toaster } from "@repo/ui/components/atoms/sooner/sooner";
 import {

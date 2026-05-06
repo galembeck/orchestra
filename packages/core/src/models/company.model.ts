@@ -1,7 +1,7 @@
 import type { CompanyApprovalStatus } from "src/types/enums/company-approval-status.js";
 import type { CompanyDocumentType } from "src/types/enums/company-document-type.js";
 import type { Segment } from "src/types/enums/segment.js";
-import type { AddressDTO } from "./commom/address.js";
+import type { AddressDTO } from "./commom/address.model.js";
 
 export interface CompanyMemberDTO {
 	companyId: string;

@@ -1,5 +1,6 @@
 /** biome-ignore-all lint/correctness/noChildrenProp: required by field component */
 
+import { useUser } from "@repo/core/hooks/services/use-user";
 import {
 	ACCOUNT_TYPE,
 	ACCOUNT_TYPE_OPTIONS,
@@ -86,6 +87,8 @@ interface AccountStepProps {
 }
 
 export function AccountStep({ onComplete, initialData }: AccountStepProps) {
+	const { checkAvailability } = useUser();
+
 	const form = useForm({
 		defaultValues: initialData || {
 			accountType: ACCOUNT_TYPE.CLIENT as AccountType,
@@ -209,9 +212,12 @@ export function AccountStep({ onComplete, initialData }: AccountStepProps) {
 
 						<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
 							<form.Field
+								asyncDebounceMs={500}
 								children={(field) => {
 									const isInvalid =
 										field.state.meta.isTouched && !field.state.meta.isValid;
+
+									const isChecking = field.state.meta.isValidating;
 
 									return (
 										<Field data-invalid={isInvalid}>
@@ -231,6 +237,10 @@ export function AccountStep({ onComplete, initialData }: AccountStepProps) {
 												value={field.state.value}
 											/>
 
+											{isChecking && (
+												<FieldDescription>Verificando…</FieldDescription>
+											)}
+
 											{isInvalid && (
 												<FieldError errors={field.state.meta.errors} />
 											)}
@@ -238,6 +248,18 @@ export function AccountStep({ onComplete, initialData }: AccountStepProps) {
 									);
 								}}
 								name="email"
+								validators={{
+									onChange: z.email("O e-mail deve ter um formato válido."),
+									onChangeAsync: async ({ value }) => {
+										if (!(value && z.email().safeParse(value).success)) {
+											return;
+										}
+										const res = await checkAvailability({ email: value });
+										return res.emailAvailable
+											? undefined
+											: "Este e-mail já está cadastrado.";
+									},
+								}}
 							/>
 
 							<form.Field
@@ -318,6 +340,26 @@ export function AccountStep({ onComplete, initialData }: AccountStepProps) {
 								);
 							}}
 							name="document"
+							validators={{
+								onChange: ({ value }) => {
+									const clean = removeFormat(value);
+									if (clean.length !== 11 || !isValidCPF(value)) {
+										return "O CPF deve ter um formato válido.";
+									}
+									return;
+								},
+								onChangeAsyncDebounceMs: 500,
+								onChangeAsync: async ({ value }) => {
+									const clean = removeFormat(value);
+									if (clean.length !== 11 || !isValidCPF(value)) {
+										return;
+									}
+									const res = await checkAvailability({ document: clean });
+									return res.documentAvailable
+										? undefined
+										: "Este CPF já está cadastrado.";
+								},
+							}}
 						/>
 
 						<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

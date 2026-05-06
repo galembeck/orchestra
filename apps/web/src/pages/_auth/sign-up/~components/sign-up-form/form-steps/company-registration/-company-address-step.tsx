@@ -1,6 +1,6 @@
 /** biome-ignore-all lint/correctness/noChildrenProp: required by field component */
 
-import type { ZipcodeAddressResponseDTO } from "@repo/core/models/commom/address";
+import type { ZipcodeAddressResponseDTO } from "@repo/core/models/commom/address.model";
 import { formatCEP, removeFormat } from "@repo/core/utils/format-masks";
 import { getAddressByZipcode } from "@repo/core/utils/get-address-by-zipcode";
 import { isValidCEP } from "@repo/core/utils/is-valid-masks";

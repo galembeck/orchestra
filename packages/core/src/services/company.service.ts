@@ -8,7 +8,7 @@ import type {
 	RegisterCompanyDTO,
 	RejectCompanyDTO,
 	UpdateCompanyDTO,
-} from "../models/company.js";
+} from "../models/company.model.js";
 
 const appendIfDefined = (fd: FormData, key: string, value: unknown) => {
 	if (value === undefined || value === null) {

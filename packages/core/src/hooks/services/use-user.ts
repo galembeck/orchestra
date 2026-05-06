@@ -1,11 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner";
-import type { CreateUserDTO } from "../../models/user.js";
+import type { CreateUserDTO } from "../../models/user.model.js";
 import { useAuth } from "../../providers/auth-provider.js";
-import { authService } from "../../services/auth.js";
-import { userService } from "../../services/user.js";
+import { authService } from "../../services/auth.service.js";
+import { userService } from "../../services/user.service.js";
 import type { ApiException } from "../../types/api-error.js";
 
 export function useUser() {
@@ -48,5 +48,16 @@ export function useUser() {
 		},
 	});
 
-	return { register, isPending, serverError };
+	const checkAvailability = useCallback(
+		async (params: { email?: string; document?: string }) => {
+			try {
+				return await userService.checkAvailability(params);
+			} catch {
+				return { emailAvailable: true, documentAvailable: true };
+			}
+		},
+		[]
+	);
+
+	return { register, isPending, serverError, checkAvailability };
 }
