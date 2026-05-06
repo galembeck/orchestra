@@ -1,0 +1,54 @@
+import type { AccountType } from "@core/types/enums/account-type.js";
+import type { ProfileType } from "src/types/enums/profile-type.js";
+import type { AddressDTO } from "./commom/address.js";
+
+export interface CreateUserDTO extends AddressDTO {
+	acceptTerms: boolean;
+	cellphone: string;
+	document: string;
+	email: string;
+	name: string;
+	password: string;
+	receiveEmailOffers?: boolean;
+	receiveWhatsappOffers?: boolean;
+}
+
+export interface PrivateUserDTO {
+	cellphone: string;
+	document: string;
+	email: string;
+	lastAccessAt?: string;
+	name: string;
+	password: string;
+	profileType?: ProfileType;
+	receiveEmailOffers?: boolean;
+	receiveWhatsappOffers?: boolean;
+}
+
+export interface PublicUserDTO {
+	accountType: AccountType;
+	avatarUrl?: string;
+	cellphone: string;
+	createdAt?: string;
+	document: string;
+	email: string;
+	id: string;
+	lastAccessAt?: string;
+	name: string;
+	profileType?: ProfileType;
+	receiveEmailOffers?: boolean;
+	receiveWhatsappOffers?: boolean;
+	updatedAt?: string;
+}
+
+export interface UpdateProfileDTO {
+	avatar?: File;
+	cellphone?: string;
+	document?: string;
+	email?: string;
+	name?: string;
+	password?: string;
+	passwordConfirmation?: string;
+	receiveEmailOffers?: boolean;
+	receiveWhatsappOffers?: boolean;
+}

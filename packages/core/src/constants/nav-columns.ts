@@ -1,14 +1,27 @@
 export const navColumns = [
 	{
 		title: "PRODUTO",
-		links: ["Como funciona", "Para empresas", "Categorias", "Preços"],
+		links: [
+			{ label: "Como funciona", href: "/#how-it-works" },
+			{ label: "Para empresas", href: "/#for-business" },
+			{ label: "Categorias", href: "/#categories" },
+			{ label: "Preços", href: "/#pricing" },
+		],
 	},
 	{
 		title: "EMPRESA",
-		links: ["Sobre nós", "Imprensa", "Carreiras"],
+		links: [
+			{ label: "Sobre nós", href: "/#about" },
+			{ label: "Imprensa", href: "/#press" },
+			{ label: "Carreiras", href: "/#careers" },
+		],
 	},
 	{
 		title: "SUPORTE",
-		links: ["Central de ajuda", "Termos · LGPD", "Contato"],
+		links: [
+			{ label: "Central de ajuda", href: "/#help-center" },
+			{ label: "Termos · LGPD", href: "/#terms" },
+			{ label: "Contato", href: "/#contact" },
+		],
 	},
 ] as const;
