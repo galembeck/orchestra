@@ -5,3 +5,29 @@
 
 @source ".";
 @source "../../../packages/ui/src/**";
+
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: var(--color-surface);
+	border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--color-surface);
+	border-radius: 999px;
+	border: 2px solid var(--color-foreground-secondary);
+	opacity: 0.5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--color-accent);
+}
+
+* {
+	scrollbar-width: thin;
+	scrollbar-color: var(--color-surface) var(--color-foreground-secondary);
+}
