@@ -37,7 +37,7 @@ export function NotFoundPage() {
 
 					<div className="flex items-center gap-3">
 						<Button
-							className="flex items-center gap-1"
+							className="flex items-center gap-2"
 							onClick={() => navigate({ to: "/" })}
 						>
 							<ArrowLeft className="h-3.5 w-3.5" />
@@ -45,7 +45,7 @@ export function NotFoundPage() {
 						</Button>
 
 						<Button
-							className="flex items-center gap-1"
+							className="flex items-center gap-2"
 							onClick={() => navigate({ to: "/" })}
 							variant="secondary"
 						>
