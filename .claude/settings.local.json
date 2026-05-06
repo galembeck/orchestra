@@ -1,7 +1,15 @@
 {
   "permissions": {
     "allow": [
-      "Bash(pnpm add *)"
+      "Bash(pnpm add *)",
+      "Bash(git -C \"C:/Users/MB Labs Admin/mb-labs/.personal/Orchestra/orchestra-frontend\" log --oneline -8)",
+      "Bash(git -C \"C:/Users/MB Labs Admin/mb-labs/.personal/Orchestra/orchestra-frontend\" status)",
+      "Bash(git -C \"C:/Users/MB Labs Admin/mb-labs/.personal/Orchestra/orchestra-frontend\" diff --stat)",
+      "Bash(git -C \"C:/Users/MB Labs Admin/mb-labs/.personal/Orchestra/orchestra-frontend\" ls-files --others --exclude-standard apps/web/src/pages/_auth/ apps/web/src/pages/_error/)",
+      "Bash(git -C \"C:/Users/MB Labs Admin/mb-labs/.personal/Orchestra/orchestra-frontend\" diff packages/ui/src/components/atoms/button/button.tsx packages/ui/src/components/molecules/logo/logo.tsx packages/ui/src/components/organisms/navbar/navbar.tsx)",
+      "Bash(git -C \"C:/Users/MB Labs Admin/mb-labs/.personal/Orchestra/orchestra-frontend\" diff apps/web/src/pages/__root.tsx apps/web/src/route-tree-gen.ts)",
+      "Bash(rtk find *)",
+      "Bash(dir /s /b \"C:\\\\Users\\\\MB Labs Admin\\\\mb-labs\\\\.personal\\\\Orchestra\\\\orchestra-frontend\\\\apps\\\\web\\\\src\\\\components\")"
     ]
   }
 }
