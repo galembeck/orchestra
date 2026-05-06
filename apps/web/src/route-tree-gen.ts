@@ -11,8 +11,15 @@
 import { Route as rootRouteImport } from './pages/__root'
 import { Route as PublicLayoutRouteImport } from './pages/_public/layout'
 import { Route as PublicIndexRouteImport } from './pages/_public/index'
+import { Route as AuthSignUpLayoutRouteImport } from './pages/_auth/sign-up/layout'
+import { Route as AuthSignInLayoutRouteImport } from './pages/_auth/sign-in/layout'
+import { Route as PublicServicesIndexRouteImport } from './pages/_public/services/index'
 import { Route as ErrorNotFoundIndexRouteImport } from './pages/_error/not-found/index'
+import { Route as AuthSignUpIndexRouteImport } from './pages/_auth/sign-up/index'
 import { Route as AuthSignInIndexRouteImport } from './pages/_auth/sign-in/index'
+import { Route as AppCompanyCompanySlugLayoutRouteImport } from './pages/_app/company/$companySlug/layout'
+import { Route as AppCompanyCompanySlugIndexRouteImport } from './pages/_app/company/$companySlug/index'
+import { Route as AppCompanyCompanySlugOverviewIndexRouteImport } from './pages/_app/company/$companySlug/overview/index'
 
 const PublicLayoutRoute = PublicLayoutRouteImport.update({
   id: '/_public',
@@ -23,50 +30,132 @@ const PublicIndexRoute = PublicIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PublicLayoutRoute,
 } as any)
+const AuthSignUpLayoutRoute = AuthSignUpLayoutRouteImport.update({
+  id: '/_auth/sign-up',
+  path: '/sign-up',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthSignInLayoutRoute = AuthSignInLayoutRouteImport.update({
+  id: '/_auth/sign-in',
+  path: '/sign-in',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicServicesIndexRoute = PublicServicesIndexRouteImport.update({
+  id: '/services/',
+  path: '/services/',
+  getParentRoute: () => PublicLayoutRoute,
+} as any)
 const ErrorNotFoundIndexRoute = ErrorNotFoundIndexRouteImport.update({
   id: '/_error/not-found/',
   path: '/not-found/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthSignInIndexRoute = AuthSignInIndexRouteImport.update({
-  id: '/_auth/sign-in/',
-  path: '/sign-in/',
-  getParentRoute: () => rootRouteImport,
+const AuthSignUpIndexRoute = AuthSignUpIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthSignUpLayoutRoute,
 } as any)
+const AuthSignInIndexRoute = AuthSignInIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthSignInLayoutRoute,
+} as any)
+const AppCompanyCompanySlugLayoutRoute =
+  AppCompanyCompanySlugLayoutRouteImport.update({
+    id: '/_app/company/$companySlug',
+    path: '/company/$companySlug',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AppCompanyCompanySlugIndexRoute =
+  AppCompanyCompanySlugIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AppCompanyCompanySlugLayoutRoute,
+  } as any)
+const AppCompanyCompanySlugOverviewIndexRoute =
+  AppCompanyCompanySlugOverviewIndexRouteImport.update({
+    id: '/overview/',
+    path: '/overview/',
+    getParentRoute: () => AppCompanyCompanySlugLayoutRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
+  '/sign-in': typeof AuthSignInLayoutRouteWithChildren
+  '/sign-up': typeof AuthSignUpLayoutRouteWithChildren
+  '/company/$companySlug': typeof AppCompanyCompanySlugLayoutRouteWithChildren
   '/sign-in/': typeof AuthSignInIndexRoute
+  '/sign-up/': typeof AuthSignUpIndexRoute
   '/not-found/': typeof ErrorNotFoundIndexRoute
+  '/services/': typeof PublicServicesIndexRoute
+  '/company/$companySlug/': typeof AppCompanyCompanySlugIndexRoute
+  '/company/$companySlug/overview/': typeof AppCompanyCompanySlugOverviewIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof PublicIndexRoute
   '/sign-in': typeof AuthSignInIndexRoute
+  '/sign-up': typeof AuthSignUpIndexRoute
   '/not-found': typeof ErrorNotFoundIndexRoute
+  '/services': typeof PublicServicesIndexRoute
+  '/company/$companySlug': typeof AppCompanyCompanySlugIndexRoute
+  '/company/$companySlug/overview': typeof AppCompanyCompanySlugOverviewIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_public': typeof PublicLayoutRouteWithChildren
+  '/_auth/sign-in': typeof AuthSignInLayoutRouteWithChildren
+  '/_auth/sign-up': typeof AuthSignUpLayoutRouteWithChildren
   '/_public/': typeof PublicIndexRoute
+  '/_app/company/$companySlug': typeof AppCompanyCompanySlugLayoutRouteWithChildren
   '/_auth/sign-in/': typeof AuthSignInIndexRoute
+  '/_auth/sign-up/': typeof AuthSignUpIndexRoute
   '/_error/not-found/': typeof ErrorNotFoundIndexRoute
+  '/_public/services/': typeof PublicServicesIndexRoute
+  '/_app/company/$companySlug/': typeof AppCompanyCompanySlugIndexRoute
+  '/_app/company/$companySlug/overview/': typeof AppCompanyCompanySlugOverviewIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sign-in/' | '/not-found/'
+  fullPaths:
+    | '/'
+    | '/sign-in'
+    | '/sign-up'
+    | '/company/$companySlug'
+    | '/sign-in/'
+    | '/sign-up/'
+    | '/not-found/'
+    | '/services/'
+    | '/company/$companySlug/'
+    | '/company/$companySlug/overview/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sign-in' | '/not-found'
+  to:
+    | '/'
+    | '/sign-in'
+    | '/sign-up'
+    | '/not-found'
+    | '/services'
+    | '/company/$companySlug'
+    | '/company/$companySlug/overview'
   id:
     | '__root__'
     | '/_public'
+    | '/_auth/sign-in'
+    | '/_auth/sign-up'
     | '/_public/'
+    | '/_app/company/$companySlug'
     | '/_auth/sign-in/'
+    | '/_auth/sign-up/'
     | '/_error/not-found/'
+    | '/_public/services/'
+    | '/_app/company/$companySlug/'
+    | '/_app/company/$companySlug/overview/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   PublicLayoutRoute: typeof PublicLayoutRouteWithChildren
-  AuthSignInIndexRoute: typeof AuthSignInIndexRoute
+  AuthSignInLayoutRoute: typeof AuthSignInLayoutRouteWithChildren
+  AuthSignUpLayoutRoute: typeof AuthSignUpLayoutRouteWithChildren
+  AppCompanyCompanySlugLayoutRoute: typeof AppCompanyCompanySlugLayoutRouteWithChildren
   ErrorNotFoundIndexRoute: typeof ErrorNotFoundIndexRoute
 }
 
@@ -86,6 +175,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicIndexRouteImport
       parentRoute: typeof PublicLayoutRoute
     }
+    '/_auth/sign-up': {
+      id: '/_auth/sign-up'
+      path: '/sign-up'
+      fullPath: '/sign-up'
+      preLoaderRoute: typeof AuthSignUpLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_auth/sign-in': {
+      id: '/_auth/sign-in'
+      path: '/sign-in'
+      fullPath: '/sign-in'
+      preLoaderRoute: typeof AuthSignInLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public/services/': {
+      id: '/_public/services/'
+      path: '/services'
+      fullPath: '/services/'
+      preLoaderRoute: typeof PublicServicesIndexRouteImport
+      parentRoute: typeof PublicLayoutRoute
+    }
     '/_error/not-found/': {
       id: '/_error/not-found/'
       path: '/not-found'
@@ -93,31 +203,103 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ErrorNotFoundIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_auth/sign-up/': {
+      id: '/_auth/sign-up/'
+      path: '/'
+      fullPath: '/sign-up/'
+      preLoaderRoute: typeof AuthSignUpIndexRouteImport
+      parentRoute: typeof AuthSignUpLayoutRoute
+    }
     '/_auth/sign-in/': {
       id: '/_auth/sign-in/'
-      path: '/sign-in'
+      path: '/'
       fullPath: '/sign-in/'
       preLoaderRoute: typeof AuthSignInIndexRouteImport
+      parentRoute: typeof AuthSignInLayoutRoute
+    }
+    '/_app/company/$companySlug': {
+      id: '/_app/company/$companySlug'
+      path: '/company/$companySlug'
+      fullPath: '/company/$companySlug'
+      preLoaderRoute: typeof AppCompanyCompanySlugLayoutRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_app/company/$companySlug/': {
+      id: '/_app/company/$companySlug/'
+      path: '/'
+      fullPath: '/company/$companySlug/'
+      preLoaderRoute: typeof AppCompanyCompanySlugIndexRouteImport
+      parentRoute: typeof AppCompanyCompanySlugLayoutRoute
+    }
+    '/_app/company/$companySlug/overview/': {
+      id: '/_app/company/$companySlug/overview/'
+      path: '/overview'
+      fullPath: '/company/$companySlug/overview/'
+      preLoaderRoute: typeof AppCompanyCompanySlugOverviewIndexRouteImport
+      parentRoute: typeof AppCompanyCompanySlugLayoutRoute
     }
   }
 }
 
 interface PublicLayoutRouteChildren {
   PublicIndexRoute: typeof PublicIndexRoute
+  PublicServicesIndexRoute: typeof PublicServicesIndexRoute
 }
 
 const PublicLayoutRouteChildren: PublicLayoutRouteChildren = {
   PublicIndexRoute: PublicIndexRoute,
+  PublicServicesIndexRoute: PublicServicesIndexRoute,
 }
 
 const PublicLayoutRouteWithChildren = PublicLayoutRoute._addFileChildren(
   PublicLayoutRouteChildren,
 )
 
+interface AuthSignInLayoutRouteChildren {
+  AuthSignInIndexRoute: typeof AuthSignInIndexRoute
+}
+
+const AuthSignInLayoutRouteChildren: AuthSignInLayoutRouteChildren = {
+  AuthSignInIndexRoute: AuthSignInIndexRoute,
+}
+
+const AuthSignInLayoutRouteWithChildren =
+  AuthSignInLayoutRoute._addFileChildren(AuthSignInLayoutRouteChildren)
+
+interface AuthSignUpLayoutRouteChildren {
+  AuthSignUpIndexRoute: typeof AuthSignUpIndexRoute
+}
+
+const AuthSignUpLayoutRouteChildren: AuthSignUpLayoutRouteChildren = {
+  AuthSignUpIndexRoute: AuthSignUpIndexRoute,
+}
+
+const AuthSignUpLayoutRouteWithChildren =
+  AuthSignUpLayoutRoute._addFileChildren(AuthSignUpLayoutRouteChildren)
+
+interface AppCompanyCompanySlugLayoutRouteChildren {
+  AppCompanyCompanySlugIndexRoute: typeof AppCompanyCompanySlugIndexRoute
+  AppCompanyCompanySlugOverviewIndexRoute: typeof AppCompanyCompanySlugOverviewIndexRoute
+}
+
+const AppCompanyCompanySlugLayoutRouteChildren: AppCompanyCompanySlugLayoutRouteChildren =
+  {
+    AppCompanyCompanySlugIndexRoute: AppCompanyCompanySlugIndexRoute,
+    AppCompanyCompanySlugOverviewIndexRoute:
+      AppCompanyCompanySlugOverviewIndexRoute,
+  }
+
+const AppCompanyCompanySlugLayoutRouteWithChildren =
+  AppCompanyCompanySlugLayoutRoute._addFileChildren(
+    AppCompanyCompanySlugLayoutRouteChildren,
+  )
+
 const rootRouteChildren: RootRouteChildren = {
   PublicLayoutRoute: PublicLayoutRouteWithChildren,
-  AuthSignInIndexRoute: AuthSignInIndexRoute,
+  AuthSignInLayoutRoute: AuthSignInLayoutRouteWithChildren,
+  AuthSignUpLayoutRoute: AuthSignUpLayoutRouteWithChildren,
+  AppCompanyCompanySlugLayoutRoute:
+    AppCompanyCompanySlugLayoutRouteWithChildren,
   ErrorNotFoundIndexRoute: ErrorNotFoundIndexRoute,
 }
 export const routeTree = rootRouteImport

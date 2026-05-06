@@ -1,8 +1,22 @@
+import type { PublicUserDTO } from "@repo/core/models/user";
 import { ThemeProvider } from "@repo/core/providers/theme-provider";
-import { createRootRoute, HeadContent, Outlet } from "@tanstack/react-router";
+import { Toaster } from "@repo/ui/components/atoms/sooner/sooner";
+import {
+	createRootRouteWithContext,
+	HeadContent,
+	Outlet,
+} from "@tanstack/react-router";
+import { useGlobalHashScroll } from "@/hooks/use-global-hash-scroll";
 import { NotFoundPage } from "./_error/not-found";
 
-export const Route = createRootRoute({
+export interface RouterContext {
+	auth: {
+		isAuthenticated: boolean;
+		user: PublicUserDTO | null;
+	};
+}
+
+export const Route = createRootRouteWithContext<RouterContext>()({
 	component: RootComponent,
 	head: () => ({
 		meta: [
@@ -16,10 +30,13 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
+	useGlobalHashScroll();
+
 	return (
-		<ThemeProvider defaultTheme="dark" storageKey="recycly-theme">
+		<ThemeProvider defaultTheme="light" storageKey="orchestra-theme">
 			<HeadContent />
 			<Outlet />
+			<Toaster />
 		</ThemeProvider>
 	);
 }
