@@ -1,4 +1,6 @@
 import { navLinks } from "@repo/core/constants/nav-links";
+import { useAuth } from "@repo/core/hooks/services/use-auth";
+import { handleSmoothScroll } from "@repo/core/utils/scroll-to-section";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { LogIn, Menu, X } from "lucide-react";
 import type { ComponentProps } from "react";
@@ -7,17 +9,20 @@ import { twMerge } from "tailwind-merge";
 import { Button } from "../../atoms/button/button";
 import { ThemeToggle } from "../../atoms/theme-toggle/theme-toggle";
 import { Logo } from "../../molecules/logo/logo";
+import { ProfileDropdown } from "../profile-dropdown/profile-dropdown";
 
 export interface NavbarProps extends ComponentProps<"header"> {}
 
 export function Navbar({ className, ...props }: NavbarProps) {
 	const navigate = useNavigate();
 
+	const { isAuthenticated } = useAuth();
+
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
 		<header
-			className={twMerge("w-full bg-surface", className)}
+			className={twMerge("w-full border-border border-b bg-surface", className)}
 			data-slot="navbar"
 			{...props}
 		>
@@ -29,6 +34,7 @@ export function Navbar({ className, ...props }: NavbarProps) {
 						<Link
 							className="font-afacad font-medium text-foreground-secondary [&.active]:text-foreground-primary"
 							key={link.label}
+							onClick={(e) => handleSmoothScroll(e, link.to)}
 							to={link.to}
 						>
 							{link.label}
@@ -37,21 +43,25 @@ export function Navbar({ className, ...props }: NavbarProps) {
 				</nav>
 
 				<div className="flex items-center gap-2">
-					<div className="hidden items-center gap-3.5 lg:flex">
-						<Link
-							className="flex items-center gap-1 font-afacad font-medium text-foreground-primary"
-							to="/sign-in"
-						>
-							Entrar
-							<LogIn className="h-4 w-4" />
-						</Link>
-						<Button
-							className="px-3 py-3 font-afacad"
-							onClick={() => navigate({ to: "/sign-up" })}
-						>
-							Cadastrar empresa
-						</Button>
-					</div>
+					{isAuthenticated ? (
+						<ProfileDropdown />
+					) : (
+						<div className="hidden items-center gap-3.5 lg:flex">
+							<Link
+								className="flex items-center gap-1 font-afacad font-medium text-foreground-primary"
+								to="/sign-in"
+							>
+								Entrar
+								<LogIn className="h-4 w-4" />
+							</Link>
+							<Button
+								className="px-3 py-3 font-afacad"
+								onClick={() => navigate({ to: "/sign-up" })}
+							>
+								Criar conta
+							</Button>
+						</div>
+					)}
 
 					<ThemeToggle />
 
@@ -74,7 +84,10 @@ export function Navbar({ className, ...props }: NavbarProps) {
 							<Link
 								className="font-afacad font-medium text-foreground-secondary [&.active]:text-foreground-primary"
 								key={link.label}
-								onClick={() => setIsOpen(false)}
+								onClick={(e) => {
+									handleSmoothScroll(e, link.to);
+									setIsOpen(false);
+								}}
 								to={link.to}
 							>
 								{link.label}
@@ -90,7 +103,7 @@ export function Navbar({ className, ...props }: NavbarProps) {
 								navigate({ to: "/sign-up" });
 							}}
 						>
-							Cadastrar empresa
+							Criar conta
 						</Button>
 						<Link
 							className="text-center font-afacad font-medium text-foreground-primary"

@@ -1,4 +1,5 @@
 import { navColumns } from "@repo/core/constants/nav-columns";
+import { handleSmoothScroll } from "@repo/core/utils/scroll-to-section";
 import { Instagram, Linkedin } from "lucide-react";
 import type { ComponentProps } from "react";
 import { Logo } from "../../molecules/logo/logo";
@@ -32,12 +33,13 @@ export function Footer({ className, ...props }: FooterProps) {
 
 								<ul className="flex flex-col gap-3">
 									{col.links.map((link) => (
-										<li key={link}>
+										<li key={link.label}>
 											<a
 												className="font-inter text-foreground-inverse-muted text-sm transition-colors hover:text-foreground-inverse"
-												href="/"
+												href={link.href}
+												onClick={(e) => handleSmoothScroll(e, link.href)}
 											>
-												{link}
+												{link.label}
 											</a>
 										</li>
 									))}
@@ -48,8 +50,9 @@ export function Footer({ className, ...props }: FooterProps) {
 				</div>
 
 				<div className="flex flex-col items-start gap-4 border-foreground-inverse-muted/20 border-t pt-6 sm:flex-row sm:items-center sm:justify-between">
-					<p className="font-inter text-foreground-inverse-muted text-xs">
-						© 2024 ORCHESTRA SERVIÇOS LTDA · CNPJ 00.000.000/0001-00
+					<p className="font-inter text-foreground-inverse-muted text-xs uppercase">
+						© {new Date().getFullYear()} Orchestra Serviços LTDA. · CNPJ
+						00.000.000/0001-00
 					</p>
 
 					<div className="flex items-center gap-3">
@@ -62,6 +65,7 @@ export function Footer({ className, ...props }: FooterProps) {
 						>
 							<Instagram className="h-5 w-5" />
 						</a>
+
 						<a
 							aria-label="LinkedIn"
 							className="text-foreground-inverse-muted transition-colors hover:text-foreground-inverse"

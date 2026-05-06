@@ -75,7 +75,7 @@ function DropdownMenuItem({
 	return (
 		<DropdownMenuPrimitive.Item
 			className={cn(
-				"group/dropdown-menu-item relative flex cursor-default select-none items-center gap-2 rounded-md px-2 py-1.5 font-inter text-foreground-primary text-sm outline-hidden",
+				"group/dropdown-menu-item relative flex cursor-pointer select-none items-center gap-2 rounded-md px-2 py-1.5 font-inter text-foreground-primary text-sm outline-hidden",
 				"focus:bg-surface focus:text-foreground-primary",
 				"data-disabled:pointer-events-none data-disabled:opacity-50",
 				"data-inset:pl-7",
@@ -186,7 +186,7 @@ function DropdownMenuLabel({
 	return (
 		<DropdownMenuPrimitive.Label
 			className={cn(
-				"px-2 py-1.5 font-inter font-medium text-foreground-secondary text-xs uppercase tracking-wide",
+				"px-2 py-1.5 font-inter font-medium text-foreground-secondary text-xs tracking-wide",
 				"data-inset:pl-7",
 				className
 			)}
