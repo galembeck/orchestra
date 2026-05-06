@@ -1,9 +1,12 @@
 import { Button } from "@repo/ui/components/atoms/button/button";
+import { useNavigate } from "@tanstack/react-router";
 import { Check } from "lucide-react";
 import { BusinessDashboardPreview } from "@/components/organisms/dashboard-placeholder/dashboard-placeholder";
 import { businessFeatures } from "@/constants/_public/for-business";
 
 export function ForBusinessSection() {
+	const navigate = useNavigate();
+
 	return (
 		<section className="px-5 py-10 lg:px-20 lg:py-14" id="for-business">
 			<div className="flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-16">
@@ -35,7 +38,12 @@ export function ForBusinessSection() {
 					</ul>
 
 					<div className="flex flex-wrap items-center gap-3 pt-3">
-						<Button variant="primary">Cadastrar minha empresa</Button>
+						<Button
+							onClick={() => navigate({ to: "/sign-up" })}
+							variant="primary"
+						>
+							Cadastrar minha empresa
+						</Button>
 
 						<Button variant="secondary">Falar com vendas</Button>
 					</div>

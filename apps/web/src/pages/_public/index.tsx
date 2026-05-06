@@ -20,7 +20,7 @@ export const Route = createFileRoute("/_public/")({
 
 function LandingPage() {
 	return (
-		<main className="flex w-full flex-col bg-surface">
+		<main>
 			<IntroSection />
 
 			<CategoriesSection />

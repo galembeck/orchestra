@@ -1,5 +1,5 @@
-import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
+import { CategoriesDialog } from "@/components/atoms/categories-dialog/categories-dialog";
 import { CategoryCard } from "@/components/molecules/category-card/category-card";
 import { categories } from "@/constants/_public/categories";
 
@@ -19,14 +19,15 @@ export function CategoriesSection() {
 						Tudo o que sua casa ou empresa precisa.
 					</h1>
 
-					{/* TODO: Handle navigation to services page after completed/created */}
-					<Link
-						className="flex items-center justify-end gap-1 font-inter font-medium text-foreground-primary text-sm hover:text-foreground-primary/80 hover:underline hover:underline-offset-4"
-						to="/"
-					>
-						Ver todas as 32 categorias
-						<ArrowRight className="h-3.5 w-3.5 text-foreground-primary" />
-					</Link>
+					<CategoriesDialog>
+						<button
+							className="flex cursor-pointer items-center justify-end gap-1 font-inter font-medium text-foreground-primary text-sm hover:text-foreground-primary/80 hover:underline hover:underline-offset-4"
+							type="button"
+						>
+							Ver todas as 32 categorias
+							<ArrowRight className="h-3.5 w-3.5 text-foreground-primary" />
+						</button>
+					</CategoriesDialog>
 				</div>
 			</article>
 

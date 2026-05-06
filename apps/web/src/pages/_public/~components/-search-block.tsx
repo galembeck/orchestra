@@ -1,5 +1,13 @@
 import { Button } from "@repo/ui/components/atoms/button/button";
-import { Building2, Factory, House, MapPin, Search } from "lucide-react";
+import {
+	Building2,
+	Calendar,
+	Factory,
+	HelpCircle,
+	House,
+	MapPin,
+	Search,
+} from "lucide-react";
 import { useState } from "react";
 
 const tabs = [
@@ -53,9 +61,12 @@ export function SearchBlock() {
 					<span className="font-jetbrains-mono font-medium text-[10px] text-foreground-tertiary uppercase tracking-[1px]">
 						O que você precisa?
 					</span>
-					<span className="font-inter font-medium text-foreground-primary text-sm">
-						Conserto de chuveiro elétrico
-					</span>
+					<div className="flex items-center gap-1.5">
+						<HelpCircle className="h-3.5 w-3.5 shrink-0 text-foreground-primary" />
+						<span className="font-inter font-medium text-foreground-primary text-sm">
+							Conserto de chuveiro elétrico
+						</span>
+					</div>
 				</div>
 
 				<div className="mx-4 h-px bg-border lg:mx-0 lg:h-8 lg:w-px lg:shrink-0" />
@@ -78,9 +89,12 @@ export function SearchBlock() {
 					<span className="font-jetbrains-mono font-medium text-[10px] text-foreground-tertiary uppercase tracking-[1px]">
 						Quando?
 					</span>
-					<span className="font-inter font-medium text-foreground-primary text-sm">
-						Hoje, agora
-					</span>
+					<div className="flex items-center gap-1.5">
+						<Calendar className="h-3.5 w-3.5 shrink-0 text-foreground-primary" />
+						<span className="font-inter font-medium text-foreground-primary text-sm">
+							Hoje, agora
+						</span>
+					</div>
 				</div>
 
 				<Button

@@ -1,6 +1,9 @@
 import { Button } from "@repo/ui/components/atoms/button/button";
+import { useNavigate } from "@tanstack/react-router";
 
 export function CallToActionSection() {
+	const navigate = useNavigate();
+
 	return (
 		<section
 			className="bg-surface-navy dark:bg-surface-navy-2"
@@ -16,14 +19,19 @@ export function CallToActionSection() {
 				</h1>
 
 				<p className="font-inter text-base text-foreground-inverse-muted">
-					Cadastre-se em 2 minutos. Sem cartão de crédito. Sem letrinhas
+					Cadastre-se em 3 minutos. Sem cartão de crédito. Sem letrinhas
 					pequenas.
 				</p>
 
 				<div className="flex flex-wrap items-center gap-3">
 					<Button variant="primary">Buscar um serviço</Button>
 
-					<Button variant="secondary">Cadastrar minha empresa</Button>
+					<Button
+						onClick={() => navigate({ to: "/sign-up" })}
+						variant="secondary"
+					>
+						Cadastrar minha empresa
+					</Button>
 				</div>
 			</div>
 		</section>
