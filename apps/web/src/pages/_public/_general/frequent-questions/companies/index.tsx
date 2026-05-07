@@ -1,18 +1,12 @@
-import { Button } from "@repo/ui/components/atoms/button/button";
-import { IconizedInput } from "@repo/ui/components/atoms/iconized-input/iconized-input";
-import {
-	ScrollArea,
-	ScrollBar,
-} from "@repo/ui/components/atoms/scroll-area/scroll-area";
 import { createFileRoute } from "@tanstack/react-router";
-import {
-	Banknote,
-	ClipboardCheck,
-	LayoutList,
-	Search,
-	ShieldCheck,
-	Truck,
-} from "lucide-react";
+import { parseAsString, useQueryState } from "nuqs";
+import { InteractiveCards } from "./~components/-interactive-cards";
+import { SearchByCategories } from "./~components/-search-by-categories";
+import { SearchInput } from "./~components/-search-input";
+import { AccountAccordion } from "./~components/accordions/-account-accordion";
+import { LGPDAccordion } from "./~components/accordions/-lgpd-accordion";
+import { OperationAccordion } from "./~components/accordions/-operation.accordion";
+import { PaymentAccordion } from "./~components/accordions/-payment-accordion";
 
 export const Route = createFileRoute(
 	"/_public/_general/frequent-questions/companies/"
@@ -24,6 +18,14 @@ export const Route = createFileRoute(
 });
 
 function CompaniesFrequentQuestionsPage() {
+	const [category] = useQueryState(
+		"category",
+		parseAsString.withDefault("all")
+	);
+	const [search] = useQueryState("search", parseAsString.withDefault(""));
+
+	const showAll = category === "all";
+
 	return (
 		<main className="flex flex-col gap-8 px-5 py-10 lg:px-20 lg:py-14">
 			<div className="flex flex-col items-center justify-center gap-8 text-center">
@@ -40,63 +42,28 @@ function CompaniesFrequentQuestionsPage() {
 					letrinhas pequenas - só o que importa para sua operação girar.
 				</p>
 
-				<div className="mt-4 flex w-full max-w-[560px] items-center justify-between gap-2 rounded-2xl border border-border bg-surface-paper-soft p-1.5 transition-all focus-within:ring-1 focus-within:ring-border-strong">
-					<IconizedInput
-						className="flex-1 border-none bg-transparent shadow-none focus-visible:ring-0"
-						icon={Search}
-						placeholder="Pergunte sobre validação, PIX, taxas..."
-					/>
+				<SearchInput />
 
-					<Button className="shrink-0 px-4 py-2.5">Buscar</Button>
+				<SearchByCategories />
+			</div>
+
+			<div className="grid grid-cols-1 items-start space-y-8 lg:grid-cols-3 lg:gap-8">
+				<div className="col-span-2 flex w-full flex-col gap-9">
+					{(showAll || category === "account") && (
+						<AccountAccordion search={search} />
+					)}
+					{(showAll || category === "payment") && (
+						<PaymentAccordion search={search} />
+					)}
+					{(showAll || category === "operation") && (
+						<OperationAccordion search={search} />
+					)}
+					{(showAll || category === "lgpd") && (
+						<LGPDAccordion search={search} />
+					)}
 				</div>
 
-				<div className="w-full min-w-0 lg:max-w-max lg:flex-1">
-					<ScrollArea className="w-full whitespace-nowrap">
-						<div className="flex w-max items-center gap-1.5">
-							<button
-								className="flex cursor-pointer items-center gap-1.5 rounded-full border bg-surface-navy px-3 py-1.5 font-inter font-medium text-[12px] text-foreground-inverse transition-all duration-200 hover:bg-surface-navy-2"
-								type="button"
-							>
-								<LayoutList className="h-3 w-3 text-foreground-inverse" />
-								Todas
-							</button>
-
-							<button
-								className="flex cursor-pointer items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 font-inter font-medium text-[12px] text-foreground-secondary transition-all duration-200 hover:bg-surface-raised"
-								type="button"
-							>
-								<ClipboardCheck className="h-3 w-3 text-foreground-secondary" />
-								Cadastro & validação
-							</button>
-
-							<button
-								className="flex cursor-pointer items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 font-inter font-medium text-[12px] text-foreground-secondary transition-all duration-200 hover:bg-surface-raised"
-								type="button"
-							>
-								<Banknote className="h-3 w-3 text-foreground-secondary" />
-								Pagamentos & PIX
-							</button>
-
-							<button
-								className="flex cursor-pointer items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 font-inter font-medium text-[12px] text-foreground-secondary transition-all duration-200 hover:bg-surface-raised"
-								type="button"
-							>
-								<Truck className="h-3 w-3 text-foreground-secondary" />
-								Operações & equipe
-							</button>
-
-							<button
-								className="flex cursor-pointer items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 font-inter font-medium text-[12px] text-foreground-secondary transition-all duration-200 hover:bg-surface-raised"
-								type="button"
-							>
-								<ShieldCheck className="h-3 w-3 text-foreground-secondary" />
-								LGPD & segurança
-							</button>
-						</div>
-
-						<ScrollBar orientation="horizontal" />
-					</ScrollArea>
-				</div>
+				<InteractiveCards />
 			</div>
 		</main>
 	);
