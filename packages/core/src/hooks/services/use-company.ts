@@ -37,8 +37,9 @@ export function useRegisterCompany() {
 		},
 
 		onError: (err) => {
+			const status = (err as ApiException).status;
 			const message =
-				(err as ApiException).status === 400
+				status >= 400 && status < 500 && err.message
 					? err.message
 					: "Erro ao cadastrar empresa. Tente novamente.";
 
