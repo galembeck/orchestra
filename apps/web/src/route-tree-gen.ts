@@ -17,9 +17,9 @@ import { Route as PublicServicesIndexRouteImport } from './pages/_public/service
 import { Route as ErrorNotFoundIndexRouteImport } from './pages/_error/not-found/index'
 import { Route as AuthSignUpIndexRouteImport } from './pages/_auth/sign-up/index'
 import { Route as AuthSignInIndexRouteImport } from './pages/_auth/sign-in/index'
-import { Route as AppCompanyCompanySlugLayoutRouteImport } from './pages/_app/company/$companySlug/layout'
-import { Route as AppCompanyCompanySlugIndexRouteImport } from './pages/_app/company/$companySlug/index'
-import { Route as AppCompanyCompanySlugOverviewIndexRouteImport } from './pages/_app/company/$companySlug/overview/index'
+import { Route as AppCompanyorganizationSetCompanySlugLayoutRouteImport } from './pages/app/_company/_(organization-set)/$companySlug/layout'
+import { Route as AppCompanyorganizationSetCompanySlugIndexRouteImport } from './pages/app/_company/_(organization-set)/$companySlug/index'
+import { Route as AppCompanynoOrganizationSetChar126SettingsIndexRouteImport } from './pages/app/_company/_(no-organization-set)/~/settings/index'
 
 const PublicLayoutRoute = PublicLayoutRouteImport.update({
   id: '/_public',
@@ -60,36 +60,36 @@ const AuthSignInIndexRoute = AuthSignInIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthSignInLayoutRoute,
 } as any)
-const AppCompanyCompanySlugLayoutRoute =
-  AppCompanyCompanySlugLayoutRouteImport.update({
-    id: '/_app/company/$companySlug',
-    path: '/company/$companySlug',
+const AppCompanyorganizationSetCompanySlugLayoutRoute =
+  AppCompanyorganizationSetCompanySlugLayoutRouteImport.update({
+    id: '/app/_company/_(organization-set)/$companySlug',
+    path: '/app/$companySlug',
     getParentRoute: () => rootRouteImport,
   } as any)
-const AppCompanyCompanySlugIndexRoute =
-  AppCompanyCompanySlugIndexRouteImport.update({
+const AppCompanyorganizationSetCompanySlugIndexRoute =
+  AppCompanyorganizationSetCompanySlugIndexRouteImport.update({
     id: '/',
     path: '/',
-    getParentRoute: () => AppCompanyCompanySlugLayoutRoute,
+    getParentRoute: () => AppCompanyorganizationSetCompanySlugLayoutRoute,
   } as any)
-const AppCompanyCompanySlugOverviewIndexRoute =
-  AppCompanyCompanySlugOverviewIndexRouteImport.update({
-    id: '/overview/',
-    path: '/overview/',
-    getParentRoute: () => AppCompanyCompanySlugLayoutRoute,
+const AppCompanynoOrganizationSetChar126SettingsIndexRoute =
+  AppCompanynoOrganizationSetChar126SettingsIndexRouteImport.update({
+    id: '/app/_company/_(no-organization-set)/~/settings/',
+    path: '/app/~/settings/',
+    getParentRoute: () => rootRouteImport,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
   '/sign-in': typeof AuthSignInLayoutRouteWithChildren
   '/sign-up': typeof AuthSignUpLayoutRouteWithChildren
-  '/company/$companySlug': typeof AppCompanyCompanySlugLayoutRouteWithChildren
   '/sign-in/': typeof AuthSignInIndexRoute
   '/sign-up/': typeof AuthSignUpIndexRoute
   '/not-found/': typeof ErrorNotFoundIndexRoute
   '/services/': typeof PublicServicesIndexRoute
-  '/company/$companySlug/': typeof AppCompanyCompanySlugIndexRoute
-  '/company/$companySlug/overview/': typeof AppCompanyCompanySlugOverviewIndexRoute
+  '/app/$companySlug': typeof AppCompanyorganizationSetCompanySlugLayoutRouteWithChildren
+  '/app/$companySlug/': typeof AppCompanyorganizationSetCompanySlugIndexRoute
+  '/app/~/settings/': typeof AppCompanynoOrganizationSetChar126SettingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof PublicIndexRoute
@@ -97,8 +97,8 @@ export interface FileRoutesByTo {
   '/sign-up': typeof AuthSignUpIndexRoute
   '/not-found': typeof ErrorNotFoundIndexRoute
   '/services': typeof PublicServicesIndexRoute
-  '/company/$companySlug': typeof AppCompanyCompanySlugIndexRoute
-  '/company/$companySlug/overview': typeof AppCompanyCompanySlugOverviewIndexRoute
+  '/app/$companySlug': typeof AppCompanyorganizationSetCompanySlugIndexRoute
+  '/app/~/settings': typeof AppCompanynoOrganizationSetChar126SettingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -106,13 +106,13 @@ export interface FileRoutesById {
   '/_auth/sign-in': typeof AuthSignInLayoutRouteWithChildren
   '/_auth/sign-up': typeof AuthSignUpLayoutRouteWithChildren
   '/_public/': typeof PublicIndexRoute
-  '/_app/company/$companySlug': typeof AppCompanyCompanySlugLayoutRouteWithChildren
   '/_auth/sign-in/': typeof AuthSignInIndexRoute
   '/_auth/sign-up/': typeof AuthSignUpIndexRoute
   '/_error/not-found/': typeof ErrorNotFoundIndexRoute
   '/_public/services/': typeof PublicServicesIndexRoute
-  '/_app/company/$companySlug/': typeof AppCompanyCompanySlugIndexRoute
-  '/_app/company/$companySlug/overview/': typeof AppCompanyCompanySlugOverviewIndexRoute
+  '/app/_company/_(organization-set)/$companySlug': typeof AppCompanyorganizationSetCompanySlugLayoutRouteWithChildren
+  '/app/_company/_(organization-set)/$companySlug/': typeof AppCompanyorganizationSetCompanySlugIndexRoute
+  '/app/_company/_(no-organization-set)/~/settings/': typeof AppCompanynoOrganizationSetChar126SettingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -120,13 +120,13 @@ export interface FileRouteTypes {
     | '/'
     | '/sign-in'
     | '/sign-up'
-    | '/company/$companySlug'
     | '/sign-in/'
     | '/sign-up/'
     | '/not-found/'
     | '/services/'
-    | '/company/$companySlug/'
-    | '/company/$companySlug/overview/'
+    | '/app/$companySlug'
+    | '/app/$companySlug/'
+    | '/app/~/settings/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -134,29 +134,30 @@ export interface FileRouteTypes {
     | '/sign-up'
     | '/not-found'
     | '/services'
-    | '/company/$companySlug'
-    | '/company/$companySlug/overview'
+    | '/app/$companySlug'
+    | '/app/~/settings'
   id:
     | '__root__'
     | '/_public'
     | '/_auth/sign-in'
     | '/_auth/sign-up'
     | '/_public/'
-    | '/_app/company/$companySlug'
     | '/_auth/sign-in/'
     | '/_auth/sign-up/'
     | '/_error/not-found/'
     | '/_public/services/'
-    | '/_app/company/$companySlug/'
-    | '/_app/company/$companySlug/overview/'
+    | '/app/_company/_(organization-set)/$companySlug'
+    | '/app/_company/_(organization-set)/$companySlug/'
+    | '/app/_company/_(no-organization-set)/~/settings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   PublicLayoutRoute: typeof PublicLayoutRouteWithChildren
   AuthSignInLayoutRoute: typeof AuthSignInLayoutRouteWithChildren
   AuthSignUpLayoutRoute: typeof AuthSignUpLayoutRouteWithChildren
-  AppCompanyCompanySlugLayoutRoute: typeof AppCompanyCompanySlugLayoutRouteWithChildren
   ErrorNotFoundIndexRoute: typeof ErrorNotFoundIndexRoute
+  AppCompanyorganizationSetCompanySlugLayoutRoute: typeof AppCompanyorganizationSetCompanySlugLayoutRouteWithChildren
+  AppCompanynoOrganizationSetChar126SettingsIndexRoute: typeof AppCompanynoOrganizationSetChar126SettingsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -217,26 +218,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignInIndexRouteImport
       parentRoute: typeof AuthSignInLayoutRoute
     }
-    '/_app/company/$companySlug': {
-      id: '/_app/company/$companySlug'
-      path: '/company/$companySlug'
-      fullPath: '/company/$companySlug'
-      preLoaderRoute: typeof AppCompanyCompanySlugLayoutRouteImport
+    '/app/_company/_(organization-set)/$companySlug': {
+      id: '/app/_company/_(organization-set)/$companySlug'
+      path: '/app/$companySlug'
+      fullPath: '/app/$companySlug'
+      preLoaderRoute: typeof AppCompanyorganizationSetCompanySlugLayoutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app/company/$companySlug/': {
-      id: '/_app/company/$companySlug/'
+    '/app/_company/_(organization-set)/$companySlug/': {
+      id: '/app/_company/_(organization-set)/$companySlug/'
       path: '/'
-      fullPath: '/company/$companySlug/'
-      preLoaderRoute: typeof AppCompanyCompanySlugIndexRouteImport
-      parentRoute: typeof AppCompanyCompanySlugLayoutRoute
+      fullPath: '/app/$companySlug/'
+      preLoaderRoute: typeof AppCompanyorganizationSetCompanySlugIndexRouteImport
+      parentRoute: typeof AppCompanyorganizationSetCompanySlugLayoutRoute
     }
-    '/_app/company/$companySlug/overview/': {
-      id: '/_app/company/$companySlug/overview/'
-      path: '/overview'
-      fullPath: '/company/$companySlug/overview/'
-      preLoaderRoute: typeof AppCompanyCompanySlugOverviewIndexRouteImport
-      parentRoute: typeof AppCompanyCompanySlugLayoutRoute
+    '/app/_company/_(no-organization-set)/~/settings/': {
+      id: '/app/_company/_(no-organization-set)/~/settings/'
+      path: '/app/~/settings'
+      fullPath: '/app/~/settings/'
+      preLoaderRoute: typeof AppCompanynoOrganizationSetChar126SettingsIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -277,30 +278,30 @@ const AuthSignUpLayoutRouteChildren: AuthSignUpLayoutRouteChildren = {
 const AuthSignUpLayoutRouteWithChildren =
   AuthSignUpLayoutRoute._addFileChildren(AuthSignUpLayoutRouteChildren)
 
-interface AppCompanyCompanySlugLayoutRouteChildren {
-  AppCompanyCompanySlugIndexRoute: typeof AppCompanyCompanySlugIndexRoute
-  AppCompanyCompanySlugOverviewIndexRoute: typeof AppCompanyCompanySlugOverviewIndexRoute
+interface AppCompanyorganizationSetCompanySlugLayoutRouteChildren {
+  AppCompanyorganizationSetCompanySlugIndexRoute: typeof AppCompanyorganizationSetCompanySlugIndexRoute
 }
 
-const AppCompanyCompanySlugLayoutRouteChildren: AppCompanyCompanySlugLayoutRouteChildren =
+const AppCompanyorganizationSetCompanySlugLayoutRouteChildren: AppCompanyorganizationSetCompanySlugLayoutRouteChildren =
   {
-    AppCompanyCompanySlugIndexRoute: AppCompanyCompanySlugIndexRoute,
-    AppCompanyCompanySlugOverviewIndexRoute:
-      AppCompanyCompanySlugOverviewIndexRoute,
+    AppCompanyorganizationSetCompanySlugIndexRoute:
+      AppCompanyorganizationSetCompanySlugIndexRoute,
   }
 
-const AppCompanyCompanySlugLayoutRouteWithChildren =
-  AppCompanyCompanySlugLayoutRoute._addFileChildren(
-    AppCompanyCompanySlugLayoutRouteChildren,
+const AppCompanyorganizationSetCompanySlugLayoutRouteWithChildren =
+  AppCompanyorganizationSetCompanySlugLayoutRoute._addFileChildren(
+    AppCompanyorganizationSetCompanySlugLayoutRouteChildren,
   )
 
 const rootRouteChildren: RootRouteChildren = {
   PublicLayoutRoute: PublicLayoutRouteWithChildren,
   AuthSignInLayoutRoute: AuthSignInLayoutRouteWithChildren,
   AuthSignUpLayoutRoute: AuthSignUpLayoutRouteWithChildren,
-  AppCompanyCompanySlugLayoutRoute:
-    AppCompanyCompanySlugLayoutRouteWithChildren,
   ErrorNotFoundIndexRoute: ErrorNotFoundIndexRoute,
+  AppCompanyorganizationSetCompanySlugLayoutRoute:
+    AppCompanyorganizationSetCompanySlugLayoutRouteWithChildren,
+  AppCompanynoOrganizationSetChar126SettingsIndexRoute:
+    AppCompanynoOrganizationSetChar126SettingsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
