@@ -24,7 +24,12 @@ export function CallToActionSection() {
 				</p>
 
 				<div className="flex flex-wrap items-center gap-3">
-					<Button variant="primary">Buscar um serviço</Button>
+					<Button
+						onClick={() => navigate({ to: "/services" })}
+						variant="primary"
+					>
+						Buscar um serviço
+					</Button>
 
 					<Button
 						onClick={() => navigate({ to: "/sign-up" })}
