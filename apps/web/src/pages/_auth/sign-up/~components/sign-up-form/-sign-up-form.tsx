@@ -4,7 +4,6 @@ import { ACCOUNT_TYPE } from "@repo/core/types/enums/account-type";
 import { useState } from "react";
 import { toast } from "sonner";
 import type { AccountData } from "@/types/_auth/account-data";
-import type { CompanyData } from "@/types/_auth/company-data";
 import type { DocumentsData } from "@/types/_auth/documents-data";
 import { FormStepIndicator } from "../-fom-step-indicator";
 import { AccountStep } from "./form-steps/-account-step";
@@ -26,7 +25,6 @@ import {
 interface SignUpData {
 	account?: AccountData;
 	clientAddress?: ClientAddressStepValues;
-	company?: CompanyData;
 	companyAddress?: CompanyAddressStepValues;
 	companyDocuments?: DocumentsData;
 	companyInformation?: CompanyInformationStepValues;
@@ -98,14 +96,6 @@ export function SignUpForm() {
 			ownerPassword: finalData.account.password,
 			ownerCellphone: finalData.account.cellphone,
 			acceptTerms: finalData.account.acceptTerms,
-
-			ownerZipcode: finalData.companyAddress.zipcode,
-			ownerAddress: finalData.companyAddress.address,
-			ownerNumber: finalData.companyAddress.number,
-			ownerComplement: finalData.companyAddress.complement,
-			ownerNeighborhood: finalData.companyAddress.neighborhood,
-			ownerCity: finalData.companyAddress.city,
-			ownerState: finalData.companyAddress.state,
 
 			zipcode: finalData.companyAddress.zipcode,
 			address: finalData.companyAddress.address,
@@ -204,7 +194,8 @@ export function SignUpForm() {
 				formData.account?.accountType === ACCOUNT_TYPE.COMPANY && (
 					<AnalysisStep
 						companyName={
-							formData.company?.fantasyName || formData.company?.socialReason
+							formData.companyInformation?.fantasyName ||
+							formData.companyInformation?.socialReason
 						}
 					/>
 				)}

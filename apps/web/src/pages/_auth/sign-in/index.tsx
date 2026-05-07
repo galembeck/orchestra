@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { Facebook, Globe } from "lucide-react";
 import { AuthVisualPanel } from "@/components/atoms/auth-visual-panel/auth-visual-panel";
 import { AuthNavbar } from "../~components/-auth-navbar";
@@ -14,13 +14,6 @@ export const Route = createFileRoute("/_auth/sign-in/")({
 			},
 		],
 	}),
-	beforeLoad: ({ context }) => {
-		if (context.auth?.isAuthenticated) {
-			throw redirect({
-				to: "/",
-			});
-		}
-	},
 });
 
 function SignInPage() {
