@@ -32,7 +32,9 @@ import {
 
 export function ProfileDropdown() {
 	const navigate = useNavigate();
+
 	const { user, signOut } = useAuth();
+
 	const { data: companies } = useMyCompanies();
 
 	const handleSignOut = () => {
@@ -135,9 +137,7 @@ export function ProfileDropdown() {
 										<DropdownMenuItem
 											className="mt-1 flex cursor-pointer items-center gap-2"
 											key={company.id}
-											onClick={() =>
-												navigate({ to: `/company/${company.id}/overview` })
-											}
+											onClick={() => navigate({ to: `/app/${company.slug}` })}
 										>
 											<div className="ml-0.5 h-6 w-1 bg-foreground-accent" />
 
