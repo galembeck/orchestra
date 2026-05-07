@@ -37,6 +37,7 @@ export interface PublicCompanyDTO extends AddressDTO {
 	ownerUserId: string;
 	rejectionReason?: string;
 	segment: Segment;
+	slug: string;
 	socialReason: string;
 }
 
@@ -52,19 +53,12 @@ export interface RegisterCompanyDTO {
 	neighborhood: string;
 	number: string;
 	operatingLicense?: File;
-	ownerAddress: string;
 	ownerCellphone: string;
-	ownerCity: string;
-	ownerComplement?: string;
 	ownerDocument: string;
 	ownerEmail: string;
 	ownerIdentity: File;
 	ownerName: string;
-	ownerNeighborhood: string;
-	ownerNumber: string;
 	ownerPassword: string;
-	ownerState: string;
-	ownerZipcode: string;
 	segment: Segment;
 	socialReason: string;
 	state: string;

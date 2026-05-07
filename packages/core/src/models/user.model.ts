@@ -27,18 +27,25 @@ export interface PrivateUserDTO {
 
 export interface PublicUserDTO {
 	accountType: AccountType;
+	address: string;
 	avatarUrl?: string;
 	cellphone: string;
+	city: string;
+	complement?: string;
 	createdAt?: string;
 	document: string;
 	email: string;
 	id: string;
 	lastAccessAt?: string;
 	name: string;
+	neighborhood: string;
+	number: string;
 	profileType?: ProfileType;
 	receiveEmailOffers?: boolean;
 	receiveWhatsappOffers?: boolean;
+	state: string;
 	updatedAt?: string;
+	zipcode: string;
 }
 
 export interface UpdateProfileDTO {
