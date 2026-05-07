@@ -4,21 +4,21 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@repo/ui/components/molecules/accordion/accordion";
-import { paymentItems } from "@/constants/_public/frequent-questions/companies/payment-items";
+import { operationItems } from "@/constants/_public/help-center/companies/operation-items";
 
-interface PaymentAccordionProps {
+interface OperationAccordionProps {
 	search?: string;
 }
 
-export function PaymentAccordion({ search }: PaymentAccordionProps) {
+export function OperationAccordion({ search }: OperationAccordionProps) {
 	const term = search?.trim().toLowerCase() ?? "";
 	const items = term
-		? paymentItems.filter(
+		? operationItems.filter(
 				(item) =>
 					item.question.toLowerCase().includes(term) ||
 					item.answer.toLowerCase().includes(term)
 			)
-		: paymentItems;
+		: operationItems;
 
 	if (items.length === 0) {
 		return null;
@@ -28,7 +28,7 @@ export function PaymentAccordion({ search }: PaymentAccordionProps) {
 		<div className="w-full rounded-lg">
 			<div className="px-4 py-3">
 				<span className="font-jetbrains-mono font-medium text-[11px] text-foreground-tertiary uppercase tracking-[1.5px]">
-					Pagamentos & PIX
+					Operação & Equipe
 				</span>
 			</div>
 

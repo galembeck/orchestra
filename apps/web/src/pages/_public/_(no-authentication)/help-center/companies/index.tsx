@@ -9,7 +9,7 @@ import { OperationAccordion } from "./~components/accordions/-operation.accordio
 import { PaymentAccordion } from "./~components/accordions/-payment-accordion";
 
 export const Route = createFileRoute(
-	"/_public/_general/frequent-questions/companies/"
+	"/_public/_(no-authentication)/help-center/companies/"
 )({
 	component: CompaniesFrequentQuestionsPage,
 	head: () => ({

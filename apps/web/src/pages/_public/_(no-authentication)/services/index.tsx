@@ -3,7 +3,7 @@ import { ServicesListing } from "./~components/services-content/-services-listin
 import { ServicesMap } from "./~components/services-content/-services-map";
 import { SearchHeader } from "./~components/services-header/-search-header";
 
-export const Route = createFileRoute("/_public/services/")({
+export const Route = createFileRoute("/_public/_(no-authentication)/services/")({
 	component: ServicesPage,
 });
 

@@ -4,21 +4,21 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@repo/ui/components/molecules/accordion/accordion";
-import { lgpdItems } from "@/constants/_public/frequent-questions/companies/lgpd-items";
+import { accountItems } from "@/constants/_public/help-center/companies/account-items";
 
-interface LGPDAccordionProps {
+interface AccountAccordionProps {
 	search?: string;
 }
 
-export function LGPDAccordion({ search }: LGPDAccordionProps) {
+export function AccountAccordion({ search }: AccountAccordionProps) {
 	const term = search?.trim().toLowerCase() ?? "";
 	const items = term
-		? lgpdItems.filter(
+		? accountItems.filter(
 				(item) =>
 					item.question.toLowerCase().includes(term) ||
 					item.answer.toLowerCase().includes(term)
 			)
-		: lgpdItems;
+		: accountItems;
 
 	if (items.length === 0) {
 		return null;
@@ -28,11 +28,11 @@ export function LGPDAccordion({ search }: LGPDAccordionProps) {
 		<div className="w-full rounded-lg">
 			<div className="px-4 py-3">
 				<span className="font-jetbrains-mono font-medium text-[11px] text-foreground-tertiary uppercase tracking-[1.5px]">
-					LGPD & segurança
+					Cadastro & Validação
 				</span>
 			</div>
 
-			<Accordion className="w-full" collapsible type="single">
+			<Accordion className="w-full" collapsible defaultValue="01" type="single">
 				{items.map((item) => (
 					<AccordionItem className="px-4" key={item.value} value={item.value}>
 						<AccordionTrigger>

@@ -13,14 +13,15 @@ import { Route as PublicLayoutRouteImport } from './pages/_public/layout'
 import { Route as PublicIndexRouteImport } from './pages/_public/index'
 import { Route as AuthSignUpLayoutRouteImport } from './pages/_auth/sign-up/layout'
 import { Route as AuthSignInLayoutRouteImport } from './pages/_auth/sign-in/layout'
-import { Route as PublicServicesIndexRouteImport } from './pages/_public/services/index'
 import { Route as ErrorNotFoundIndexRouteImport } from './pages/_error/not-found/index'
 import { Route as AuthSignUpIndexRouteImport } from './pages/_auth/sign-up/index'
 import { Route as AuthSignInIndexRouteImport } from './pages/_auth/sign-in/index'
-import { Route as PublicGeneralFrequentQuestionsIndexRouteImport } from './pages/_public/_general/frequent-questions/index'
+import { Route as AppClientMyAccountIndexRouteImport } from './pages/app/_client/my-account/index'
+import { Route as PublicnoAuthenticationServicesIndexRouteImport } from './pages/_public/_(no-authentication)/services/index'
+import { Route as PublicnoAuthenticationHelpCenterIndexRouteImport } from './pages/_public/_(no-authentication)/help-center/index'
 import { Route as AppCompanyorganizationSetCompanySlugLayoutRouteImport } from './pages/app/_company/_(organization-set)/$companySlug/layout'
 import { Route as AppCompanyorganizationSetCompanySlugIndexRouteImport } from './pages/app/_company/_(organization-set)/$companySlug/index'
-import { Route as PublicGeneralFrequentQuestionsCompaniesIndexRouteImport } from './pages/_public/_general/frequent-questions/companies/index'
+import { Route as PublicnoAuthenticationHelpCenterCompaniesIndexRouteImport } from './pages/_public/_(no-authentication)/help-center/companies/index'
 import { Route as AppCompanynoOrganizationSetChar126SettingsIndexRouteImport } from './pages/app/_company/_(no-organization-set)/~/settings/index'
 
 const PublicLayoutRoute = PublicLayoutRouteImport.update({
@@ -42,11 +43,6 @@ const AuthSignInLayoutRoute = AuthSignInLayoutRouteImport.update({
   path: '/sign-in',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PublicServicesIndexRoute = PublicServicesIndexRouteImport.update({
-  id: '/services/',
-  path: '/services/',
-  getParentRoute: () => PublicLayoutRoute,
-} as any)
 const ErrorNotFoundIndexRoute = ErrorNotFoundIndexRouteImport.update({
   id: '/_error/not-found/',
   path: '/not-found/',
@@ -62,10 +58,21 @@ const AuthSignInIndexRoute = AuthSignInIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthSignInLayoutRoute,
 } as any)
-const PublicGeneralFrequentQuestionsIndexRoute =
-  PublicGeneralFrequentQuestionsIndexRouteImport.update({
-    id: '/_general/frequent-questions/',
-    path: '/frequent-questions/',
+const AppClientMyAccountIndexRoute = AppClientMyAccountIndexRouteImport.update({
+  id: '/app/_client/my-account/',
+  path: '/app/my-account/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicnoAuthenticationServicesIndexRoute =
+  PublicnoAuthenticationServicesIndexRouteImport.update({
+    id: '/_(no-authentication)/services/',
+    path: '/services/',
+    getParentRoute: () => PublicLayoutRoute,
+  } as any)
+const PublicnoAuthenticationHelpCenterIndexRoute =
+  PublicnoAuthenticationHelpCenterIndexRouteImport.update({
+    id: '/_(no-authentication)/help-center/',
+    path: '/help-center/',
     getParentRoute: () => PublicLayoutRoute,
   } as any)
 const AppCompanyorganizationSetCompanySlugLayoutRoute =
@@ -80,10 +87,10 @@ const AppCompanyorganizationSetCompanySlugIndexRoute =
     path: '/',
     getParentRoute: () => AppCompanyorganizationSetCompanySlugLayoutRoute,
   } as any)
-const PublicGeneralFrequentQuestionsCompaniesIndexRoute =
-  PublicGeneralFrequentQuestionsCompaniesIndexRouteImport.update({
-    id: '/_general/frequent-questions/companies/',
-    path: '/frequent-questions/companies/',
+const PublicnoAuthenticationHelpCenterCompaniesIndexRoute =
+  PublicnoAuthenticationHelpCenterCompaniesIndexRouteImport.update({
+    id: '/_(no-authentication)/help-center/companies/',
+    path: '/help-center/companies/',
     getParentRoute: () => PublicLayoutRoute,
   } as any)
 const AppCompanynoOrganizationSetChar126SettingsIndexRoute =
@@ -100,10 +107,11 @@ export interface FileRoutesByFullPath {
   '/sign-in/': typeof AuthSignInIndexRoute
   '/sign-up/': typeof AuthSignUpIndexRoute
   '/not-found/': typeof ErrorNotFoundIndexRoute
-  '/services/': typeof PublicServicesIndexRoute
   '/app/$companySlug': typeof AppCompanyorganizationSetCompanySlugLayoutRouteWithChildren
-  '/frequent-questions/': typeof PublicGeneralFrequentQuestionsIndexRoute
-  '/frequent-questions/companies/': typeof PublicGeneralFrequentQuestionsCompaniesIndexRoute
+  '/help-center/': typeof PublicnoAuthenticationHelpCenterIndexRoute
+  '/services/': typeof PublicnoAuthenticationServicesIndexRoute
+  '/app/my-account/': typeof AppClientMyAccountIndexRoute
+  '/help-center/companies/': typeof PublicnoAuthenticationHelpCenterCompaniesIndexRoute
   '/app/$companySlug/': typeof AppCompanyorganizationSetCompanySlugIndexRoute
   '/app/~/settings/': typeof AppCompanynoOrganizationSetChar126SettingsIndexRoute
 }
@@ -112,9 +120,10 @@ export interface FileRoutesByTo {
   '/sign-in': typeof AuthSignInIndexRoute
   '/sign-up': typeof AuthSignUpIndexRoute
   '/not-found': typeof ErrorNotFoundIndexRoute
-  '/services': typeof PublicServicesIndexRoute
-  '/frequent-questions': typeof PublicGeneralFrequentQuestionsIndexRoute
-  '/frequent-questions/companies': typeof PublicGeneralFrequentQuestionsCompaniesIndexRoute
+  '/help-center': typeof PublicnoAuthenticationHelpCenterIndexRoute
+  '/services': typeof PublicnoAuthenticationServicesIndexRoute
+  '/app/my-account': typeof AppClientMyAccountIndexRoute
+  '/help-center/companies': typeof PublicnoAuthenticationHelpCenterCompaniesIndexRoute
   '/app/$companySlug': typeof AppCompanyorganizationSetCompanySlugIndexRoute
   '/app/~/settings': typeof AppCompanynoOrganizationSetChar126SettingsIndexRoute
 }
@@ -127,10 +136,11 @@ export interface FileRoutesById {
   '/_auth/sign-in/': typeof AuthSignInIndexRoute
   '/_auth/sign-up/': typeof AuthSignUpIndexRoute
   '/_error/not-found/': typeof ErrorNotFoundIndexRoute
-  '/_public/services/': typeof PublicServicesIndexRoute
   '/app/_company/_(organization-set)/$companySlug': typeof AppCompanyorganizationSetCompanySlugLayoutRouteWithChildren
-  '/_public/_general/frequent-questions/': typeof PublicGeneralFrequentQuestionsIndexRoute
-  '/_public/_general/frequent-questions/companies/': typeof PublicGeneralFrequentQuestionsCompaniesIndexRoute
+  '/_public/_(no-authentication)/help-center/': typeof PublicnoAuthenticationHelpCenterIndexRoute
+  '/_public/_(no-authentication)/services/': typeof PublicnoAuthenticationServicesIndexRoute
+  '/app/_client/my-account/': typeof AppClientMyAccountIndexRoute
+  '/_public/_(no-authentication)/help-center/companies/': typeof PublicnoAuthenticationHelpCenterCompaniesIndexRoute
   '/app/_company/_(organization-set)/$companySlug/': typeof AppCompanyorganizationSetCompanySlugIndexRoute
   '/app/_company/_(no-organization-set)/~/settings/': typeof AppCompanynoOrganizationSetChar126SettingsIndexRoute
 }
@@ -143,10 +153,11 @@ export interface FileRouteTypes {
     | '/sign-in/'
     | '/sign-up/'
     | '/not-found/'
-    | '/services/'
     | '/app/$companySlug'
-    | '/frequent-questions/'
-    | '/frequent-questions/companies/'
+    | '/help-center/'
+    | '/services/'
+    | '/app/my-account/'
+    | '/help-center/companies/'
     | '/app/$companySlug/'
     | '/app/~/settings/'
   fileRoutesByTo: FileRoutesByTo
@@ -155,9 +166,10 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/sign-up'
     | '/not-found'
+    | '/help-center'
     | '/services'
-    | '/frequent-questions'
-    | '/frequent-questions/companies'
+    | '/app/my-account'
+    | '/help-center/companies'
     | '/app/$companySlug'
     | '/app/~/settings'
   id:
@@ -169,10 +181,11 @@ export interface FileRouteTypes {
     | '/_auth/sign-in/'
     | '/_auth/sign-up/'
     | '/_error/not-found/'
-    | '/_public/services/'
     | '/app/_company/_(organization-set)/$companySlug'
-    | '/_public/_general/frequent-questions/'
-    | '/_public/_general/frequent-questions/companies/'
+    | '/_public/_(no-authentication)/help-center/'
+    | '/_public/_(no-authentication)/services/'
+    | '/app/_client/my-account/'
+    | '/_public/_(no-authentication)/help-center/companies/'
     | '/app/_company/_(organization-set)/$companySlug/'
     | '/app/_company/_(no-organization-set)/~/settings/'
   fileRoutesById: FileRoutesById
@@ -183,6 +196,7 @@ export interface RootRouteChildren {
   AuthSignUpLayoutRoute: typeof AuthSignUpLayoutRouteWithChildren
   ErrorNotFoundIndexRoute: typeof ErrorNotFoundIndexRoute
   AppCompanyorganizationSetCompanySlugLayoutRoute: typeof AppCompanyorganizationSetCompanySlugLayoutRouteWithChildren
+  AppClientMyAccountIndexRoute: typeof AppClientMyAccountIndexRoute
   AppCompanynoOrganizationSetChar126SettingsIndexRoute: typeof AppCompanynoOrganizationSetChar126SettingsIndexRoute
 }
 
@@ -216,13 +230,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignInLayoutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_public/services/': {
-      id: '/_public/services/'
-      path: '/services'
-      fullPath: '/services/'
-      preLoaderRoute: typeof PublicServicesIndexRouteImport
-      parentRoute: typeof PublicLayoutRoute
-    }
     '/_error/not-found/': {
       id: '/_error/not-found/'
       path: '/not-found'
@@ -244,11 +251,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignInIndexRouteImport
       parentRoute: typeof AuthSignInLayoutRoute
     }
-    '/_public/_general/frequent-questions/': {
-      id: '/_public/_general/frequent-questions/'
-      path: '/frequent-questions'
-      fullPath: '/frequent-questions/'
-      preLoaderRoute: typeof PublicGeneralFrequentQuestionsIndexRouteImport
+    '/app/_client/my-account/': {
+      id: '/app/_client/my-account/'
+      path: '/app/my-account'
+      fullPath: '/app/my-account/'
+      preLoaderRoute: typeof AppClientMyAccountIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public/_(no-authentication)/services/': {
+      id: '/_public/_(no-authentication)/services/'
+      path: '/services'
+      fullPath: '/services/'
+      preLoaderRoute: typeof PublicnoAuthenticationServicesIndexRouteImport
+      parentRoute: typeof PublicLayoutRoute
+    }
+    '/_public/_(no-authentication)/help-center/': {
+      id: '/_public/_(no-authentication)/help-center/'
+      path: '/help-center'
+      fullPath: '/help-center/'
+      preLoaderRoute: typeof PublicnoAuthenticationHelpCenterIndexRouteImport
       parentRoute: typeof PublicLayoutRoute
     }
     '/app/_company/_(organization-set)/$companySlug': {
@@ -265,11 +286,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppCompanyorganizationSetCompanySlugIndexRouteImport
       parentRoute: typeof AppCompanyorganizationSetCompanySlugLayoutRoute
     }
-    '/_public/_general/frequent-questions/companies/': {
-      id: '/_public/_general/frequent-questions/companies/'
-      path: '/frequent-questions/companies'
-      fullPath: '/frequent-questions/companies/'
-      preLoaderRoute: typeof PublicGeneralFrequentQuestionsCompaniesIndexRouteImport
+    '/_public/_(no-authentication)/help-center/companies/': {
+      id: '/_public/_(no-authentication)/help-center/companies/'
+      path: '/help-center/companies'
+      fullPath: '/help-center/companies/'
+      preLoaderRoute: typeof PublicnoAuthenticationHelpCenterCompaniesIndexRouteImport
       parentRoute: typeof PublicLayoutRoute
     }
     '/app/_company/_(no-organization-set)/~/settings/': {
@@ -284,18 +305,19 @@ declare module '@tanstack/react-router' {
 
 interface PublicLayoutRouteChildren {
   PublicIndexRoute: typeof PublicIndexRoute
-  PublicServicesIndexRoute: typeof PublicServicesIndexRoute
-  PublicGeneralFrequentQuestionsIndexRoute: typeof PublicGeneralFrequentQuestionsIndexRoute
-  PublicGeneralFrequentQuestionsCompaniesIndexRoute: typeof PublicGeneralFrequentQuestionsCompaniesIndexRoute
+  PublicnoAuthenticationHelpCenterIndexRoute: typeof PublicnoAuthenticationHelpCenterIndexRoute
+  PublicnoAuthenticationServicesIndexRoute: typeof PublicnoAuthenticationServicesIndexRoute
+  PublicnoAuthenticationHelpCenterCompaniesIndexRoute: typeof PublicnoAuthenticationHelpCenterCompaniesIndexRoute
 }
 
 const PublicLayoutRouteChildren: PublicLayoutRouteChildren = {
   PublicIndexRoute: PublicIndexRoute,
-  PublicServicesIndexRoute: PublicServicesIndexRoute,
-  PublicGeneralFrequentQuestionsIndexRoute:
-    PublicGeneralFrequentQuestionsIndexRoute,
-  PublicGeneralFrequentQuestionsCompaniesIndexRoute:
-    PublicGeneralFrequentQuestionsCompaniesIndexRoute,
+  PublicnoAuthenticationHelpCenterIndexRoute:
+    PublicnoAuthenticationHelpCenterIndexRoute,
+  PublicnoAuthenticationServicesIndexRoute:
+    PublicnoAuthenticationServicesIndexRoute,
+  PublicnoAuthenticationHelpCenterCompaniesIndexRoute:
+    PublicnoAuthenticationHelpCenterCompaniesIndexRoute,
 }
 
 const PublicLayoutRouteWithChildren = PublicLayoutRoute._addFileChildren(
@@ -346,6 +368,7 @@ const rootRouteChildren: RootRouteChildren = {
   ErrorNotFoundIndexRoute: ErrorNotFoundIndexRoute,
   AppCompanyorganizationSetCompanySlugLayoutRoute:
     AppCompanyorganizationSetCompanySlugLayoutRouteWithChildren,
+  AppClientMyAccountIndexRoute: AppClientMyAccountIndexRoute,
   AppCompanynoOrganizationSetChar126SettingsIndexRoute:
     AppCompanynoOrganizationSetChar126SettingsIndexRoute,
 }
