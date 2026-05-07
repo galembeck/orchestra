@@ -32,7 +32,7 @@ export function Navbar({ className, ...props }: NavbarProps) {
 				<nav className="hidden items-center gap-9 lg:flex">
 					{navLinks.map((link) => (
 						<Link
-							className="font-afacad font-medium text-foreground-secondary [&.active]:text-foreground-primary"
+							className="font-afacad font-medium text-foreground-secondary [&.active]:text-foreground-primary [&.active]:underline [&.active]:underline-offset-2"
 							key={link.label}
 							onClick={(e) => handleSmoothScroll(e, link.to)}
 							to={link.to}
@@ -82,7 +82,7 @@ export function Navbar({ className, ...props }: NavbarProps) {
 					<nav className="flex flex-col gap-4 pt-5">
 						{navLinks.map((link) => (
 							<Link
-								className="font-afacad font-medium text-foreground-secondary [&.active]:text-foreground-primary"
+								className="font-afacad font-medium text-foreground-secondary [&.active]:text-foreground-primary [&.active]:underline [&.active]:underline-offset-2"
 								key={link.label}
 								onClick={(e) => {
 									handleSmoothScroll(e, link.to);
