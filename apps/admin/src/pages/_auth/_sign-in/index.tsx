@@ -8,13 +8,6 @@ export const Route = createFileRoute("/_auth/_sign-in/")({
 	head: () => ({
 		meta: [{ title: "Entrar | orchestra.admin" }],
 	}),
-	// beforeLoad: ({ context }) => {
-	// 	if (context.auth?.isAuthenticated) {
-	// 		throw redirect({
-	// 			to: "/panel",
-	// 		});
-	// 	}
-	// },
 });
 
 function SignInPage() {
