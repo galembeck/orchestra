@@ -38,12 +38,8 @@ export function CompanySwitcher({
 		);
 	}
 
-	const generateSlug = (name: string) =>
-		name.toLowerCase().replace(/\s+/g, "-");
-
 	const activeCompany =
-		companies?.find((c) => generateSlug(c.fantasyName) === companySlug) ||
-		companies?.[0];
+		companies?.find((c) => c.slug === companySlug) || companies?.[0];
 
 	if (!activeCompany) {
 		return null;
