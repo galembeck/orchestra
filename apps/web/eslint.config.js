@@ -1,4 +1,5 @@
 import js from "@eslint/js";
+import tsParser from "@typescript-eslint/parser";
 import { defineConfig, globalIgnores } from "eslint/config";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
@@ -18,9 +19,19 @@ export default defineConfig([
 		languageOptions: {
 			ecmaVersion: 2020,
 			globals: globals.browser,
+			parser: tsParser,
+			parserOptions: {
+				tsconfigRootDir: import.meta.dirname,
+				project: [
+					"./tsconfig.json",
+					"./tsconfig.app.json",
+					"./tsconfig.node.json",
+				],
+			},
 		},
 		rules: {
 			semi: ["error", "always"],
+			"react-refresh/only-export-components": "off",
 		},
 	},
 ]);
