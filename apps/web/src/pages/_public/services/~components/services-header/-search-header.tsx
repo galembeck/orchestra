@@ -10,7 +10,6 @@ export function SearchHeader() {
 					</span>
 				</article>
 
-				{/* Container para garantir que o filtro ocupe o espaço restante e permita scroll */}
 				<div className="w-full min-w-0 lg:max-w-max lg:flex-1">
 					<SearchFilters />
 				</div>
