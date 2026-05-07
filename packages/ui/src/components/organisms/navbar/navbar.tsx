@@ -55,7 +55,7 @@ export function Navbar({ className, ...props }: NavbarProps) {
 								<LogIn className="h-4 w-4" />
 							</Link>
 							<Button
-								className="px-3 py-3 font-afacad"
+								className="px-3 py-3 font-afacad text-base"
 								onClick={() => navigate({ to: "/sign-up" })}
 							>
 								Criar conta
