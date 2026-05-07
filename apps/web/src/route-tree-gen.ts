@@ -17,8 +17,10 @@ import { Route as PublicServicesIndexRouteImport } from './pages/_public/service
 import { Route as ErrorNotFoundIndexRouteImport } from './pages/_error/not-found/index'
 import { Route as AuthSignUpIndexRouteImport } from './pages/_auth/sign-up/index'
 import { Route as AuthSignInIndexRouteImport } from './pages/_auth/sign-in/index'
+import { Route as PublicGeneralFrequentQuestionsIndexRouteImport } from './pages/_public/_general/frequent-questions/index'
 import { Route as AppCompanyorganizationSetCompanySlugLayoutRouteImport } from './pages/app/_company/_(organization-set)/$companySlug/layout'
 import { Route as AppCompanyorganizationSetCompanySlugIndexRouteImport } from './pages/app/_company/_(organization-set)/$companySlug/index'
+import { Route as PublicGeneralFrequentQuestionsCompaniesIndexRouteImport } from './pages/_public/_general/frequent-questions/companies/index'
 import { Route as AppCompanynoOrganizationSetChar126SettingsIndexRouteImport } from './pages/app/_company/_(no-organization-set)/~/settings/index'
 
 const PublicLayoutRoute = PublicLayoutRouteImport.update({
@@ -60,6 +62,12 @@ const AuthSignInIndexRoute = AuthSignInIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthSignInLayoutRoute,
 } as any)
+const PublicGeneralFrequentQuestionsIndexRoute =
+  PublicGeneralFrequentQuestionsIndexRouteImport.update({
+    id: '/_general/frequent-questions/',
+    path: '/frequent-questions/',
+    getParentRoute: () => PublicLayoutRoute,
+  } as any)
 const AppCompanyorganizationSetCompanySlugLayoutRoute =
   AppCompanyorganizationSetCompanySlugLayoutRouteImport.update({
     id: '/app/_company/_(organization-set)/$companySlug',
@@ -71,6 +79,12 @@ const AppCompanyorganizationSetCompanySlugIndexRoute =
     id: '/',
     path: '/',
     getParentRoute: () => AppCompanyorganizationSetCompanySlugLayoutRoute,
+  } as any)
+const PublicGeneralFrequentQuestionsCompaniesIndexRoute =
+  PublicGeneralFrequentQuestionsCompaniesIndexRouteImport.update({
+    id: '/_general/frequent-questions/companies/',
+    path: '/frequent-questions/companies/',
+    getParentRoute: () => PublicLayoutRoute,
   } as any)
 const AppCompanynoOrganizationSetChar126SettingsIndexRoute =
   AppCompanynoOrganizationSetChar126SettingsIndexRouteImport.update({
@@ -88,6 +102,8 @@ export interface FileRoutesByFullPath {
   '/not-found/': typeof ErrorNotFoundIndexRoute
   '/services/': typeof PublicServicesIndexRoute
   '/app/$companySlug': typeof AppCompanyorganizationSetCompanySlugLayoutRouteWithChildren
+  '/frequent-questions/': typeof PublicGeneralFrequentQuestionsIndexRoute
+  '/frequent-questions/companies/': typeof PublicGeneralFrequentQuestionsCompaniesIndexRoute
   '/app/$companySlug/': typeof AppCompanyorganizationSetCompanySlugIndexRoute
   '/app/~/settings/': typeof AppCompanynoOrganizationSetChar126SettingsIndexRoute
 }
@@ -97,6 +113,8 @@ export interface FileRoutesByTo {
   '/sign-up': typeof AuthSignUpIndexRoute
   '/not-found': typeof ErrorNotFoundIndexRoute
   '/services': typeof PublicServicesIndexRoute
+  '/frequent-questions': typeof PublicGeneralFrequentQuestionsIndexRoute
+  '/frequent-questions/companies': typeof PublicGeneralFrequentQuestionsCompaniesIndexRoute
   '/app/$companySlug': typeof AppCompanyorganizationSetCompanySlugIndexRoute
   '/app/~/settings': typeof AppCompanynoOrganizationSetChar126SettingsIndexRoute
 }
@@ -111,6 +129,8 @@ export interface FileRoutesById {
   '/_error/not-found/': typeof ErrorNotFoundIndexRoute
   '/_public/services/': typeof PublicServicesIndexRoute
   '/app/_company/_(organization-set)/$companySlug': typeof AppCompanyorganizationSetCompanySlugLayoutRouteWithChildren
+  '/_public/_general/frequent-questions/': typeof PublicGeneralFrequentQuestionsIndexRoute
+  '/_public/_general/frequent-questions/companies/': typeof PublicGeneralFrequentQuestionsCompaniesIndexRoute
   '/app/_company/_(organization-set)/$companySlug/': typeof AppCompanyorganizationSetCompanySlugIndexRoute
   '/app/_company/_(no-organization-set)/~/settings/': typeof AppCompanynoOrganizationSetChar126SettingsIndexRoute
 }
@@ -125,6 +145,8 @@ export interface FileRouteTypes {
     | '/not-found/'
     | '/services/'
     | '/app/$companySlug'
+    | '/frequent-questions/'
+    | '/frequent-questions/companies/'
     | '/app/$companySlug/'
     | '/app/~/settings/'
   fileRoutesByTo: FileRoutesByTo
@@ -134,6 +156,8 @@ export interface FileRouteTypes {
     | '/sign-up'
     | '/not-found'
     | '/services'
+    | '/frequent-questions'
+    | '/frequent-questions/companies'
     | '/app/$companySlug'
     | '/app/~/settings'
   id:
@@ -147,6 +171,8 @@ export interface FileRouteTypes {
     | '/_error/not-found/'
     | '/_public/services/'
     | '/app/_company/_(organization-set)/$companySlug'
+    | '/_public/_general/frequent-questions/'
+    | '/_public/_general/frequent-questions/companies/'
     | '/app/_company/_(organization-set)/$companySlug/'
     | '/app/_company/_(no-organization-set)/~/settings/'
   fileRoutesById: FileRoutesById
@@ -218,6 +244,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignInIndexRouteImport
       parentRoute: typeof AuthSignInLayoutRoute
     }
+    '/_public/_general/frequent-questions/': {
+      id: '/_public/_general/frequent-questions/'
+      path: '/frequent-questions'
+      fullPath: '/frequent-questions/'
+      preLoaderRoute: typeof PublicGeneralFrequentQuestionsIndexRouteImport
+      parentRoute: typeof PublicLayoutRoute
+    }
     '/app/_company/_(organization-set)/$companySlug': {
       id: '/app/_company/_(organization-set)/$companySlug'
       path: '/app/$companySlug'
@@ -232,6 +265,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppCompanyorganizationSetCompanySlugIndexRouteImport
       parentRoute: typeof AppCompanyorganizationSetCompanySlugLayoutRoute
     }
+    '/_public/_general/frequent-questions/companies/': {
+      id: '/_public/_general/frequent-questions/companies/'
+      path: '/frequent-questions/companies'
+      fullPath: '/frequent-questions/companies/'
+      preLoaderRoute: typeof PublicGeneralFrequentQuestionsCompaniesIndexRouteImport
+      parentRoute: typeof PublicLayoutRoute
+    }
     '/app/_company/_(no-organization-set)/~/settings/': {
       id: '/app/_company/_(no-organization-set)/~/settings/'
       path: '/app/~/settings'
@@ -245,11 +285,17 @@ declare module '@tanstack/react-router' {
 interface PublicLayoutRouteChildren {
   PublicIndexRoute: typeof PublicIndexRoute
   PublicServicesIndexRoute: typeof PublicServicesIndexRoute
+  PublicGeneralFrequentQuestionsIndexRoute: typeof PublicGeneralFrequentQuestionsIndexRoute
+  PublicGeneralFrequentQuestionsCompaniesIndexRoute: typeof PublicGeneralFrequentQuestionsCompaniesIndexRoute
 }
 
 const PublicLayoutRouteChildren: PublicLayoutRouteChildren = {
   PublicIndexRoute: PublicIndexRoute,
   PublicServicesIndexRoute: PublicServicesIndexRoute,
+  PublicGeneralFrequentQuestionsIndexRoute:
+    PublicGeneralFrequentQuestionsIndexRoute,
+  PublicGeneralFrequentQuestionsCompaniesIndexRoute:
+    PublicGeneralFrequentQuestionsCompaniesIndexRoute,
 }
 
 const PublicLayoutRouteWithChildren = PublicLayoutRoute._addFileChildren(

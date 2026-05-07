@@ -3,7 +3,7 @@ import { ArrowRight, Sparkles } from "lucide-react";
 
 export function AdviceCard() {
 	return (
-		<div className="flex w-full items-center justify-between rounded-[10px] border border-border bg-surface-paper-soft px-4 py-3">
+		<div className="flex w-full flex-col justify-between rounded-[10px] border border-border bg-surface-paper-soft px-4 py-3 md:flex-row md:items-center">
 			<article className="flex items-center gap-3.5">
 				<div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1f7a3d26]">
 					<Sparkles className="h-3.5 w-3.5 text-success" />
@@ -15,7 +15,7 @@ export function AdviceCard() {
 			</article>
 
 			<Link
-				className="flex items-center gap-2 font-jetbrains-mono font-semibold text-foreground-primary text-xs hover:underline hover:underline-offset-2"
+				className="flex items-center justify-end gap-2 font-jetbrains-mono font-semibold text-foreground-primary text-xs hover:underline hover:underline-offset-2"
 				to="/"
 			>
 				Ver detalhes <ArrowRight className="h-3 w-3" />
