@@ -1,5 +1,5 @@
-import { useAuth } from "@repo/core/hooks/services/use-auth";
 import { useMyCompanies } from "@repo/core/hooks/services/use-company";
+import { useAuth } from "@repo/core/providers/auth-provider";
 import { ThemeToggle } from "@repo/ui/components/atoms/theme-toggle/theme-toggle";
 import {
 	Breadcrumb,
@@ -21,9 +21,9 @@ import {
 	useLocation,
 	useNavigate,
 } from "@tanstack/react-router";
-import { Loader2 } from "lucide-react";
 import { Fragment, useEffect, useMemo } from "react";
 import { toast } from "sonner";
+import { DashboardSkeleton } from "@/components/organisms/dashboard-skeleton/dashboard-skeleton";
 import { BREADCRUMB_LABELS } from "@/constants/_app/company/breadcrumb-labels";
 import { DashboardSidebar } from "../../~components/-dashboard-sidebar";
 import { ContentSearch } from "../../~components/sidebar-elements/sidebar-header/-content-search";
@@ -39,9 +39,14 @@ function CompanyDashboardLayout() {
 
 	const { companySlug } = Route.useParams();
 
-	const { user, isAuthenticated, isPending: isAuthLoading } = useAuth();
+	const { user, isAuthenticated, isLoading: isAuthLoading } = useAuth();
 
-	const { data: companies, isLoading, isError } = useMyCompanies();
+	const {
+		data: companies,
+		isLoading: areCompaniesLoading,
+		isError,
+		isSuccess,
+	} = useMyCompanies();
 
 	const company = companies?.find((c) => c.slug === companySlug);
 
@@ -50,6 +55,18 @@ function CompanyDashboardLayout() {
 			navigate({ to: "/sign-in" });
 		}
 	}, [isAuthLoading, isAuthenticated, navigate]);
+
+	const companyMissing = (isSuccess && !company) || isError;
+
+	useEffect(() => {
+		if (companyMissing) {
+			toast.error("Empresa não encontrada.", {
+				description: "Redirecionando de volta para a página inicial...",
+			});
+
+			navigate({ to: "/" });
+		}
+	}, [companyMissing, navigate]);
 
 	const { pathname } = useLocation();
 
@@ -72,20 +89,8 @@ function CompanyDashboardLayout() {
 		return "Boa noite";
 	};
 
-	if (isLoading) {
-		return (
-			<div className="flex min-h-screen items-center justify-center bg-surface">
-				<Loader2 className="h-8 w-8 animate-spin text-foreground-primary" />
-			</div>
-		);
-	}
-
-	if (isError || !company) {
-		toast.error("Empresa não encontrada.", {
-			description: "Redirecionando de volta para a página inicial...",
-		});
-
-		return navigate({ to: "/" });
+	if (isAuthLoading || !isAuthenticated || areCompaniesLoading || !company) {
+		return <DashboardSkeleton />;
 	}
 
 	return (
