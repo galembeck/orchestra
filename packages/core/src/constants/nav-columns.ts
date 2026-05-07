@@ -19,7 +19,7 @@ export const navColumns = [
 	{
 		title: "SUPORTE",
 		links: [
-			{ label: "Central de ajuda", href: "/#help-center" },
+			{ label: "Central de ajuda", href: "/frequent-questions/companies" },
 			{ label: "Termos · LGPD", href: "/#terms" },
 			{ label: "Contato", href: "/#contact" },
 		],
