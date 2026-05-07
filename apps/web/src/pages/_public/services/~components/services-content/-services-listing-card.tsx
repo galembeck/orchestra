@@ -65,7 +65,7 @@ export function ServicesListingCard({
 					</div>
 				</div>
 
-				<div className="mt-1 flex items-center justify-between">
+				<div className="flex items-center justify-end gap-2">
 					<p className="font-jetbrains-mono font-medium text-[10px] text-foreground-tertiary uppercase tracking-wider">
 						A partir de
 					</p>

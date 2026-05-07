@@ -12,7 +12,7 @@ function ServicesPage() {
 		<main className="flex h-screen flex-col overflow-hidden">
 			<SearchHeader />
 
-			<div className="flex min-h-0 flex-1 flex-row">
+			<div className="flex min-h-0 flex-col gap-5 lg:flex-row lg:gap-0">
 				<ServicesListing />
 
 				<ServicesMap />
