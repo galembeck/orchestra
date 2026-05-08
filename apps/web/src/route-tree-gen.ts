@@ -16,9 +16,9 @@ import { Route as AuthSignInLayoutRouteImport } from './pages/_auth/sign-in/layo
 import { Route as ErrorNotFoundIndexRouteImport } from './pages/_error/not-found/index'
 import { Route as AuthSignUpIndexRouteImport } from './pages/_auth/sign-up/index'
 import { Route as AuthSignInIndexRouteImport } from './pages/_auth/sign-in/index'
-import { Route as AppClientMyAccountIndexRouteImport } from './pages/app/_client/my-account/index'
 import { Route as PublicnoAuthenticationServicesIndexRouteImport } from './pages/_public/_(no-authentication)/services/index'
 import { Route as PublicnoAuthenticationHelpCenterIndexRouteImport } from './pages/_public/_(no-authentication)/help-center/index'
+import { Route as PublicauthenticationMyAccountIndexRouteImport } from './pages/_public/_(authentication)/my-account/index'
 import { Route as AppCompanyorganizationSetCompanySlugLayoutRouteImport } from './pages/app/_company/_(organization-set)/$companySlug/layout'
 import { Route as AppCompanyorganizationSetCompanySlugIndexRouteImport } from './pages/app/_company/_(organization-set)/$companySlug/index'
 import { Route as PublicnoAuthenticationHelpCenterCompaniesIndexRouteImport } from './pages/_public/_(no-authentication)/help-center/companies/index'
@@ -58,11 +58,6 @@ const AuthSignInIndexRoute = AuthSignInIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthSignInLayoutRoute,
 } as any)
-const AppClientMyAccountIndexRoute = AppClientMyAccountIndexRouteImport.update({
-  id: '/app/_client/my-account/',
-  path: '/app/my-account/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PublicnoAuthenticationServicesIndexRoute =
   PublicnoAuthenticationServicesIndexRouteImport.update({
     id: '/_(no-authentication)/services/',
@@ -73,6 +68,12 @@ const PublicnoAuthenticationHelpCenterIndexRoute =
   PublicnoAuthenticationHelpCenterIndexRouteImport.update({
     id: '/_(no-authentication)/help-center/',
     path: '/help-center/',
+    getParentRoute: () => PublicLayoutRoute,
+  } as any)
+const PublicauthenticationMyAccountIndexRoute =
+  PublicauthenticationMyAccountIndexRouteImport.update({
+    id: '/_(authentication)/my-account/',
+    path: '/my-account/',
     getParentRoute: () => PublicLayoutRoute,
   } as any)
 const AppCompanyorganizationSetCompanySlugLayoutRoute =
@@ -108,9 +109,9 @@ export interface FileRoutesByFullPath {
   '/sign-up/': typeof AuthSignUpIndexRoute
   '/not-found/': typeof ErrorNotFoundIndexRoute
   '/app/$companySlug': typeof AppCompanyorganizationSetCompanySlugLayoutRouteWithChildren
+  '/my-account/': typeof PublicauthenticationMyAccountIndexRoute
   '/help-center/': typeof PublicnoAuthenticationHelpCenterIndexRoute
   '/services/': typeof PublicnoAuthenticationServicesIndexRoute
-  '/app/my-account/': typeof AppClientMyAccountIndexRoute
   '/help-center/companies/': typeof PublicnoAuthenticationHelpCenterCompaniesIndexRoute
   '/app/$companySlug/': typeof AppCompanyorganizationSetCompanySlugIndexRoute
   '/app/~/settings/': typeof AppCompanynoOrganizationSetChar126SettingsIndexRoute
@@ -120,9 +121,9 @@ export interface FileRoutesByTo {
   '/sign-in': typeof AuthSignInIndexRoute
   '/sign-up': typeof AuthSignUpIndexRoute
   '/not-found': typeof ErrorNotFoundIndexRoute
+  '/my-account': typeof PublicauthenticationMyAccountIndexRoute
   '/help-center': typeof PublicnoAuthenticationHelpCenterIndexRoute
   '/services': typeof PublicnoAuthenticationServicesIndexRoute
-  '/app/my-account': typeof AppClientMyAccountIndexRoute
   '/help-center/companies': typeof PublicnoAuthenticationHelpCenterCompaniesIndexRoute
   '/app/$companySlug': typeof AppCompanyorganizationSetCompanySlugIndexRoute
   '/app/~/settings': typeof AppCompanynoOrganizationSetChar126SettingsIndexRoute
@@ -137,9 +138,9 @@ export interface FileRoutesById {
   '/_auth/sign-up/': typeof AuthSignUpIndexRoute
   '/_error/not-found/': typeof ErrorNotFoundIndexRoute
   '/app/_company/_(organization-set)/$companySlug': typeof AppCompanyorganizationSetCompanySlugLayoutRouteWithChildren
+  '/_public/_(authentication)/my-account/': typeof PublicauthenticationMyAccountIndexRoute
   '/_public/_(no-authentication)/help-center/': typeof PublicnoAuthenticationHelpCenterIndexRoute
   '/_public/_(no-authentication)/services/': typeof PublicnoAuthenticationServicesIndexRoute
-  '/app/_client/my-account/': typeof AppClientMyAccountIndexRoute
   '/_public/_(no-authentication)/help-center/companies/': typeof PublicnoAuthenticationHelpCenterCompaniesIndexRoute
   '/app/_company/_(organization-set)/$companySlug/': typeof AppCompanyorganizationSetCompanySlugIndexRoute
   '/app/_company/_(no-organization-set)/~/settings/': typeof AppCompanynoOrganizationSetChar126SettingsIndexRoute
@@ -154,9 +155,9 @@ export interface FileRouteTypes {
     | '/sign-up/'
     | '/not-found/'
     | '/app/$companySlug'
+    | '/my-account/'
     | '/help-center/'
     | '/services/'
-    | '/app/my-account/'
     | '/help-center/companies/'
     | '/app/$companySlug/'
     | '/app/~/settings/'
@@ -166,9 +167,9 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/sign-up'
     | '/not-found'
+    | '/my-account'
     | '/help-center'
     | '/services'
-    | '/app/my-account'
     | '/help-center/companies'
     | '/app/$companySlug'
     | '/app/~/settings'
@@ -182,9 +183,9 @@ export interface FileRouteTypes {
     | '/_auth/sign-up/'
     | '/_error/not-found/'
     | '/app/_company/_(organization-set)/$companySlug'
+    | '/_public/_(authentication)/my-account/'
     | '/_public/_(no-authentication)/help-center/'
     | '/_public/_(no-authentication)/services/'
-    | '/app/_client/my-account/'
     | '/_public/_(no-authentication)/help-center/companies/'
     | '/app/_company/_(organization-set)/$companySlug/'
     | '/app/_company/_(no-organization-set)/~/settings/'
@@ -196,7 +197,6 @@ export interface RootRouteChildren {
   AuthSignUpLayoutRoute: typeof AuthSignUpLayoutRouteWithChildren
   ErrorNotFoundIndexRoute: typeof ErrorNotFoundIndexRoute
   AppCompanyorganizationSetCompanySlugLayoutRoute: typeof AppCompanyorganizationSetCompanySlugLayoutRouteWithChildren
-  AppClientMyAccountIndexRoute: typeof AppClientMyAccountIndexRoute
   AppCompanynoOrganizationSetChar126SettingsIndexRoute: typeof AppCompanynoOrganizationSetChar126SettingsIndexRoute
 }
 
@@ -251,13 +251,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignInIndexRouteImport
       parentRoute: typeof AuthSignInLayoutRoute
     }
-    '/app/_client/my-account/': {
-      id: '/app/_client/my-account/'
-      path: '/app/my-account'
-      fullPath: '/app/my-account/'
-      preLoaderRoute: typeof AppClientMyAccountIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_public/_(no-authentication)/services/': {
       id: '/_public/_(no-authentication)/services/'
       path: '/services'
@@ -270,6 +263,13 @@ declare module '@tanstack/react-router' {
       path: '/help-center'
       fullPath: '/help-center/'
       preLoaderRoute: typeof PublicnoAuthenticationHelpCenterIndexRouteImport
+      parentRoute: typeof PublicLayoutRoute
+    }
+    '/_public/_(authentication)/my-account/': {
+      id: '/_public/_(authentication)/my-account/'
+      path: '/my-account'
+      fullPath: '/my-account/'
+      preLoaderRoute: typeof PublicauthenticationMyAccountIndexRouteImport
       parentRoute: typeof PublicLayoutRoute
     }
     '/app/_company/_(organization-set)/$companySlug': {
@@ -305,6 +305,7 @@ declare module '@tanstack/react-router' {
 
 interface PublicLayoutRouteChildren {
   PublicIndexRoute: typeof PublicIndexRoute
+  PublicauthenticationMyAccountIndexRoute: typeof PublicauthenticationMyAccountIndexRoute
   PublicnoAuthenticationHelpCenterIndexRoute: typeof PublicnoAuthenticationHelpCenterIndexRoute
   PublicnoAuthenticationServicesIndexRoute: typeof PublicnoAuthenticationServicesIndexRoute
   PublicnoAuthenticationHelpCenterCompaniesIndexRoute: typeof PublicnoAuthenticationHelpCenterCompaniesIndexRoute
@@ -312,6 +313,8 @@ interface PublicLayoutRouteChildren {
 
 const PublicLayoutRouteChildren: PublicLayoutRouteChildren = {
   PublicIndexRoute: PublicIndexRoute,
+  PublicauthenticationMyAccountIndexRoute:
+    PublicauthenticationMyAccountIndexRoute,
   PublicnoAuthenticationHelpCenterIndexRoute:
     PublicnoAuthenticationHelpCenterIndexRoute,
   PublicnoAuthenticationServicesIndexRoute:
@@ -368,7 +371,6 @@ const rootRouteChildren: RootRouteChildren = {
   ErrorNotFoundIndexRoute: ErrorNotFoundIndexRoute,
   AppCompanyorganizationSetCompanySlugLayoutRoute:
     AppCompanyorganizationSetCompanySlugLayoutRouteWithChildren,
-  AppClientMyAccountIndexRoute: AppClientMyAccountIndexRoute,
   AppCompanynoOrganizationSetChar126SettingsIndexRoute:
     AppCompanynoOrganizationSetChar126SettingsIndexRoute,
 }
