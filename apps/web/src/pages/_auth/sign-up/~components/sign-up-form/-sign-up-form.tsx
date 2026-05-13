@@ -16,6 +16,7 @@ import {
 	type CompanyAddressStepValues,
 } from "./form-steps/company-registration/-company-address-step";
 import { AnalysisStep } from "./form-steps/company-registration/-company-analysis-step";
+import { RegistrationErrorStep } from "./form-steps/company-registration/-company-registration-error-step";
 import { CompanyDocumentStep } from "./form-steps/company-registration/-company-document-step";
 import {
 	CompanyInformationStep,
@@ -30,10 +31,14 @@ interface SignUpData {
 	companyInformation?: CompanyInformationStepValues;
 }
 
+type RegistrationStatus = "idle" | "success" | "error";
+
 export function SignUpForm() {
 	const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4 | 5>(1);
-
 	const [formData, setFormData] = useState<SignUpData>({});
+	const [registrationStatus, setRegistrationStatus] =
+		useState<RegistrationStatus>("idle");
+	const [registrationError, setRegistrationError] = useState<string>("");
 
 	const selectedAccountType =
 		formData.account?.accountType || ACCOUNT_TYPE.COMPANY;
@@ -85,36 +90,54 @@ export function SignUpForm() {
 			toast.error("Ocorreu um erro ao registrar a empresa.", {
 				description: "Os dados para cadastro estão incompletos.",
 			});
-
 			return;
 		}
 
-		registerCompany({
-			ownerName: finalData.account.name,
-			ownerEmail: finalData.account.email,
-			ownerDocument: finalData.account.document,
-			ownerPassword: finalData.account.password,
-			ownerCellphone: finalData.account.cellphone,
-			acceptTerms: finalData.account.acceptTerms,
+		registerCompany(
+			{
+				ownerName: finalData.account.name,
+				ownerEmail: finalData.account.email,
+				ownerDocument: finalData.account.document,
+				ownerPassword: finalData.account.password,
+				ownerCellphone: finalData.account.cellphone,
+				acceptTerms: finalData.account.acceptTerms,
 
-			zipcode: finalData.companyAddress.zipcode,
-			address: finalData.companyAddress.address,
-			number: finalData.companyAddress.number,
-			complement: finalData.companyAddress.complement,
-			neighborhood: finalData.companyAddress.neighborhood,
-			city: finalData.companyAddress.city,
-			state: finalData.companyAddress.state,
+				zipcode: finalData.companyAddress.zipcode,
+				address: finalData.companyAddress.address,
+				number: finalData.companyAddress.number,
+				complement: finalData.companyAddress.complement,
+				neighborhood: finalData.companyAddress.neighborhood,
+				city: finalData.companyAddress.city,
+				state: finalData.companyAddress.state,
 
-			segment: finalData.companyInformation.segment,
-			cnpj: finalData.companyInformation.cnpj,
-			fantasyName: finalData.companyInformation.fantasyName,
-			socialReason: finalData.companyInformation.socialReason,
+				segment: finalData.companyInformation.segment,
+				cnpj: finalData.companyInformation.cnpj,
+				fantasyName: finalData.companyInformation.fantasyName,
+				socialReason: finalData.companyInformation.socialReason,
 
-			cnpjDocument: finalData.companyDocuments.cnpjDocument,
-			addressProof: finalData.companyDocuments.addressProof,
-			ownerIdentity: finalData.companyDocuments.ownerIdentity,
-			operatingLicense: finalData.companyDocuments.operatingLicense,
-		});
+				cnpjDocument: finalData.companyDocuments.cnpjDocument,
+				addressProof: finalData.companyDocuments.addressProof,
+				ownerIdentity: finalData.companyDocuments.ownerIdentity,
+				operatingLicense: finalData.companyDocuments.operatingLicense,
+			},
+			{
+				onSuccess: () => {
+					setRegistrationStatus("success");
+					setCurrentStep(5);
+				},
+				onError: (err) => {
+					setRegistrationError(err.message || "");
+					setRegistrationStatus("error");
+					setCurrentStep(5);
+				},
+			},
+		);
+	};
+
+	const handleRetry = () => {
+		setRegistrationStatus("idle");
+		setRegistrationError("");
+		setCurrentStep(4);
 	};
 
 	return (
@@ -183,20 +206,27 @@ export function SignUpForm() {
 							}));
 							setCurrentStep(3);
 						}}
-						onComplete={(companyDocuments) => {
-							handleCompanySubmit(companyDocuments);
-							setCurrentStep(5);
-						}}
+						onComplete={handleCompanySubmit}
 					/>
 				)}
 
 			{currentStep === 5 &&
-				formData.account?.accountType === ACCOUNT_TYPE.COMPANY && (
+				formData.account?.accountType === ACCOUNT_TYPE.COMPANY &&
+				registrationStatus === "success" && (
 					<AnalysisStep
 						companyName={
 							formData.companyInformation?.fantasyName ||
 							formData.companyInformation?.socialReason
 						}
+					/>
+				)}
+
+			{currentStep === 5 &&
+				formData.account?.accountType === ACCOUNT_TYPE.COMPANY &&
+				registrationStatus === "error" && (
+					<RegistrationErrorStep
+						errorMessage={registrationError}
+						onRetry={handleRetry}
 					/>
 				)}
 		</div>

@@ -39,9 +39,20 @@ import {
 import z from "zod";
 import { LABEL_CLASS } from "@/constants/_auth/styles/label-class";
 
+const SELF_SIGNUP_ACCOUNT_TYPES = ACCOUNT_TYPE_OPTIONS.filter(
+	(option) => option.value !== ACCOUNT_TYPE.WORKER
+);
+
 const accountStepSchema = z
 	.object({
-		accountType: z.enum(ACCOUNT_TYPE),
+		accountType: z.enum(ACCOUNT_TYPE).superRefine((value, ctx) => {
+			if (value === ACCOUNT_TYPE.WORKER) {
+				ctx.addIssue({
+					code: "custom",
+					message: "Profissionais entram pelo convite enviado pela empresa.",
+				});
+			}
+		}),
 		name: z.string().min(3, "Nome completo é obrigatório."),
 		email: z.email("O e-mail deve ter um formato válido."),
 		cellphone: z
@@ -144,7 +155,7 @@ export function AccountStep({ onComplete, initialData }: AccountStepProps) {
 									<FieldLabel className={LABEL_CLASS}>Tipo de conta</FieldLabel>
 
 									<div className="grid grid-cols-2 gap-2">
-										{ACCOUNT_TYPE_OPTIONS.map(
+										{SELF_SIGNUP_ACCOUNT_TYPES.map(
 											({ value, label, icon: Icon }) => {
 												const isSelected = field.state.value === value;
 
