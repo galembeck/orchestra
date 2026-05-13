@@ -114,9 +114,7 @@ export function CompanySwitcher({
 							<DropdownMenuItem
 								className="cursor-pointer gap-2 p-2"
 								key={company.id}
-								onClick={() =>
-									navigate({ to: `/company/${company.id}/dashboard` })
-								}
+								onClick={() => navigate({ to: `/app/${company.slug}` })}
 							>
 								<div className="flex size-6 items-center justify-center rounded-md border border-border">
 									<Building2 className="size-3.5 shrink-0 text-foreground-secondary" />

@@ -33,7 +33,7 @@
 	--color-warning: oklch(0.6475 0.1408 66.02);
 	--color-danger: oklch(0.5127 0.1648 25.14);
 
-	--radius-toast: 8px;
+	--radius-toast: 12px;
 }
 
 @custom-variant dark (&:where(.dark, .dark *));

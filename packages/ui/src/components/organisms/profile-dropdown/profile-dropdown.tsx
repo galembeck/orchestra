@@ -91,7 +91,7 @@ export function ProfileDropdown() {
 
 					<DropdownMenuItem
 						className="flex cursor-pointer items-center justify-between"
-						onClick={() => navigate({ to: "/" })}
+						onClick={() => navigate({ to: "/my-account" })}
 					>
 						<span className="flex items-center gap-2">
 							<User className="h-4 w-4" />
