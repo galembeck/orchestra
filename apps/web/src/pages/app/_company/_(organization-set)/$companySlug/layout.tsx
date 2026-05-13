@@ -24,7 +24,7 @@ import {
 import { Fragment, useEffect, useMemo } from "react";
 import { toast } from "sonner";
 import { DashboardSkeleton } from "@/components/organisms/dashboard-skeleton/dashboard-skeleton";
-import { BREADCRUMB_LABELS } from "@/constants/_app/company/breadcrumb-labels";
+import { buildBreadcrumbs } from "@/utils/build-breadcrumb";
 import { DashboardSidebar } from "../../~components/-dashboard-sidebar";
 import { ContentSearch } from "../../~components/sidebar-elements/sidebar-header/-content-search";
 
@@ -105,7 +105,8 @@ function CompanyDashboardLayout() {
 
 							<article className="flex flex-col gap-2">
 								<span className="font-jetbrains-mono font-medium text-[10px] text-foreground-tertiary uppercase tracking-[1.5px]">
-									Painel · {new Date().toLocaleDateString()}
+									Painel · {company.fantasyName} ·{" "}
+									{new Date().toLocaleDateString()}
 								</span>
 
 								<h1 className="font-instrument-serif text-2xl text-foreground-primary">
@@ -162,37 +163,4 @@ function CompanyDashboardLayout() {
 			</SidebarProvider>
 		</main>
 	);
-}
-
-interface Crumb {
-	href: string;
-	label: string;
-}
-
-function buildBreadcrumbs(pathname: string, companySlug: string): Crumb[] {
-	const segments = pathname.split("/").filter(Boolean);
-	const crumbs: Crumb[] = [];
-
-	let acc = "";
-	for (const segment of segments) {
-		acc += `/${segment}`;
-
-		if (segment === "app") {
-			continue;
-		}
-
-		if (segment === companySlug) {
-			crumbs.push({ href: acc, label: BREADCRUMB_LABELS.overview });
-			continue;
-		}
-
-		const label = BREADCRUMB_LABELS[segment];
-		if (!label) {
-			continue;
-		}
-
-		crumbs.push({ href: acc, label });
-	}
-
-	return crumbs;
 }

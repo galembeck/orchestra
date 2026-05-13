@@ -20,9 +20,12 @@ import { Route as PublicnoAuthenticationServicesIndexRouteImport } from './pages
 import { Route as PublicnoAuthenticationHelpCenterIndexRouteImport } from './pages/_public/_(no-authentication)/help-center/index'
 import { Route as PublicauthenticationMyAccountIndexRouteImport } from './pages/_public/_(authentication)/my-account/index'
 import { Route as AppCompanyorganizationSetCompanySlugLayoutRouteImport } from './pages/app/_company/_(organization-set)/$companySlug/layout'
-import { Route as AppCompanyorganizationSetCompanySlugIndexRouteImport } from './pages/app/_company/_(organization-set)/$companySlug/index'
 import { Route as PublicnoAuthenticationHelpCenterCompaniesIndexRouteImport } from './pages/_public/_(no-authentication)/help-center/companies/index'
+import { Route as AppCompanyorganizationSetCompanySlugConfigurationIndexRouteImport } from './pages/app/_company/_(organization-set)/$companySlug/configuration/index'
 import { Route as AppCompanynoOrganizationSetChar126SettingsIndexRouteImport } from './pages/app/_company/_(no-organization-set)/~/settings/index'
+import { Route as AppCompanyorganizationSetCompanySlugOperationTeamIndexRouteImport } from './pages/app/_company/_(organization-set)/$companySlug/_operation/team/index'
+import { Route as AppCompanyorganizationSetCompanySlugOperationServicesIndexRouteImport } from './pages/app/_company/_(organization-set)/$companySlug/_operation/services/index'
+import { Route as AppCompanyorganizationSetCompanySlugOperationOverviewIndexRouteImport } from './pages/app/_company/_(organization-set)/$companySlug/_operation/_overview/index'
 
 const PublicLayoutRoute = PublicLayoutRouteImport.update({
   id: '/_public',
@@ -82,23 +85,41 @@ const AppCompanyorganizationSetCompanySlugLayoutRoute =
     path: '/app/$companySlug',
     getParentRoute: () => rootRouteImport,
   } as any)
-const AppCompanyorganizationSetCompanySlugIndexRoute =
-  AppCompanyorganizationSetCompanySlugIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => AppCompanyorganizationSetCompanySlugLayoutRoute,
-  } as any)
 const PublicnoAuthenticationHelpCenterCompaniesIndexRoute =
   PublicnoAuthenticationHelpCenterCompaniesIndexRouteImport.update({
     id: '/_(no-authentication)/help-center/companies/',
     path: '/help-center/companies/',
     getParentRoute: () => PublicLayoutRoute,
   } as any)
+const AppCompanyorganizationSetCompanySlugConfigurationIndexRoute =
+  AppCompanyorganizationSetCompanySlugConfigurationIndexRouteImport.update({
+    id: '/configuration/',
+    path: '/configuration/',
+    getParentRoute: () => AppCompanyorganizationSetCompanySlugLayoutRoute,
+  } as any)
 const AppCompanynoOrganizationSetChar126SettingsIndexRoute =
   AppCompanynoOrganizationSetChar126SettingsIndexRouteImport.update({
     id: '/app/_company/_(no-organization-set)/~/settings/',
     path: '/app/~/settings/',
     getParentRoute: () => rootRouteImport,
+  } as any)
+const AppCompanyorganizationSetCompanySlugOperationTeamIndexRoute =
+  AppCompanyorganizationSetCompanySlugOperationTeamIndexRouteImport.update({
+    id: '/_operation/team/',
+    path: '/team/',
+    getParentRoute: () => AppCompanyorganizationSetCompanySlugLayoutRoute,
+  } as any)
+const AppCompanyorganizationSetCompanySlugOperationServicesIndexRoute =
+  AppCompanyorganizationSetCompanySlugOperationServicesIndexRouteImport.update({
+    id: '/_operation/services/',
+    path: '/services/',
+    getParentRoute: () => AppCompanyorganizationSetCompanySlugLayoutRoute,
+  } as any)
+const AppCompanyorganizationSetCompanySlugOperationOverviewIndexRoute =
+  AppCompanyorganizationSetCompanySlugOperationOverviewIndexRouteImport.update({
+    id: '/_operation/_overview/',
+    path: '/',
+    getParentRoute: () => AppCompanyorganizationSetCompanySlugLayoutRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -113,8 +134,11 @@ export interface FileRoutesByFullPath {
   '/help-center/': typeof PublicnoAuthenticationHelpCenterIndexRoute
   '/services/': typeof PublicnoAuthenticationServicesIndexRoute
   '/help-center/companies/': typeof PublicnoAuthenticationHelpCenterCompaniesIndexRoute
-  '/app/$companySlug/': typeof AppCompanyorganizationSetCompanySlugIndexRoute
   '/app/~/settings/': typeof AppCompanynoOrganizationSetChar126SettingsIndexRoute
+  '/app/$companySlug/configuration/': typeof AppCompanyorganizationSetCompanySlugConfigurationIndexRoute
+  '/app/$companySlug/': typeof AppCompanyorganizationSetCompanySlugOperationOverviewIndexRoute
+  '/app/$companySlug/services/': typeof AppCompanyorganizationSetCompanySlugOperationServicesIndexRoute
+  '/app/$companySlug/team/': typeof AppCompanyorganizationSetCompanySlugOperationTeamIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof PublicIndexRoute
@@ -125,8 +149,11 @@ export interface FileRoutesByTo {
   '/help-center': typeof PublicnoAuthenticationHelpCenterIndexRoute
   '/services': typeof PublicnoAuthenticationServicesIndexRoute
   '/help-center/companies': typeof PublicnoAuthenticationHelpCenterCompaniesIndexRoute
-  '/app/$companySlug': typeof AppCompanyorganizationSetCompanySlugIndexRoute
   '/app/~/settings': typeof AppCompanynoOrganizationSetChar126SettingsIndexRoute
+  '/app/$companySlug/configuration': typeof AppCompanyorganizationSetCompanySlugConfigurationIndexRoute
+  '/app/$companySlug': typeof AppCompanyorganizationSetCompanySlugOperationOverviewIndexRoute
+  '/app/$companySlug/services': typeof AppCompanyorganizationSetCompanySlugOperationServicesIndexRoute
+  '/app/$companySlug/team': typeof AppCompanyorganizationSetCompanySlugOperationTeamIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -142,8 +169,11 @@ export interface FileRoutesById {
   '/_public/_(no-authentication)/help-center/': typeof PublicnoAuthenticationHelpCenterIndexRoute
   '/_public/_(no-authentication)/services/': typeof PublicnoAuthenticationServicesIndexRoute
   '/_public/_(no-authentication)/help-center/companies/': typeof PublicnoAuthenticationHelpCenterCompaniesIndexRoute
-  '/app/_company/_(organization-set)/$companySlug/': typeof AppCompanyorganizationSetCompanySlugIndexRoute
   '/app/_company/_(no-organization-set)/~/settings/': typeof AppCompanynoOrganizationSetChar126SettingsIndexRoute
+  '/app/_company/_(organization-set)/$companySlug/configuration/': typeof AppCompanyorganizationSetCompanySlugConfigurationIndexRoute
+  '/app/_company/_(organization-set)/$companySlug/_operation/_overview/': typeof AppCompanyorganizationSetCompanySlugOperationOverviewIndexRoute
+  '/app/_company/_(organization-set)/$companySlug/_operation/services/': typeof AppCompanyorganizationSetCompanySlugOperationServicesIndexRoute
+  '/app/_company/_(organization-set)/$companySlug/_operation/team/': typeof AppCompanyorganizationSetCompanySlugOperationTeamIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -159,8 +189,11 @@ export interface FileRouteTypes {
     | '/help-center/'
     | '/services/'
     | '/help-center/companies/'
-    | '/app/$companySlug/'
     | '/app/~/settings/'
+    | '/app/$companySlug/configuration/'
+    | '/app/$companySlug/'
+    | '/app/$companySlug/services/'
+    | '/app/$companySlug/team/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -171,8 +204,11 @@ export interface FileRouteTypes {
     | '/help-center'
     | '/services'
     | '/help-center/companies'
-    | '/app/$companySlug'
     | '/app/~/settings'
+    | '/app/$companySlug/configuration'
+    | '/app/$companySlug'
+    | '/app/$companySlug/services'
+    | '/app/$companySlug/team'
   id:
     | '__root__'
     | '/_public'
@@ -187,8 +223,11 @@ export interface FileRouteTypes {
     | '/_public/_(no-authentication)/help-center/'
     | '/_public/_(no-authentication)/services/'
     | '/_public/_(no-authentication)/help-center/companies/'
-    | '/app/_company/_(organization-set)/$companySlug/'
     | '/app/_company/_(no-organization-set)/~/settings/'
+    | '/app/_company/_(organization-set)/$companySlug/configuration/'
+    | '/app/_company/_(organization-set)/$companySlug/_operation/_overview/'
+    | '/app/_company/_(organization-set)/$companySlug/_operation/services/'
+    | '/app/_company/_(organization-set)/$companySlug/_operation/team/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -279,13 +318,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppCompanyorganizationSetCompanySlugLayoutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/app/_company/_(organization-set)/$companySlug/': {
-      id: '/app/_company/_(organization-set)/$companySlug/'
-      path: '/'
-      fullPath: '/app/$companySlug/'
-      preLoaderRoute: typeof AppCompanyorganizationSetCompanySlugIndexRouteImport
-      parentRoute: typeof AppCompanyorganizationSetCompanySlugLayoutRoute
-    }
     '/_public/_(no-authentication)/help-center/companies/': {
       id: '/_public/_(no-authentication)/help-center/companies/'
       path: '/help-center/companies'
@@ -293,12 +325,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicnoAuthenticationHelpCenterCompaniesIndexRouteImport
       parentRoute: typeof PublicLayoutRoute
     }
+    '/app/_company/_(organization-set)/$companySlug/configuration/': {
+      id: '/app/_company/_(organization-set)/$companySlug/configuration/'
+      path: '/configuration'
+      fullPath: '/app/$companySlug/configuration/'
+      preLoaderRoute: typeof AppCompanyorganizationSetCompanySlugConfigurationIndexRouteImport
+      parentRoute: typeof AppCompanyorganizationSetCompanySlugLayoutRoute
+    }
     '/app/_company/_(no-organization-set)/~/settings/': {
       id: '/app/_company/_(no-organization-set)/~/settings/'
       path: '/app/~/settings'
       fullPath: '/app/~/settings/'
       preLoaderRoute: typeof AppCompanynoOrganizationSetChar126SettingsIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/app/_company/_(organization-set)/$companySlug/_operation/team/': {
+      id: '/app/_company/_(organization-set)/$companySlug/_operation/team/'
+      path: '/team'
+      fullPath: '/app/$companySlug/team/'
+      preLoaderRoute: typeof AppCompanyorganizationSetCompanySlugOperationTeamIndexRouteImport
+      parentRoute: typeof AppCompanyorganizationSetCompanySlugLayoutRoute
+    }
+    '/app/_company/_(organization-set)/$companySlug/_operation/services/': {
+      id: '/app/_company/_(organization-set)/$companySlug/_operation/services/'
+      path: '/services'
+      fullPath: '/app/$companySlug/services/'
+      preLoaderRoute: typeof AppCompanyorganizationSetCompanySlugOperationServicesIndexRouteImport
+      parentRoute: typeof AppCompanyorganizationSetCompanySlugLayoutRoute
+    }
+    '/app/_company/_(organization-set)/$companySlug/_operation/_overview/': {
+      id: '/app/_company/_(organization-set)/$companySlug/_operation/_overview/'
+      path: '/'
+      fullPath: '/app/$companySlug/'
+      preLoaderRoute: typeof AppCompanyorganizationSetCompanySlugOperationOverviewIndexRouteImport
+      parentRoute: typeof AppCompanyorganizationSetCompanySlugLayoutRoute
     }
   }
 }
@@ -350,13 +410,22 @@ const AuthSignUpLayoutRouteWithChildren =
   AuthSignUpLayoutRoute._addFileChildren(AuthSignUpLayoutRouteChildren)
 
 interface AppCompanyorganizationSetCompanySlugLayoutRouteChildren {
-  AppCompanyorganizationSetCompanySlugIndexRoute: typeof AppCompanyorganizationSetCompanySlugIndexRoute
+  AppCompanyorganizationSetCompanySlugConfigurationIndexRoute: typeof AppCompanyorganizationSetCompanySlugConfigurationIndexRoute
+  AppCompanyorganizationSetCompanySlugOperationOverviewIndexRoute: typeof AppCompanyorganizationSetCompanySlugOperationOverviewIndexRoute
+  AppCompanyorganizationSetCompanySlugOperationServicesIndexRoute: typeof AppCompanyorganizationSetCompanySlugOperationServicesIndexRoute
+  AppCompanyorganizationSetCompanySlugOperationTeamIndexRoute: typeof AppCompanyorganizationSetCompanySlugOperationTeamIndexRoute
 }
 
 const AppCompanyorganizationSetCompanySlugLayoutRouteChildren: AppCompanyorganizationSetCompanySlugLayoutRouteChildren =
   {
-    AppCompanyorganizationSetCompanySlugIndexRoute:
-      AppCompanyorganizationSetCompanySlugIndexRoute,
+    AppCompanyorganizationSetCompanySlugConfigurationIndexRoute:
+      AppCompanyorganizationSetCompanySlugConfigurationIndexRoute,
+    AppCompanyorganizationSetCompanySlugOperationOverviewIndexRoute:
+      AppCompanyorganizationSetCompanySlugOperationOverviewIndexRoute,
+    AppCompanyorganizationSetCompanySlugOperationServicesIndexRoute:
+      AppCompanyorganizationSetCompanySlugOperationServicesIndexRoute,
+    AppCompanyorganizationSetCompanySlugOperationTeamIndexRoute:
+      AppCompanyorganizationSetCompanySlugOperationTeamIndexRoute,
   }
 
 const AppCompanyorganizationSetCompanySlugLayoutRouteWithChildren =
