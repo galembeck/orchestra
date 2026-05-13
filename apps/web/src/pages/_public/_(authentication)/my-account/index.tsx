@@ -1,4 +1,6 @@
 import { useAuth } from "@repo/core/hooks/services/use-auth";
+import type { PublicUserDTO } from "@repo/core/models/user.model";
+import { ACCOUNT_TYPE } from "@repo/core/types/enums/account-type";
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -9,7 +11,10 @@ import {
 } from "@repo/ui/components/molecules/breadcrumb/breadcrumb";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PUBLIC_BREADCRUMB_LABELS } from "@/constants/_public/breadcrumb-labels";
-import { ProfileInformationCard } from "./~components/-profile-information-card";
+import { AccountSkeleton } from "./~components/-account-skeleton";
+import { ClientProfile } from "./~components/-client-profile";
+import { CompanyProfile } from "./~components/-company-profile";
+import { WorkerProfile } from "./~components/-worker-profile";
 
 export const Route = createFileRoute("/_public/_(authentication)/my-account/")({
 	component: AccountPage,
@@ -18,12 +23,20 @@ export const Route = createFileRoute("/_public/_(authentication)/my-account/")({
 	}),
 });
 
-function AccountPage() {
-	const { user } = useAuth();
-
-	if (!user) {
-		return null;
+function AccountVariant({ user }: { user: PublicUserDTO }) {
+	if (user.accountType === ACCOUNT_TYPE.WORKER) {
+		return <WorkerProfile user={user} />;
 	}
+
+	if (user.accountType === ACCOUNT_TYPE.COMPANY) {
+		return <CompanyProfile user={user} />;
+	}
+
+	return <ClientProfile user={user} />;
+}
+
+function AccountPage() {
+	const { user, isLoading } = useAuth();
 
 	return (
 		<main className="flex flex-col px-5 lg:px-20">
@@ -52,8 +65,12 @@ function AccountPage() {
 				</Breadcrumb>
 			</header>
 
-			<div className="pt-5 pb-8">
-				<ProfileInformationCard user={user} />
+			<div className="pt-5 pb-12">
+				{isLoading || !user ? (
+					<AccountSkeleton />
+				) : (
+					<AccountVariant user={user} />
+				)}
 			</div>
 		</main>
 	);
