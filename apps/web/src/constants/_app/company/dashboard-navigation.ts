@@ -15,7 +15,7 @@ export const searchNavigationItems: NavigationItem[] = [
 	{
 		id: "overview",
 		title: "Visão geral",
-		url: "/company/$companySlug/overview",
+		url: "/app/$companySlug",
 		description:
 			"Visão geral do painel administrativo com métricas gerais e informações relevantes sobre seu perfil e sua empresa.",
 		group: "Operação",
@@ -27,7 +27,7 @@ export const searchNavigationItems: NavigationItem[] = [
 	{
 		id: "orders",
 		title: "Pedidos",
-		url: "/company/$companySlug/orders",
+		url: "/app/$companySlug/orders",
 		description:
 			"Histórico de pedidos e acompanhamento de atendimentos aos clientes aguardando atendimento e/ou já atendidos.",
 		group: "Operação",
@@ -37,7 +37,7 @@ export const searchNavigationItems: NavigationItem[] = [
 	{
 		id: "conversations",
 		title: "Conversas",
-		url: "/company/$companySlug/conversations",
+		url: "/app/$companySlug/conversations",
 		description:
 			"Histórico de conversas e canais de bate-papo com os clientes de sua empresa.",
 		group: "Operação",
@@ -48,7 +48,7 @@ export const searchNavigationItems: NavigationItem[] = [
 	{
 		id: "calendar",
 		title: "Agenda",
-		url: "/company/$companySlug/calendar",
+		url: "/app/$companySlug/calendar",
 		description:
 			"Visão geral das atividades e apontamentos passadas e futuras para atendimento.",
 		group: "Operação",
@@ -58,7 +58,7 @@ export const searchNavigationItems: NavigationItem[] = [
 	{
 		id: "team",
 		title: "Equipe",
-		url: "/company/$companySlug/team",
+		url: "/app/$companySlug/team",
 		description:
 			"Visão geral, gestão e acompanhamento dos demais funcionários de sua empresa.",
 		group: "Operação",
@@ -69,7 +69,7 @@ export const searchNavigationItems: NavigationItem[] = [
 	{
 		id: "payments",
 		title: "Pagamentos",
-		url: "/company/$companySlug/payments",
+		url: "/app/$companySlug/payments",
 		description:
 			"Visão geral, histórico e acompanhamento dos pagamentos pendentes e/ou aprovados.",
 		group: "Negócio",
@@ -80,7 +80,7 @@ export const searchNavigationItems: NavigationItem[] = [
 	{
 		id: "report",
 		title: "Relatórios",
-		url: "/company/$companySlug/report",
+		url: "/app/$companySlug/report",
 		description: "Geração de relatórios e análises de dados de sua empresa.",
 		group: "Negócio",
 		icon: dashboardData.primary.find((item) => item.title === "Relatórios")
@@ -90,7 +90,7 @@ export const searchNavigationItems: NavigationItem[] = [
 	{
 		id: "reviews",
 		title: "Avaliações",
-		url: "/company/$companySlug/reviews",
+		url: "/app/$companySlug/reviews",
 		description:
 			"Histório de avaliações de atendimentos, funcionários, entre outras.",
 		group: "Negócio",
