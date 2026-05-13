@@ -45,7 +45,33 @@ export interface PublicUserDTO {
 	receiveWhatsappOffers?: boolean;
 	state: string;
 	updatedAt?: string;
+	company?: CompanyContextDTO;
+	worker?: WorkerContextDTO;
 	zipcode: string;
+}
+
+export interface CompanyContextDTO {
+	approvalStatus: "PENDING" | "APPROVED" | "REJECTED";
+	approvedAt?: string;
+	city: string;
+	cnpj: string;
+	companyId: string;
+	fantasyName: string;
+	isOwner: boolean;
+	socialReason: string;
+	state: string;
+}
+
+export interface WorkerContextDTO {
+	companyCnpj: string;
+	companyFantasyName: string;
+	companyId: string;
+	companySocialReason: string;
+	isOwner: boolean;
+	memberSince: string;
+	roleId: string;
+	roleKey: string;
+	roleName: string;
 }
 
 export interface UpdateProfileDTO {

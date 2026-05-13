@@ -2,11 +2,13 @@ import { API } from "../api/connection/api.js";
 import type {
 	AssignRoleDTO,
 	CompanyDocumentDTO,
+	CompanyInvitationDTO,
 	CompanyMemberDTO,
 	InviteMemberDTO,
 	PublicCompanyDTO,
 	RegisterCompanyDTO,
 	RejectCompanyDTO,
+	UpdateCompanyConfigurationDTO,
 	UpdateCompanyDTO,
 } from "../models/company.model.js";
 
@@ -48,6 +50,9 @@ export const companyService = {
 	update: (companyId: string, data: UpdateCompanyDTO) =>
 		API.put<PublicCompanyDTO>(`/company/${companyId}`, data),
 
+	updateConfiguration: (companyId: string, data: UpdateCompanyConfigurationDTO) =>
+		API.patch<PublicCompanyDTO>(`/company/${companyId}/configuration`, data),
+
 	getDocuments: (companyId: string) =>
 		API.get<CompanyDocumentDTO[]>(`/company/${companyId}/documents`),
 
@@ -73,4 +78,34 @@ export const companyService = {
 			`/company/${companyId}/members/${userId}/role`,
 			data
 		),
+
+	getInvitations: (companyId: string) =>
+		API.get<CompanyInvitationDTO[]>(`/company/${companyId}/invitations`),
+
+	resendInvitation: (companyId: string, invitationId: string) =>
+		API.post<CompanyInvitationDTO>(
+			`/company/${companyId}/invitations/${invitationId}/resend`
+		),
+
+	revokeInvitation: (companyId: string, invitationId: string) =>
+		API.delete<void>(`/company/${companyId}/invitations/${invitationId}`),
+
+	exportMembersCsv: async (companyId: string) => {
+		const res = await fetch(
+			`http://localhost:5005/company/${companyId}/members/export`,
+			{ credentials: "include" }
+		);
+
+		if (!res.ok) {
+			throw new Error(`Falha ao exportar (${res.status})`);
+		}
+
+		const blob = await res.blob();
+		const disposition = res.headers.get("content-disposition") ?? "";
+		const filename =
+			/filename="?([^";]+)"?/i.exec(disposition)?.[1] ??
+			`equipe-${companyId}.csv`;
+
+		return { blob, filename };
+	},
 };

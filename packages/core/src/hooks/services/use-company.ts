@@ -1,6 +1,7 @@
 import type {
 	RegisterCompanyDTO,
 	RejectCompanyDTO,
+	UpdateCompanyConfigurationDTO,
 	UpdateCompanyDTO,
 } from "@core/models/company.model.js";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -72,6 +73,24 @@ export function useCompany(companyId: string | undefined) {
 		queryKey: ["companies", companyId],
 		queryFn: () => companyService.getById(companyId as string),
 		enabled: !!companyId,
+	});
+}
+
+export function useUpdateCompanyConfiguration(companyId: string) {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: (data: UpdateCompanyConfigurationDTO) =>
+			companyService.updateConfiguration(companyId, data),
+
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["companies", companyId] });
+			queryClient.invalidateQueries({ queryKey: ["companies", "me"] });
+
+			toast.success("Configuração salva com sucesso!");
+		},
+		onError: (err) =>
+			toast.error("Erro ao salvar configuração.", { description: err.message }),
 	});
 }
 
@@ -185,6 +204,88 @@ export function useUpdateMemberRole(companyId: string) {
 			queryClient.invalidateQueries({
 				queryKey: ["companies", companyId, "members"],
 			}),
+	});
+}
+
+export function useCompanyInvitations(companyId: string | undefined) {
+	return useQuery({
+		queryKey: ["companies", companyId, "invitations"],
+
+		queryFn: () => {
+			if (!companyId) {
+				toast.error("Não foi possível carregar os convites.", {
+					description: "O identificador (ID) da empresa está ausente.",
+				});
+
+				return null;
+			}
+
+			return companyService.getInvitations(companyId);
+		},
+
+		enabled: !!companyId,
+	});
+}
+
+export function useResendInvitation(companyId: string) {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: (invitationId: string) =>
+			companyService.resendInvitation(companyId, invitationId),
+
+		onSuccess: () => {
+			queryClient.invalidateQueries({
+				queryKey: ["companies", companyId, "invitations"],
+			});
+
+			toast.success("Convite reenviado com sucesso!");
+		},
+
+		onError: (err) =>
+			toast.error("Erro ao reenviar convite.", { description: err.message }),
+	});
+}
+
+export function useRevokeInvitation(companyId: string) {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: (invitationId: string) =>
+			companyService.revokeInvitation(companyId, invitationId),
+
+		onSuccess: () => {
+			queryClient.invalidateQueries({
+				queryKey: ["companies", companyId, "invitations"],
+			});
+
+			toast.success("Convite revogado.");
+		},
+
+		onError: (err) =>
+			toast.error("Erro ao revogar convite.", { description: err.message }),
+	});
+}
+
+export function useExportMembersCsv(companyId: string) {
+	return useMutation({
+		mutationFn: () => companyService.exportMembersCsv(companyId),
+
+		onSuccess: ({ blob, filename }) => {
+			const url = URL.createObjectURL(blob);
+			const a = document.createElement("a");
+			a.href = url;
+			a.download = filename;
+			document.body.appendChild(a);
+			a.click();
+			a.remove();
+			URL.revokeObjectURL(url);
+
+			toast.success("CSV exportado com sucesso!");
+		},
+
+		onError: (err) =>
+			toast.error("Erro ao exportar CSV.", { description: err.message }),
 	});
 }
 

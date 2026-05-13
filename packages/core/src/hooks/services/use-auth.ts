@@ -14,7 +14,7 @@ export function useAuth() {
 
 	const queryClient = useQueryClient();
 
-	const { user, isAuthenticated, refetch } = useAuthProvider();
+	const { user, isAuthenticated, isLoading, refetch } = useAuthProvider();
 
 	const [serverError, setServerError] = useState("");
 
@@ -75,5 +75,6 @@ export function useAuth() {
 		setServerError,
 		user,
 		isAuthenticated,
+		isLoading,
 	};
 }
