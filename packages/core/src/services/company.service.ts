@@ -25,20 +25,21 @@ const appendIfDefined = (fd: FormData, key: string, value: unknown) => {
 };
 
 export const companyService = {
-	register: (data: RegisterCompanyDTO) => {
-		const fd = new FormData();
-
-		const entries = Object.entries(data) as [
-			keyof RegisterCompanyDTO,
-			unknown,
-		][];
-
-		for (const [key, value] of entries) {
-			appendIfDefined(fd, key, value);
-		}
-
-		return API.postForm<PublicCompanyDTO>("/company/register", fd);
-	},
+	register: (data: RegisterCompanyDTO) =>
+		API.post<{ userId: string; companyId: string }>("/auth/register/owner", {
+			name: data.ownerName,
+			email: data.ownerEmail,
+			document: data.ownerDocument.replace(/\D/g, ""),
+			cellphone: data.ownerCellphone.replace(/\D/g, ""),
+			password: data.ownerPassword,
+			acceptedTerms: data.acceptTerms,
+			company: {
+				name: data.fantasyName,
+				document: data.cnpj.replace(/\D/g, ""),
+				email: data.ownerEmail,
+				segment: data.segment,
+			},
+		}),
 
 	getMyCompanies: () => API.get<PublicCompanyDTO[]>("/company/me"),
 

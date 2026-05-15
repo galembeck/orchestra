@@ -1,9 +1,6 @@
 /** biome-ignore-all lint/correctness/noChildrenProp: required by field component */
 
 import { useAuth } from "@repo/core/hooks/services/use-auth";
-// Import your mask and validation utilities
-import { formatCPF, removeFormat } from "@repo/core/utils/format-masks";
-import { isValidCPF } from "@repo/core/utils/is-valid-masks";
 import { Button } from "@repo/ui/components/atoms/button/button";
 import { Checkbox } from "@repo/ui/components/atoms/checkbox/checkbox";
 import { Input } from "@repo/ui/components/atoms/input/input";
@@ -21,22 +18,7 @@ import { useState } from "react";
 import z from "zod";
 
 const signInFormSchema = z.object({
-	identifier: z
-		.string()
-		.min(1, "Identificador (e-mail ou CPF) é obrigatório.")
-		.refine(
-			(value) => {
-				const isEmail = z.email().safeParse(value).success;
-
-				const cleanValue = removeFormat(value);
-				const isCpf = cleanValue.length === 11 && isValidCPF(value);
-
-				return isEmail || isCpf;
-			},
-			{
-				message: "Insira um e-mail ou CPF válido.",
-			}
-		),
+	email: z.email("Insira um e-mail válido."),
 	password: z.string().min(1, "Senha é obrigatória."),
 	rememberMe: z.boolean(),
 });
@@ -48,7 +30,7 @@ export function SignInForm() {
 
 	const form = useForm({
 		defaultValues: {
-			identifier: "",
+			email: "",
 			password: "",
 			rememberMe: false,
 		},
@@ -56,14 +38,7 @@ export function SignInForm() {
 			onSubmit: signInFormSchema,
 		},
 		onSubmit: ({ value }) => {
-			const cleanIdentifier = value.identifier.includes("@")
-				? value.identifier
-				: removeFormat(value.identifier);
-
-			signIn({
-				...value,
-				identifier: cleanIdentifier,
-			});
+			signIn({ email: value.email, password: value.password });
 		},
 	});
 
@@ -88,7 +63,7 @@ export function SignInForm() {
 										className="font-jetbrains-mono font-medium text-[10px] text-foreground-tertiary uppercase tracking-[1.5px]"
 										htmlFor={field.name}
 									>
-										E-mail/CPF
+										E-mail
 									</FieldLabel>
 
 									<div className="relative">
@@ -101,20 +76,9 @@ export function SignInForm() {
 											id={field.name}
 											name={field.name}
 											onBlur={field.handleBlur}
-											onChange={(e) => {
-												const value = e.target.value;
-
-												// biome-ignore lint/performance/useTopLevelRegex: not important in this context
-												const isEmail = /[a-zA-Z@]/.test(value);
-
-												if (isEmail) {
-													field.handleChange(value);
-												} else {
-													const formatted = formatCPF(value);
-													field.handleChange(formatted);
-												}
-											}}
-											placeholder="Informe seu e-mail ou CPF"
+											onChange={(e) => field.handleChange(e.target.value)}
+											placeholder="Informe seu e-mail"
+											type="email"
 											value={field.state.value}
 										/>
 									</div>
@@ -123,7 +87,7 @@ export function SignInForm() {
 								</Field>
 							);
 						}}
-						name="identifier"
+						name="email"
 					/>
 
 					<form.Field

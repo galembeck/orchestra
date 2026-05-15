@@ -20,9 +20,8 @@ export function useUser() {
 			await userService.register(data);
 
 			await authService.signIn({
-				identifier: data.email,
+				email: data.email,
 				password: data.password,
-				rememberMe: true,
 			});
 		},
 

@@ -1,7 +1,6 @@
 export interface AuthenticateDTO {
-	identifier: string;
+	email: string;
 	password: string;
-	rememberMe: boolean;
 }
 
 export interface AuthResponseDTO {

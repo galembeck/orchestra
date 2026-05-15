@@ -5,18 +5,25 @@
 	"scripts": {
 		"build": "tsc -p tsconfig.build.json",
 		"check-types": "tsc --noEmit",
-		"dev": "tsc -p tsconfig.build.json --watch"
+		"dev": "tsc -p tsconfig.build.json --watch",
+		"generate:api": "kubb --config kubb.config.ts"
 	},
 	"exports": {
 		"./*": {
 			"types": "./dist/*.d.ts",
 			"default": "./dist/*.js"
-		}
+		},
+		"./generated/*": "./src/generated/*"
 	},
 	"peerDependencies": {
 		"react": "^19"
 	},
 	"devDependencies": {
+		"@kubb/cli": "^4.37.7",
+		"@kubb/core": "^4.37.7",
+		"@kubb/plugin-oas": "4.37.5",
+		"@kubb/plugin-react-query": "4.37.5",
+		"@kubb/plugin-ts": "4.37.5",
 		"@repo/eslint-config": "workspace:*",
 		"@repo/typescript-config": "workspace:*",
 		"@types/react": "^19.1.0",

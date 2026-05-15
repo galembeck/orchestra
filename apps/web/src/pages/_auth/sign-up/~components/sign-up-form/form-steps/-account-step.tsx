@@ -39,10 +39,6 @@ import {
 import z from "zod";
 import { LABEL_CLASS } from "@/constants/_auth/styles/label-class";
 
-const SELF_SIGNUP_ACCOUNT_TYPES = ACCOUNT_TYPE_OPTIONS.filter(
-	(option) => option.value !== ACCOUNT_TYPE.WORKER
-);
-
 const accountStepSchema = z
 	.object({
 		accountType: z.enum(ACCOUNT_TYPE).superRefine((value, ctx) => {
@@ -59,29 +55,19 @@ const accountStepSchema = z
 			.string()
 			.min(1, "O telefone é obrigatório.")
 			.refine(
-				(value) => {
-					const cleanCellphone = removeFormat(value);
-					return cleanCellphone.length >= 10;
-				},
-				{
-					message: "O telefone deve ter um formato válido.",
-				}
+				(value) => removeFormat(value).length >= 10,
+				{ message: "O telefone deve ter um formato válido." },
 			),
 		document: z
 			.string()
 			.min(1, "O documento é obrigatório.")
 			.refine(
-				(value) => {
-					const cleanDocument = removeFormat(value);
-					return cleanDocument.length === 11 && isValidCPF(value);
-				},
-				{
-					message: "O CPF deve ter um formato válido.",
-				}
+				(value) => removeFormat(value).length === 11 && isValidCPF(value),
+				{ message: "O CPF deve ter um formato válido." },
 			),
 		password: z.string().min(8, "Senha deve ter no mínimo 8 caracteres."),
 		confirmPassword: z.string(),
-		acceptTerms: z
+		acceptedTerms: z
 			.boolean()
 			.refine((v) => v, "Você deve aceitar os termos para continuar."),
 	})
@@ -91,6 +77,10 @@ const accountStepSchema = z
 	});
 
 export type AccountStepValues = z.infer<typeof accountStepSchema>;
+
+const SELF_SIGNUP_ACCOUNT_TYPES = ACCOUNT_TYPE_OPTIONS.filter(
+	(option) => option.value !== ACCOUNT_TYPE.WORKER,
+);
 
 interface AccountStepProps {
 	initialData?: AccountStepValues;
@@ -109,7 +99,7 @@ export function AccountStep({ onComplete, initialData }: AccountStepProps) {
 			document: "",
 			password: "",
 			confirmPassword: "",
-			acceptTerms: false,
+			acceptedTerms: false,
 		},
 		validators: {
 			onSubmit: accountStepSchema,
@@ -497,7 +487,7 @@ export function AccountStep({ onComplete, initialData }: AccountStepProps) {
 									</FieldSet>
 								);
 							}}
-							name="acceptTerms"
+							name="acceptedTerms"
 						/>
 					</FieldGroup>
 				</form>

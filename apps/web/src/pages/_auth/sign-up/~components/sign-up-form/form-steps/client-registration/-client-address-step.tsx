@@ -36,17 +36,12 @@ const clientAddressStepSchema = z.object({
 		.string()
 		.min(1, "O CEP deve ter 8 dígitos.")
 		.refine(
-			(value) => {
-				const cleanDocument = removeFormat(value);
-				return cleanDocument.length === 8 && isValidCEP(value);
-			},
-			{
-				message: "O CEP deve ter um formato válido.",
-			}
+			(value) => removeFormat(value).length === 8 && isValidCEP(value),
+			{ message: "O CEP deve ter um formato válido." },
 		),
 	address: z.string().min(1, "O endereço é obrigatório."),
 	number: z.string().min(1, "O número é obrigatório."),
-	complement: z.string(),
+	complement: z.string().optional(),
 	neighborhood: z.string().min(1, "O bairro é obrigatório."),
 	city: z.string().min(1, "A cidade é obrigatória."),
 	state: z.string().min(1, "O estado é obrigatório."),
@@ -57,7 +52,7 @@ export type ClientAddressStepValues = z.infer<typeof clientAddressStepSchema>;
 interface ClientAddressStepProps {
 	initialData?: ClientAddressStepValues;
 	isPending: boolean;
-	onBack: (partalData: ClientAddressStepValues) => void;
+	onBack: (partialData: ClientAddressStepValues) => void;
 	onComplete: (data: ClientAddressStepValues) => void;
 }
 
@@ -386,7 +381,7 @@ export function ClientAddressStep({
 					<Button
 						className="flex items-center gap-2"
 						disabled={isPending}
-						onClick={() => onBack(form.state.values)}
+						onClick={() => onBack(form.state.values as ClientAddressStepValues)}
 						type="button"
 						variant="secondary"
 					>

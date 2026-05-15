@@ -3,10 +3,9 @@ import { useUser } from "@repo/core/hooks/services/use-user";
 import { ACCOUNT_TYPE } from "@repo/core/types/enums/account-type";
 import { useState } from "react";
 import { toast } from "sonner";
-import type { AccountData } from "@/types/_auth/account-data";
 import type { DocumentsData } from "@/types/_auth/documents-data";
 import { FormStepIndicator } from "../-fom-step-indicator";
-import { AccountStep } from "./form-steps/-account-step";
+import { AccountStep, type AccountStepValues } from "./form-steps/-account-step";
 import {
 	ClientAddressStep,
 	type ClientAddressStepValues,
@@ -24,7 +23,7 @@ import {
 } from "./form-steps/company-registration/-company-information-step";
 
 interface SignUpData {
-	account?: AccountData;
+	account?: AccountStepValues;
 	clientAddress?: ClientAddressStepValues;
 	companyAddress?: CompanyAddressStepValues;
 	companyDocuments?: DocumentsData;
@@ -71,7 +70,7 @@ export function SignUpForm() {
 			neighborhood: finalData.clientAddress.neighborhood,
 			city: finalData.clientAddress.city,
 			state: finalData.clientAddress.state,
-			acceptTerms: finalData.account.acceptTerms,
+			acceptTerms: finalData.account.acceptedTerms,
 		});
 	};
 
@@ -100,7 +99,7 @@ export function SignUpForm() {
 				ownerDocument: finalData.account.document,
 				ownerPassword: finalData.account.password,
 				ownerCellphone: finalData.account.cellphone,
-				acceptTerms: finalData.account.acceptTerms,
+				acceptTerms: finalData.account.acceptedTerms,
 
 				zipcode: finalData.companyAddress.zipcode,
 				address: finalData.companyAddress.address,

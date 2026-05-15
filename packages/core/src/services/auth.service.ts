@@ -8,7 +8,7 @@ import type {
 } from "../models/auth.model.js";
 
 export const authService = {
-	signIn: (data: AuthenticateDTO) => API.post<void>("/auth", data),
+	signIn: (data: AuthenticateDTO) => API.post<void>("/auth/sign-in", data),
 
 	signOut: () => API.post<void>("/auth/revoke"),
 

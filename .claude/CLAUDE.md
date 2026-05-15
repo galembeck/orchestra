@@ -210,3 +210,32 @@ Every component **must** have a story file next to its source file. Story requir
 Storybook includes a **Theme** toolbar button (paintbrush icon) that switches between `light` and `dark` by toggling the `.dark` class on `<html>`. Dark-mode color overrides are defined in `src/styles.css` and follow the same token names as the light palette.
 
 To verify dark mode during development, click the Theme button in the Storybook toolbar.
+
+## Schema Organization
+
+### Canonical schemas — `apps/api/src/schemas/`
+
+All data-contract schemas (request body, response) live in the **API app**, grouped by domain:
+
+```
+apps/api/src/schemas/
+  user/
+    address.schema.ts             → addressSchema, AddressInput
+    client-registration.schema.ts → clientRegistrationSchema, ClientRegistrationInput
+```
+
+These schemas are used directly in Fastify route `schema.body` / `schema.response` definitions and are automatically transformed into OpenAPI JSON Schema by `fastify-type-provider-zod`. The OpenAPI spec is then consumed by **Kubb** to generate TypeScript types for the web app.
+
+### Web form validation — inline in the form step file
+
+Web form steps keep a **lean inline Zod schema** for UI-only concerns (formatted CEP/CPF, `confirmPassword` match, checkbox). These are not data-contract schemas — they exist solely to drive form error messages.
+
+- Do **not** create a separate `schemas/` folder inside `apps/web/`.
+- Export the inferred type (`z.infer<typeof schema>`) from the same file so the parent form can reference it.
+
+### Rules (apply everywhere)
+
+- **One schema per file**, named `<domain>.schema.ts`.
+- **Group by domain folder**: users → `schemas/user/`, companies → `schemas/company/`, etc.
+- **No barrel files** — import directly from the schema file, never through an `index.ts` re-export.
+- **Export the schema and its inferred type** from the same file; never maintain a hand-written interface that duplicates a Zod schema.

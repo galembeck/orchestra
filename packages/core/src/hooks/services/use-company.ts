@@ -22,9 +22,8 @@ export function useRegisterCompany() {
 			await companyService.register(data);
 
 			await authService.signIn({
-				identifier: data.ownerDocument,
+				email: data.ownerEmail,
 				password: data.ownerPassword,
-				rememberMe: true,
 			});
 		},
 
