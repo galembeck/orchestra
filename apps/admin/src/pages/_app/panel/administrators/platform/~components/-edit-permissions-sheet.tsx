@@ -37,12 +37,14 @@ function deepMerge(
 	overrides: Partial<PermissionMatrix> | null,
 ): PermissionMatrix {
 	if (!overrides) return base;
-
-	return {
-		companies: { ...base.companies, ...(overrides.companies ?? {}) },
-		adminUsers: { ...base.adminUsers, ...(overrides.adminUsers ?? {}) },
-		settings: { ...base.settings, ...(overrides.settings ?? {}) },
-	};
+	const result = { ...base };
+	for (const domain of Object.keys(base) as (keyof PermissionMatrix)[]) {
+		result[domain] = {
+			...base[domain],
+			...(overrides[domain] ?? {}),
+		} as PermissionMatrix[typeof domain];
+	}
+	return result;
 }
 
 interface EditPermissionsSheetProps {
@@ -69,13 +71,12 @@ export function EditPermissionsSheet({
 	);
 
 	// Re-initialise local state whenever the target user changes
-	// biome-ignore lint/correctness/useExhaustiveDependencies: intentional reset on user change
 	useEffect(() => {
 		if (user) {
 			setSelectedRoleId(user.role?.id ?? "");
 			setOverrides(user.permissionOverrides ?? null);
 		}
-	}, [user?.id]);
+	}, [user]);
 
 	const selectedRole = roles.find((r) => r.id === selectedRoleId);
 
@@ -114,9 +115,7 @@ export function EditPermissionsSheet({
 	}
 
 	function handleClearOverrides() {
-		if (!user) return;
 		setOverrides(null);
-		onSavePermissions(user.id, null);
 	}
 
 	return (

@@ -79,7 +79,7 @@ function PlatformAdministratorsPage() {
 				onClose={() => setSelectedUser(null)}
 				onSaveRole={(userId, roleId) => {
 					handleUpdateRole({ id: userId, roleId });
-					setSelectedUser(null);
+					// Don't close here — onSavePermissions always fires last
 				}}
 				onSavePermissions={(userId, permissionOverrides) => {
 					handleUpdatePermissions({ id: userId, permissionOverrides });
