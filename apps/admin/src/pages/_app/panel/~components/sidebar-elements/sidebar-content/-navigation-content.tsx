@@ -25,7 +25,7 @@ export function NavigationContent({
 	items: {
 		title: string;
 		description?: string;
-		url: string;
+		url?: string;
 		icon?: LucideIcon;
 		badge?: LucideIcon;
 		isActive?: boolean;
@@ -77,7 +77,7 @@ export function NavigationContent({
 							<SidebarMenuItem>
 								<SidebarMenuButton
 									className="cursor-pointer"
-									onClick={() => navigate({ to: item.url })}
+									onClick={() => item.url && navigate({ to: item.url })}
 									tooltip={item.title}
 								>
 									{item.icon && <item.icon />}
