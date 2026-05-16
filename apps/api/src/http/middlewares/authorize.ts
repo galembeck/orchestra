@@ -1,6 +1,7 @@
 import { and, eq } from "drizzle-orm";
 import type { FastifyReply, FastifyRequest } from "fastify";
-import { companyMembers, rolePermissions } from "@/db/schema/index.js";
+import { companyMembers } from "@/db/schema/company-members.js";
+import { rolePermissions } from "@/db/schema/role-permissions.js";
 import type { PermissionKeyValue } from "@/types/permissions.js";
 
 export function requirePermission(permission: PermissionKeyValue) {

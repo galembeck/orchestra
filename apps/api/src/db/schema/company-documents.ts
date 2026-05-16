@@ -1,11 +1,11 @@
-import { pgEnum, pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import { pgEnum, pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import { companies } from "./companies.js";
 
 export const companyDocumentTypeEnum = pgEnum("company_document_type", [
-	"CNPJ",
-	"SOCIAL_CONTRACT",
+	"CNPJ_DOCUMENT",
+	"ADDRESS_PROOF",
+	"OWNER_IDENTITY",
 	"OPERATING_LICENSE",
-	"OTHER",
 ]);
 
 export const companyDocuments = pgTable("company_documents", {
@@ -14,8 +14,9 @@ export const companyDocuments = pgTable("company_documents", {
 		.notNull()
 		.references(() => companies.id, { onDelete: "cascade" }),
 	type: companyDocumentTypeEnum("type").notNull(),
-	name: varchar("name", { length: 255 }).notNull(),
-	url: text("url").notNull(),
+	fileName: varchar("file_name", { length: 255 }).notNull(),
+	filePath: varchar("file_path", { length: 500 }).notNull(),
+	mimeType: varchar("mime_type", { length: 100 }).notNull(),
 	createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 

@@ -96,6 +96,15 @@ pnpm dlx ultracite doctor # Diagnose setup
 
 Biome is the underlying engine. Most issues are automatically fixable. Run `pnpm dlx ultracite fix` before committing.
 
+**Required for every file created or modified:** run Biome on the specific files before considering the task done. Because `ultracite` does not work in a monorepo with nested `biome.json` configs, run Biome directly from the app/package directory:
+
+```bash
+# From the relevant app or package directory (e.g. apps/api)
+pnpm dlx @biomejs/biome check --write <file1> <file2> ...
+```
+
+Fix all reported errors. Warnings are also not acceptable — either fix the underlying issue or, only if Biome itself recommends it, add a `// biome-ignore <rule>: <reason>` suppression. Remove any suppression comment that no longer applies (Biome will report it as `suppressions/unused`).
+
 ### Type Safety & Explicitness
 
 - Use explicit types for function parameters and return values when they enhance clarity

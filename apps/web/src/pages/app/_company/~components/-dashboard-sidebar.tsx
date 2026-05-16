@@ -1,4 +1,4 @@
-import { useMyCompanies } from "@repo/core/hooks/services/use-company";
+import { useAuth } from "@repo/core/providers/auth-provider";
 import {
 	Sidebar,
 	SidebarContent,
@@ -22,14 +22,14 @@ import { OrchestraHeader } from "./sidebar-elements/sidebar-header/-orchestra-he
 export function DashboardSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
 	const navigate = useNavigate();
 
-	const { data: companies, isLoading } = useMyCompanies();
+	const { user } = useAuth();
 
 	return (
 		<Sidebar collapsible="icon" {...props}>
 			<SidebarHeader>
 				<OrchestraHeader />
 
-				<CompanySwitcher companies={companies} isLoading={isLoading} />
+				<CompanySwitcher company={user?.company} />
 
 				{/*<ContentSearch />*/}
 			</SidebarHeader>

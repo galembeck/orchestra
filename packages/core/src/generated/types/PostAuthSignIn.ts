@@ -6,7 +6,7 @@
 export const userAccountTypeEnum = {
 	CLIENT: 'CLIENT',
 	WORKER: 'WORKER',
-	COMPANY: 'COMPANY',
+	OWNER: 'OWNER',
 } as const;
 
 export type UserAccountTypeEnumKey = (typeof userAccountTypeEnum)[keyof typeof userAccountTypeEnum];
@@ -62,9 +62,9 @@ export type PostAuthSignIn401 = {
 
 export type PostAuthSignInMutationRequest = {
 	/**
-	 * @type string, email
+	 * @type string
 	 */
-	email: string;
+	identifier: string;
 	/**
 	 * @minLength 1
 	 * @type string

@@ -1,4 +1,4 @@
-import type { PublicCompanyDTO } from "@repo/core/models/company.model";
+import type { CompanyContextDTO } from "@repo/core/models/user.model";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -14,34 +14,15 @@ import {
 	SidebarMenuItem,
 	useSidebar,
 } from "@repo/ui/components/organisms/sidebar/sidebar";
-import { useNavigate, useParams } from "@tanstack/react-router";
-import { Building2, ChevronsUpDown, Loader2, Plus, Wrench } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
+import { Building2, ChevronsUpDown, Plus, Wrench } from "lucide-react";
 
-export function CompanySwitcher({
-	companies,
-	isLoading,
-}: {
-	companies?: PublicCompanyDTO[];
-	isLoading?: boolean;
-}) {
+export function CompanySwitcher({ company }: { company?: CompanyContextDTO }) {
 	const navigate = useNavigate();
 
 	const { isMobile } = useSidebar();
 
-	const { companySlug } = useParams({ strict: false });
-
-	if (isLoading) {
-		return (
-			<div className="flex items-center justify-center p-4 text-foreground-tertiary">
-				<Loader2 className="h-4 w-4 animate-spin" />
-			</div>
-		);
-	}
-
-	const activeCompany =
-		companies?.find((c) => c.slug === companySlug) || companies?.[0];
-
-	if (!activeCompany) {
+	if (!company) {
 		return null;
 	}
 
@@ -60,11 +41,11 @@ export function CompanySwitcher({
 
 							<div className="grid min-w-0 flex-1 text-left leading-tight">
 								<span className="block truncate font-inter font-semibold text-[13px] text-foreground-inverse">
-									{activeCompany.socialReason}
+									{company.socialReason}
 								</span>
 
 								<div className="mt-0.5 flex min-w-0 items-center gap-1.5">
-									{activeCompany.approvalStatus === "PENDING" && (
+									{company.approvalStatus === "PENDING" && (
 										<>
 											<span className="size-2 shrink-0 rounded-full bg-accent" />
 
@@ -74,7 +55,7 @@ export function CompanySwitcher({
 										</>
 									)}
 
-									{activeCompany.approvalStatus === "APPROVED" && (
+									{company.approvalStatus === "APPROVED" && (
 										<>
 											<span className="size-2 shrink-0 rounded-full bg-success" />
 
@@ -84,7 +65,7 @@ export function CompanySwitcher({
 										</>
 									)}
 
-									{activeCompany.approvalStatus === "REJECTED" && (
+									{company.approvalStatus === "REJECTED" && (
 										<>
 											<span className="size-2 shrink-0 rounded-full bg-danger" />
 
@@ -110,23 +91,20 @@ export function CompanySwitcher({
 							Empresas
 						</DropdownMenuLabel>
 
-						{companies?.map((company, index) => (
-							<DropdownMenuItem
-								className="cursor-pointer gap-2 p-2"
-								key={company.id}
-								onClick={() => navigate({ to: `/app/${company.slug}` })}
-							>
-								<div className="flex size-6 items-center justify-center rounded-md border border-border">
-									<Building2 className="size-3.5 shrink-0 text-foreground-secondary" />
-								</div>
+						<DropdownMenuItem
+							className="cursor-pointer gap-2 p-2"
+							onClick={() => navigate({ to: `/app/${company.slug}` })}
+						>
+							<div className="flex size-6 items-center justify-center rounded-md border border-border">
+								<Building2 className="size-3.5 shrink-0 text-foreground-secondary" />
+							</div>
 
-								<span className="truncate text-foreground-primary">
-									{company.socialReason}
-								</span>
+							<span className="truncate text-foreground-primary">
+								{company.socialReason}
+							</span>
 
-								<DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
-							</DropdownMenuItem>
-						))}
+							<DropdownMenuShortcut>⌘1</DropdownMenuShortcut>
+						</DropdownMenuItem>
 
 						<DropdownMenuSeparator />
 

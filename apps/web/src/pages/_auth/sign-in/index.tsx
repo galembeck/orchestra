@@ -55,7 +55,7 @@ function SignInPage() {
 							<div className="h-px flex-1 bg-border" />
 
 							<span className="shrink-0 font-jetbrains-mono font-medium text-[10px] text-foreground-tertiary uppercase tracking-[1.5px]">
-								Ou com e-mail
+								Ou com e-mail ou CPF
 							</span>
 
 							<div className="h-px flex-1 bg-border" />

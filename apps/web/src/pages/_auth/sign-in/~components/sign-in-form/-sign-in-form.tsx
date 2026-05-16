@@ -13,12 +13,12 @@ import {
 } from "@repo/ui/components/molecules/field/field";
 import { useForm } from "@tanstack/react-form";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
+import { ArrowRight, Eye, EyeOff, Loader2, Lock, UserCircle } from "lucide-react";
 import { useState } from "react";
 import z from "zod";
 
 const signInFormSchema = z.object({
-	email: z.email("Insira um e-mail válido."),
+	identifier: z.string().min(1, "E-mail ou CPF é obrigatório."),
 	password: z.string().min(1, "Senha é obrigatória."),
 	rememberMe: z.boolean(),
 });
@@ -30,7 +30,7 @@ export function SignInForm() {
 
 	const form = useForm({
 		defaultValues: {
-			email: "",
+			identifier: "",
 			password: "",
 			rememberMe: false,
 		},
@@ -38,7 +38,11 @@ export function SignInForm() {
 			onSubmit: signInFormSchema,
 		},
 		onSubmit: ({ value }) => {
-			signIn({ email: value.email, password: value.password });
+			signIn({
+				identifier: value.identifier,
+				password: value.password,
+				rememberMe: value.rememberMe,
+			});
 		},
 	});
 
@@ -63,11 +67,11 @@ export function SignInForm() {
 										className="font-jetbrains-mono font-medium text-[10px] text-foreground-tertiary uppercase tracking-[1.5px]"
 										htmlFor={field.name}
 									>
-										E-mail
+										E-mail ou CPF
 									</FieldLabel>
 
 									<div className="relative">
-										<Mail className="absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-foreground-tertiary" />
+										<UserCircle className="absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-foreground-tertiary" />
 
 										<Input
 											aria-invalid={isInvalid}
@@ -77,8 +81,7 @@ export function SignInForm() {
 											name={field.name}
 											onBlur={field.handleBlur}
 											onChange={(e) => field.handleChange(e.target.value)}
-											placeholder="Informe seu e-mail"
-											type="email"
+											placeholder="Informe seu e-mail ou CPF"
 											value={field.state.value}
 										/>
 									</div>
@@ -87,7 +90,7 @@ export function SignInForm() {
 								</Field>
 							);
 						}}
-						name="email"
+						name="identifier"
 					/>
 
 					<form.Field

@@ -9,8 +9,6 @@ export interface CreateUserDTO extends AddressDTO {
 	email: string;
 	name: string;
 	password: string;
-	receiveEmailOffers?: boolean;
-	receiveWhatsappOffers?: boolean;
 }
 
 export interface PrivateUserDTO {
@@ -21,33 +19,29 @@ export interface PrivateUserDTO {
 	name: string;
 	password: string;
 	profileType?: ProfileType;
-	receiveEmailOffers?: boolean;
-	receiveWhatsappOffers?: boolean;
 }
 
 export interface PublicUserDTO {
 	accountType: AccountType;
-	address: string;
 	avatarUrl?: string;
 	cellphone: string;
 	city: string;
+	company?: CompanyContextDTO;
 	complement?: string;
 	createdAt?: string;
+	deletedAt?: string;
 	document: string;
 	email: string;
 	id: string;
-	lastAccessAt?: string;
 	name: string;
 	neighborhood: string;
 	number: string;
 	profileType?: ProfileType;
-	receiveEmailOffers?: boolean;
-	receiveWhatsappOffers?: boolean;
 	state: string;
+	street: string;
 	updatedAt?: string;
-	company?: CompanyContextDTO;
 	worker?: WorkerContextDTO;
-	zipcode: string;
+	zipCode: string;
 }
 
 export interface CompanyContextDTO {
@@ -58,6 +52,7 @@ export interface CompanyContextDTO {
 	companyId: string;
 	fantasyName: string;
 	isOwner: boolean;
+	slug: string;
 	socialReason: string;
 	state: string;
 }
@@ -67,7 +62,6 @@ export interface WorkerContextDTO {
 	companyFantasyName: string;
 	companyId: string;
 	companySocialReason: string;
-	isOwner: boolean;
 	memberSince: string;
 	roleId: string;
 	roleKey: string;
@@ -82,8 +76,6 @@ export interface UpdateProfileDTO {
 	name?: string;
 	password?: string;
 	passwordConfirmation?: string;
-	receiveEmailOffers?: boolean;
-	receiveWhatsappOffers?: boolean;
 }
 
 export interface UserAvailabilityResponse {

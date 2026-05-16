@@ -10,14 +10,17 @@ export const ownerRegistrationSchema = z.object({
 		error: "Você deve aceitar os termos para continuar.",
 	}),
 	company: z.object({
-		name: z.string().min(2, "O nome da empresa é obrigatório."),
-		document: z.string().length(14, "O CNPJ deve ter 14 dígitos."),
-		email: z.email("O e-mail da empresa deve ter um formato válido."),
-		phone: z
-			.string()
-			.min(10, "O telefone deve ter no mínimo 10 dígitos.")
-			.optional(),
+		fantasyName: z.string().min(2, "O nome fantasia é obrigatório."),
+		socialReason: z.string().min(2, "A razão social é obrigatória."),
+		cnpj: z.string().length(14, "O CNPJ deve ter 14 dígitos."),
 		segment: z.enum(["RESIDENTIAL", "BUSINESS", "INDUSTRIAL"]).optional(),
+		zipcode: z.string().length(8, "O CEP deve ter 8 dígitos.").optional(),
+		address: z.string().min(1).optional(),
+		number: z.string().min(1).optional(),
+		complement: z.string().optional(),
+		neighborhood: z.string().min(1).optional(),
+		city: z.string().min(1).optional(),
+		state: z.string().length(2).optional(),
 	}),
 });
 

@@ -1,8 +1,9 @@
 import { navLinks } from "@repo/core/constants/nav-links";
 import { useAuth } from "@repo/core/hooks/services/use-auth";
 import { handleSmoothScroll } from "@repo/core/utils/scroll-to-section";
+import { getUserInitials } from "@repo/core/utils/get-user-initials";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { LogIn, Menu, X } from "lucide-react";
+import { LogIn, LogOut, Menu, User, X } from "lucide-react";
 import type { ComponentProps } from "react";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
@@ -16,7 +17,7 @@ export interface NavbarProps extends ComponentProps<"header"> {}
 export function Navbar({ className, ...props }: NavbarProps) {
 	const navigate = useNavigate();
 
-	const { isAuthenticated } = useAuth();
+	const { isAuthenticated, user, signOut } = useAuth();
 
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -95,24 +96,66 @@ export function Navbar({ className, ...props }: NavbarProps) {
 						))}
 					</nav>
 
-					<div className="flex flex-col gap-3">
-						<Button
-							className="w-full font-afacad text-base"
-							onClick={() => {
-								setIsOpen(false);
-								navigate({ to: "/sign-up" });
-							}}
-						>
-							Criar conta
-						</Button>
-						<Link
-							className="text-center font-afacad font-medium text-foreground-primary"
-							onClick={() => setIsOpen(false)}
-							to="/sign-in"
-						>
-							Entrar
-						</Link>
-					</div>
+					{isAuthenticated && user ? (
+						<div className="flex items-center justify-between rounded-md border border-border px-3 py-2">
+							<div className="flex items-center gap-3">
+								<div className="flex h-9 w-9 items-center justify-center rounded-full bg-foreground-primary font-semibold text-sm text-surface">
+									{getUserInitials(user.name)}
+								</div>
+								<div className="flex flex-col">
+									<span className="font-medium text-foreground-primary text-sm">
+										{user.name}
+									</span>
+									<span className="text-foreground-tertiary text-xs">
+										{user.email}
+									</span>
+								</div>
+							</div>
+
+							<div className="flex items-center gap-2">
+								<button
+									className="cursor-pointer text-foreground-secondary"
+									onClick={() => {
+										setIsOpen(false);
+										navigate({ to: "/my-account" });
+									}}
+									type="button"
+								>
+									<User className="h-4 w-4" />
+								</button>
+
+								<button
+									className="cursor-pointer text-red-400"
+									onClick={() => {
+										setIsOpen(false);
+										signOut();
+									}}
+									type="button"
+								>
+									<LogOut className="h-4 w-4" />
+								</button>
+							</div>
+						</div>
+					) : (
+						<div className="flex flex-col gap-3">
+							<Button
+								className="w-full font-afacad text-base"
+								onClick={() => {
+									setIsOpen(false);
+									navigate({ to: "/sign-up" });
+								}}
+							>
+								Criar conta
+							</Button>
+							<Link
+								className="text-center font-afacad font-medium text-foreground-primary"
+								onClick={() => setIsOpen(false)}
+								to="/sign-in"
+							>
+								Entrar
+							</Link>
+						</div>
+					)}
 				</div>
 			)}
 		</header>

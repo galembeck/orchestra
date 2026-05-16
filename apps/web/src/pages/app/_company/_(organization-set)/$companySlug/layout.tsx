@@ -1,4 +1,3 @@
-import { useMyCompanies } from "@repo/core/hooks/services/use-company";
 import { useAuth } from "@repo/core/providers/auth-provider";
 import { ThemeToggle } from "@repo/ui/components/atoms/theme-toggle/theme-toggle";
 import {
@@ -29,7 +28,7 @@ import { DashboardSidebar } from "../../~components/-dashboard-sidebar";
 import { ContentSearch } from "../../~components/sidebar-elements/sidebar-header/-content-search";
 
 export const Route = createFileRoute(
-	"/app/_company/_(organization-set)/$companySlug"
+	"/app/_company/_(organization-set)/$companySlug",
 )({
 	component: CompanyDashboardLayout,
 });
@@ -41,14 +40,7 @@ function CompanyDashboardLayout() {
 
 	const { user, isAuthenticated, isLoading: isAuthLoading } = useAuth();
 
-	const {
-		data: companies,
-		isLoading: areCompaniesLoading,
-		isError,
-		isSuccess,
-	} = useMyCompanies();
-
-	const company = companies?.find((c) => c.slug === companySlug);
+	const company = user?.company;
 
 	useEffect(() => {
 		if (!(isAuthLoading || isAuthenticated)) {
@@ -56,7 +48,7 @@ function CompanyDashboardLayout() {
 		}
 	}, [isAuthLoading, isAuthenticated, navigate]);
 
-	const companyMissing = (isSuccess && !company) || isError;
+	const companyMissing = !isAuthLoading && isAuthenticated && !company;
 
 	useEffect(() => {
 		if (companyMissing) {
@@ -72,7 +64,7 @@ function CompanyDashboardLayout() {
 
 	const breadcrumbs = useMemo(
 		() => buildBreadcrumbs(pathname, companySlug),
-		[pathname, companySlug]
+		[pathname, companySlug],
 	);
 
 	const getGreeting = () => {
@@ -89,7 +81,7 @@ function CompanyDashboardLayout() {
 		return "Boa noite";
 	};
 
-	if (isAuthLoading || !isAuthenticated || areCompaniesLoading || !company) {
+	if (isAuthLoading || !isAuthenticated || !company) {
 		return <DashboardSkeleton />;
 	}
 

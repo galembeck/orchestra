@@ -46,8 +46,8 @@ export function useAuth() {
 
 		onError: (err) => {
 			const message =
-				(err as ApiException).status === 400
-					? "E-mail ou senha inválidos."
+				(err as ApiException).status === 401
+					? "E-mail, CPF ou senha inválidos."
 					: "Erro ao realizar login, tente novamente.";
 
 			setServerError(message);

@@ -22,7 +22,7 @@ export function useRegisterCompany() {
 			await companyService.register(data);
 
 			await authService.signIn({
-				email: data.ownerEmail,
+				identifier: data.ownerEmail,
 				password: data.ownerPassword,
 			});
 		},
@@ -52,10 +52,11 @@ export function useRegisterCompany() {
 	return { register, isPending, serverError };
 }
 
-export function useMyCompanies() {
+export function useMyCompanies(options?: { enabled?: boolean }) {
 	return useQuery({
 		queryKey: ["companies", "me"],
 		queryFn: companyService.getMyCompanies,
+		enabled: options?.enabled ?? true,
 	});
 }
 

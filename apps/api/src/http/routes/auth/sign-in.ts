@@ -1,14 +1,8 @@
-import { and, eq, gt, isNull } from "drizzle-orm";
+import { isNull, or, eq } from "drizzle-orm";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import { z } from "zod";
-import { sessions, users } from "@/db/schema/index.js";
-import {
-	generateRefreshToken,
-	hashRefreshToken,
-	verifyPassword,
-} from "@/lib/crypto.js";
-
-const REFRESH_TOKEN_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
+import { users } from "@/db/schema/users.js";
+import { verifyPassword } from "@/lib/crypto.js";
 
 export const signInRoute: FastifyPluginAsyncZod = async (app) => {
 	app.post(
@@ -18,8 +12,9 @@ export const signInRoute: FastifyPluginAsyncZod = async (app) => {
 				summary: "Authenticate and obtain access + refresh tokens",
 				tags: ["Auth"],
 				body: z.object({
-					email: z.email(),
+					identifier: z.string().min(1),
 					password: z.string().min(1),
+					rememberMe: z.boolean().optional().default(false),
 				}),
 				response: {
 					200: z.object({
@@ -27,7 +22,7 @@ export const signInRoute: FastifyPluginAsyncZod = async (app) => {
 							id: z.string().uuid(),
 							name: z.string(),
 							email: z.string(),
-							accountType: z.enum(["CLIENT", "WORKER", "COMPANY"]),
+							accountType: z.enum(["CLIENT", "WORKER", "OWNER"]),
 							profileType: z.enum(["ADMIN", "CLIENT", "PLATFORM_DEVELOPER"]),
 						}),
 					}),
@@ -36,7 +31,7 @@ export const signInRoute: FastifyPluginAsyncZod = async (app) => {
 			},
 		},
 		async (req, reply) => {
-			const { email, password } = req.body;
+			const { identifier, password, rememberMe } = req.body;
 
 			const [user] = await app.db
 				.select({
@@ -46,13 +41,18 @@ export const signInRoute: FastifyPluginAsyncZod = async (app) => {
 					passwordHash: users.passwordHash,
 					accountType: users.accountType,
 					profileType: users.profileType,
-					isActive: users.isActive,
+					deletedAt: users.deletedAt,
 				})
 				.from(users)
-				.where(eq(users.email, email))
+				.where(
+					or(
+						eq(users.email, identifier),
+						eq(users.document, identifier),
+					),
+				)
 				.limit(1);
 
-			if (!user || !user.isActive) {
+			if (!user || user.deletedAt !== null) {
 				return reply.status(401).send({ message: "Credenciais inválidas." });
 			}
 
@@ -61,51 +61,19 @@ export const signInRoute: FastifyPluginAsyncZod = async (app) => {
 				return reply.status(401).send({ message: "Credenciais inválidas." });
 			}
 
-			// Revoke any existing active sessions for this user
-			await app.db
-				.update(sessions)
-				.set({ revokedAt: new Date() })
-				.where(
-					and(
-						eq(sessions.userId, user.id),
-						isNull(sessions.revokedAt),
-						gt(sessions.expiresAt, new Date()),
-					),
-				);
-
-			// Issue new refresh token and persist its hash
-			const refreshToken = generateRefreshToken();
-			const refreshTokenHash = hashRefreshToken(refreshToken);
-			const expiresAt = new Date(Date.now() + REFRESH_TOKEN_TTL_MS);
-
-			await app.db.insert(sessions).values({
-				userId: user.id,
-				refreshTokenHash,
-				expiresAt,
-			});
-
-			// Sign access JWT — carries both platform profile and account type
 			const accessToken = app.jwt.sign({
 				sub: user.id,
 				profileType: user.profileType,
 				accountType: user.accountType,
 			});
 
-			reply
-				.setCookie("access_token", accessToken, {
-					httpOnly: true,
-					secure: process.env.NODE_ENV === "production",
-					sameSite: "lax",
-					path: "/",
-					maxAge: 15 * 60, // 15 minutes (seconds)
-				})
-				.setCookie("refresh_token", refreshToken, {
-					httpOnly: true,
-					secure: process.env.NODE_ENV === "production",
-					sameSite: "lax",
-					path: "/auth/refresh",
-					maxAge: 7 * 24 * 60 * 60, // 7 days (seconds)
-				});
+			reply.setCookie("access_token", accessToken, {
+				httpOnly: true,
+				secure: process.env.NODE_ENV === "production",
+				sameSite: "lax",
+				path: "/",
+				maxAge: rememberMe ? 7 * 24 * 60 * 60 : 15 * 60, // 7 days or 15 minutes
+			});
 
 			return reply.status(200).send({
 				user: {

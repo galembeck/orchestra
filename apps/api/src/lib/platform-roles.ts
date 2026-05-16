@@ -19,7 +19,7 @@ export type PlatformProfileValue =
 export const AccountType = {
 	Client: "CLIENT",
 	Worker: "WORKER",
-	CompanyOwner: "COMPANY",
+	CompanyOwner: "OWNER",
 } as const;
 
 export type AccountTypeValue =

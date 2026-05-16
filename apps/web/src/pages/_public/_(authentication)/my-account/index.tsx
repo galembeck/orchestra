@@ -28,7 +28,7 @@ function AccountVariant({ user }: { user: PublicUserDTO }) {
 		return <WorkerProfile user={user} />;
 	}
 
-	if (user.accountType === ACCOUNT_TYPE.COMPANY) {
+	if (user.accountType === ACCOUNT_TYPE.OWNER) {
 		return <CompanyProfile user={user} />;
 	}
 

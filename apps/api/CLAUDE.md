@@ -46,17 +46,11 @@ src/
 ├── db/
 │   ├── index.ts                # Drizzle client singleton — export `db`
 │   └── schema/
-│       ├── index.ts            # Re-exports all tables
-│       ├── users.ts
-│       ├── companies.ts
-│       ├── roles.ts            # companyId nullable = system role
+│       ├── users.ts            # users table + accountTypeEnum (CLIENT|WORKER|OWNER) + profileTypeEnum
+│       ├── companies.ts        # companies table + companyApprovalStatusEnum
+│       ├── roles.ts            # roles table (companyId nullable = system role)
 │       ├── role-permissions.ts # roleId + permissionKey pivot
-│       ├── company-members.ts  # userId + companyId + roleId pivot
-│       ├── company-invitations.ts
-│       ├── company-documents.ts
-│       ├── sessions.ts         # Refresh token storage (revocable)
-│       ├── services.ts
-│       └── service-categories.ts
+│       └── company-members.ts  # userId + companyId + roleId + isOwner pivot
 ├── plugins/
 │   ├── swagger.ts              # OpenAPI at /openapi/json, Scalar UI at /docs
 │   ├── auth.ts                 # @fastify/jwt + @fastify/cookie
@@ -173,6 +167,20 @@ Defined in `src/types/permissions.ts` (mirrors `packages/core`):
   - `restrict` — prevent deletion if children exist (e.g. companies.ownerId → users)
 - Enums are defined as PostgreSQL native enums (`pgEnum`) next to the table that owns them
 - Always import other schema files with `.js` extension: `import { users } from "./users.js"`
+
+### Schema files
+
+**No barrel file** (`index.ts`) — import schemas directly from their source file:
+
+```ts
+// correct
+import { users } from "@/db/schema/users.js";
+
+// wrong — no index.ts exists
+import { users } from "@/db/schema/index.js";
+```
+
+Each schema file lives at `src/db/schema/<domain>.ts`, one table (plus its enums) per file.
 
 ## Import Paths
 

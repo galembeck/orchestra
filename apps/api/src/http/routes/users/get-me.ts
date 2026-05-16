@@ -1,18 +1,17 @@
 import { eq } from "drizzle-orm";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import { z } from "zod";
-import {
-	companies,
-	companyMembers,
-	roles,
-	users,
-} from "@/db/schema/index.js";
+import { companies } from "@/db/schema/companies.js";
+import { companyMembers } from "@/db/schema/company-members.js";
+import { roles } from "@/db/schema/roles.js";
+import { users } from "@/db/schema/users.js";
 import { authenticate } from "@/http/middlewares/authenticate.js";
 import { notFound } from "@/lib/errors.js";
 
 const companyContextSchema = z.object({
 	companyId: z.string().uuid(),
 	fantasyName: z.string(),
+	slug: z.string(),
 	socialReason: z.string(),
 	cnpj: z.string().nullable(),
 	approvalStatus: z.enum(["PENDING", "APPROVED", "REJECTED"]),
@@ -40,7 +39,7 @@ const getMeResponseSchema = z.object({
 	document: z.string().nullable(),
 	cellphone: z.string().nullable(),
 	avatarUrl: z.string().nullable(),
-	accountType: z.enum(["CLIENT", "WORKER", "COMPANY"]),
+	accountType: z.enum(["CLIENT", "WORKER", "OWNER"]),
 	profileType: z.enum(["ADMIN", "CLIENT", "PLATFORM_DEVELOPER"]),
 	zipcode: z.string().nullable(),
 	address: z.string().nullable(),
@@ -106,10 +105,12 @@ export const getMeRoute: FastifyPluginAsyncZod = async (app) => {
 				.select({
 					isOwner: companyMembers.isOwner,
 					companyId: companyMembers.companyId,
-					memberSince: companyMembers.memberSince,
+					memberSince: companyMembers.createdAt,
 					roleId: companyMembers.roleId,
-					companyName: companies.name,
-					companyDocument: companies.document,
+					companyFantasyName: companies.fantasyName,
+					companySlug: companies.slug,
+					companySocialReason: companies.socialReason,
+					companyDocument: companies.cnpj,
 					approvalStatus: companies.approvalStatus,
 					companyCity: companies.city,
 					companyState: companies.state,
@@ -146,13 +147,14 @@ export const getMeRoute: FastifyPluginAsyncZod = async (app) => {
 				return reply.send(base);
 			}
 
-			if (membership.isOwner || user.accountType === "COMPANY") {
+			if (membership.isOwner || user.accountType === "OWNER") {
 				return reply.send({
 					...base,
 					company: {
 						companyId: membership.companyId,
-						fantasyName: membership.companyName,
-						socialReason: membership.companyName,
+						fantasyName: membership.companyFantasyName,
+						slug: membership.companySlug,
+						socialReason: membership.companySocialReason,
 						cnpj: membership.companyDocument ?? null,
 						approvalStatus: membership.approvalStatus,
 						isOwner: membership.isOwner,
@@ -166,8 +168,8 @@ export const getMeRoute: FastifyPluginAsyncZod = async (app) => {
 				...base,
 				worker: {
 					companyId: membership.companyId,
-					companyFantasyName: membership.companyName,
-					companySocialReason: membership.companyName,
+					companyFantasyName: membership.companyFantasyName,
+					companySocialReason: membership.companySocialReason,
 					companyCnpj: membership.companyDocument ?? null,
 					isOwner: membership.isOwner,
 					memberSince: membership.memberSince.toISOString(),

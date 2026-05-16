@@ -1,17 +1,29 @@
-import { eq, or } from "drizzle-orm";
+import { mkdir, writeFile } from "node:fs/promises";
+import path from "node:path";
+import { eq } from "drizzle-orm";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import { z } from "zod";
-import { companies, companyMembers, users } from "@/db/schema/index.js";
+import { companies } from "@/db/schema/companies.js";
+import { companyDocuments } from "@/db/schema/company-documents.js";
+import { companyMembers } from "@/db/schema/company-members.js";
+import { users } from "@/db/schema/users.js";
 import { hashPassword } from "@/lib/crypto.js";
+import { UPLOAD_DIR } from "@/lib/paths.js";
 import { ownerRegistrationSchema } from "@/schemas/user/owner-registration.schema.js";
 
-function toSlug(name: string): string {
-	return name
-		.toLowerCase()
-		.normalize("NFD")
-		.replace(/[̀-ͯ]/g, "")
-		.replace(/[^a-z0-9]+/g, "-")
-		.replace(/(^-|-$)/g, "");
+const FIELD_TO_DOC_TYPE = {
+	cnpjDocument: "CNPJ_DOCUMENT",
+	addressProof: "ADDRESS_PROOF",
+	ownerIdentity: "OWNER_IDENTITY",
+	operatingLicense: "OPERATING_LICENSE",
+} as const;
+
+type DocumentFieldName = keyof typeof FIELD_TO_DOC_TYPE;
+
+interface UploadedFile {
+	buffer: Buffer;
+	filename: string;
+	mimetype: string;
 }
 
 export const registerOwnerRoute: FastifyPluginAsyncZod = async (app) => {
@@ -21,49 +33,77 @@ export const registerOwnerRoute: FastifyPluginAsyncZod = async (app) => {
 			schema: {
 				summary: "Register a new company owner account",
 				tags: ["Auth"],
-				body: ownerRegistrationSchema,
+				consumes: ["multipart/form-data"],
 				response: {
 					201: z.object({
 						userId: z.string().uuid(),
 						companyId: z.string().uuid(),
+						companySlug: z.string(),
 					}),
+					400: z.object({ message: z.string() }),
 					409: z.object({ message: z.string() }),
 				},
 			},
 		},
 		async (req, reply) => {
-			const { name, email, document, cellphone, password, company } = req.body;
+			let bodyData: unknown;
+			const uploadedFiles: Record<string, UploadedFile> = {};
 
-			const existingUser = await app.db
+			for await (const part of req.parts({
+				limits: { fileSize: 10 * 1024 * 1024 },
+			})) {
+				if (part.type === "file") {
+					const buffer = await part.toBuffer();
+					uploadedFiles[part.fieldname] = {
+						buffer,
+						filename: part.filename,
+						mimetype: part.mimetype,
+					};
+				} else if (part.fieldname === "data") {
+					try {
+						bodyData = JSON.parse(part.value as string);
+					} catch {
+						return reply.status(400).send({ message: "Payload inválido." });
+					}
+				}
+			}
+
+			const parsed = ownerRegistrationSchema.safeParse(bodyData);
+			if (!parsed.success) {
+				return reply.status(400).send({ message: "Dados inválidos." });
+			}
+
+			const { name, email, document, cellphone, password, company } =
+				parsed.data;
+
+			const companySlug = company.fantasyName
+				.toLowerCase()
+				.normalize("NFD")
+				.replace(/[̀-ͯ]/g, "")
+				.replace(/[^a-z0-9]+/g, "-")
+				.replace(/^-|-$/g, "");
+
+			const [existingUser] = await app.db
 				.select({ id: users.id })
 				.from(users)
 				.where(eq(users.email, email))
 				.limit(1);
 
-			if (existingUser.length > 0) {
+			if (existingUser) {
 				return reply.status(409).send({ message: "E-mail já cadastrado." });
 			}
 
-			const existingCompany = await app.db
+			const [existingCompany] = await app.db
 				.select({ id: companies.id })
 				.from(companies)
-				.where(
-					or(
-						eq(companies.document, company.document),
-						eq(companies.email, company.email),
-					),
-				)
+				.where(eq(companies.cnpj, company.cnpj))
 				.limit(1);
 
-			if (existingCompany.length > 0) {
-				return reply
-					.status(409)
-					.send({ message: "CNPJ ou e-mail da empresa já cadastrado." });
+			if (existingCompany) {
+				return reply.status(409).send({ message: "CNPJ já cadastrado." });
 			}
 
 			const passwordHash = await hashPassword(password);
-
-			const baseSlug = toSlug(company.name);
 
 			const result = await app.db.transaction(async (tx) => {
 				const [user] = await tx
@@ -74,7 +114,7 @@ export const registerOwnerRoute: FastifyPluginAsyncZod = async (app) => {
 						document,
 						phone: cellphone,
 						passwordHash,
-						accountType: "COMPANY",
+						accountType: "OWNER",
 						profileType: "CLIENT",
 					})
 					.returning({ id: users.id });
@@ -82,16 +122,21 @@ export const registerOwnerRoute: FastifyPluginAsyncZod = async (app) => {
 				const [createdCompany] = await tx
 					.insert(companies)
 					.values({
-						name: company.name,
-						slug: `${baseSlug}-${user.id.slice(0, 8)}`,
-						email: company.email,
-						phone: company.phone,
-						document: company.document,
-						segment: company.segment,
+						fantasyName: company.fantasyName,
+						socialReason: company.socialReason,
+						slug: companySlug,
+						cnpj: company.cnpj,
 						ownerId: user.id,
 						approvalStatus: "PENDING",
+						zipCode: company.zipcode,
+						street: company.address,
+						number: company.number,
+						complement: company.complement,
+						neighborhood: company.neighborhood,
+						city: company.city,
+						state: company.state,
 					})
-					.returning({ id: companies.id });
+					.returning({ id: companies.id, slug: companies.slug });
 
 				await tx.insert(companyMembers).values({
 					userId: user.id,
@@ -99,8 +144,40 @@ export const registerOwnerRoute: FastifyPluginAsyncZod = async (app) => {
 					isOwner: true,
 				});
 
-				return { userId: user.id, companyId: createdCompany.id };
+				return {
+					userId: user.id,
+					companyId: createdCompany.id,
+					companySlug: createdCompany.slug,
+				};
 			});
+
+			const companyUploadDir = path.join(
+				UPLOAD_DIR,
+				"companies",
+				result.companyId,
+			);
+			await mkdir(companyUploadDir, { recursive: true });
+
+			for (const [fieldname, file] of Object.entries(uploadedFiles)) {
+				const docType =
+					FIELD_TO_DOC_TYPE[fieldname as DocumentFieldName] ?? null;
+				if (!docType) continue;
+
+				const ext = path.extname(file.filename) || ".bin";
+				const storedName = `${docType.toLowerCase()}${ext}`;
+				const absolutePath = path.join(companyUploadDir, storedName);
+				const publicPath = `/uploads/companies/${result.companyId}/${storedName}`;
+
+				await writeFile(absolutePath, file.buffer);
+
+				await app.db.insert(companyDocuments).values({
+					companyId: result.companyId,
+					type: docType,
+					fileName: file.filename,
+					filePath: publicPath,
+					mimeType: file.mimetype,
+				});
+			}
 
 			return reply.status(201).send(result);
 		},

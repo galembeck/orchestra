@@ -1,5 +1,4 @@
 import { useAuth } from "@repo/core/hooks/services/use-auth";
-import { useMyCompanies } from "@repo/core/hooks/services/use-company";
 import {
 	ACCOUNT_TYPE_DETAILS,
 	type AccountType,
@@ -35,8 +34,6 @@ export function ProfileDropdown() {
 
 	const { user, signOut } = useAuth();
 
-	const { data: companies } = useMyCompanies();
-
 	const handleSignOut = () => {
 		signOut();
 
@@ -60,7 +57,7 @@ export function ProfileDropdown() {
 				</button>
 			</DropdownMenuTrigger>
 
-			<DropdownMenuContent align="end" className="w-56">
+			<DropdownMenuContent align="end" className="w-fit">
 				<DropdownMenuGroup>
 					<DropdownMenuLabel>Informações pessoais</DropdownMenuLabel>
 
@@ -105,52 +102,47 @@ export function ProfileDropdown() {
 						)}
 					</DropdownMenuItem>
 
-					{user.accountType === "COMPANY" &&
-						companies &&
-						companies.length > 0 && (
-							<Collapsible className="group/collapsible">
-								<CollapsibleTrigger asChild>
-									<DropdownMenuItem
-										className="flex cursor-pointer items-center justify-between"
-										onSelect={(e) => e.preventDefault()}
-									>
-										<ChevronRight className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+					{user.accountType === "OWNER" && user.company && (
+						<Collapsible className="group/collapsible">
+							<CollapsibleTrigger asChild>
+								<DropdownMenuItem
+									className="flex cursor-pointer items-center justify-between"
+									onSelect={(e) => e.preventDefault()}
+								>
+									<ChevronRight className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
 
-										<span className="flex items-center gap-2">
-											<LayoutDashboard className="h-4 w-4" />
-											Dashboard
-										</span>
+									<span className="flex items-center gap-2">
+										<LayoutDashboard className="h-4 w-4" />
+										Dashboard
+									</span>
 
-										<div className="flex items-center gap-1.5">
-											<Badge className="bg-foreground-accent font-jetbrains-mono font-medium text-[11px] uppercase">
-												{
-													ACCOUNT_TYPE_DETAILS[user.accountType as AccountType]
-														?.label
-												}
-											</Badge>
-										</div>
-									</DropdownMenuItem>
-								</CollapsibleTrigger>
+									<div className="flex items-center gap-1.5">
+										<Badge className="bg-foreground-accent font-jetbrains-mono font-medium text-[11px] uppercase">
+											{
+												ACCOUNT_TYPE_DETAILS[user.accountType as AccountType]
+													?.label
+											}
+										</Badge>
+									</div>
+								</DropdownMenuItem>
+							</CollapsibleTrigger>
 
-								<CollapsibleContent className="px-1 py-1">
-									{companies.map((company) => (
-										<DropdownMenuItem
-											className="mt-1 flex cursor-pointer items-center gap-2"
-											key={company.id}
-											onClick={() => navigate({ to: `/app/${company.slug}` })}
-										>
-											<div className="ml-0.5 h-6 w-1 bg-foreground-accent" />
+							<CollapsibleContent className="px-1 py-1">
+								<DropdownMenuItem
+									className="mt-1 flex cursor-pointer items-center gap-2"
+									onClick={() => navigate({ to: `/app/${user.company?.slug}` })}
+								>
+									<div className="ml-0.5 h-6 w-1 bg-foreground-accent" />
 
-											<Building2 className="h-3.5 w-3.5 text-muted-foreground" />
+									<Building2 className="h-3.5 w-3.5 text-muted-foreground" />
 
-											<span className="truncate text-sm">
-												{company.fantasyName}
-											</span>
-										</DropdownMenuItem>
-									))}
-								</CollapsibleContent>
-							</Collapsible>
-						)}
+									<span className="truncate text-sm">
+										{user.company.fantasyName}
+									</span>
+								</DropdownMenuItem>
+							</CollapsibleContent>
+						</Collapsible>
+					)}
 				</DropdownMenuGroup>
 
 				<DropdownMenuSeparator />

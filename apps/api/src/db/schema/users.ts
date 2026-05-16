@@ -1,5 +1,4 @@
 import {
-	boolean,
 	pgEnum,
 	pgTable,
 	text,
@@ -11,7 +10,7 @@ import {
 export const accountTypeEnum = pgEnum("account_type", [
 	"CLIENT",
 	"WORKER",
-	"COMPANY",
+	"OWNER",
 ]);
 
 export const profileTypeEnum = pgEnum("profile_type", [
@@ -30,8 +29,6 @@ export const users = pgTable("users", {
 	avatarUrl: text("avatar_url"),
 	accountType: accountTypeEnum("account_type").notNull().default("CLIENT"),
 	profileType: profileTypeEnum("profile_type").notNull().default("CLIENT"),
-	isActive: boolean("is_active").notNull().default(true),
-	// Address (service delivery location for clients)
 	zipCode: varchar("zip_code", { length: 10 }),
 	street: varchar("street", { length: 255 }),
 	number: varchar("number", { length: 20 }),
@@ -39,6 +36,7 @@ export const users = pgTable("users", {
 	neighborhood: varchar("neighborhood", { length: 100 }),
 	city: varchar("city", { length: 100 }),
 	state: varchar("state", { length: 2 }),
+	deletedAt: timestamp("deleted_at"),
 	createdAt: timestamp("created_at").notNull().defaultNow(),
 	updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });

@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import { z } from "zod";
-import { users } from "@/db/schema/index.js";
+import { users } from "@/db/schema/users.js";
 import { hashPassword } from "@/lib/crypto.js";
 import { clientRegistrationSchema } from "@/schemas/user/client-registration.schema.js";
 

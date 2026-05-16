@@ -40,7 +40,7 @@ export function SignUpForm() {
 	const [registrationError, setRegistrationError] = useState<string>("");
 
 	const selectedAccountType =
-		formData.account?.accountType || ACCOUNT_TYPE.COMPANY;
+		formData.account?.accountType || ACCOUNT_TYPE.OWNER;
 
 	const { register: registerClient, isPending: isClientPending } = useUser();
 	const { register: registerCompany, isPending: isCompanyPending } =
@@ -167,7 +167,7 @@ export function SignUpForm() {
 				)}
 
 			{currentStep === 2 &&
-				formData.account?.accountType === ACCOUNT_TYPE.COMPANY && (
+				formData.account?.accountType === ACCOUNT_TYPE.OWNER && (
 					<CompanyInformationStep
 						initialData={formData.companyInformation}
 						onBack={() => setCurrentStep(1)}
@@ -179,7 +179,7 @@ export function SignUpForm() {
 				)}
 
 			{currentStep === 3 &&
-				formData.account?.accountType === ACCOUNT_TYPE.COMPANY && (
+				formData.account?.accountType === ACCOUNT_TYPE.OWNER && (
 					<CompanyAddressStep
 						initialData={formData.companyAddress}
 						onBack={(partialData) => {
@@ -194,7 +194,7 @@ export function SignUpForm() {
 				)}
 
 			{currentStep === 4 &&
-				formData.account?.accountType === ACCOUNT_TYPE.COMPANY && (
+				formData.account?.accountType === ACCOUNT_TYPE.OWNER && (
 					<CompanyDocumentStep
 						initialData={formData.companyDocuments}
 						isPending={isPending}
@@ -210,7 +210,7 @@ export function SignUpForm() {
 				)}
 
 			{currentStep === 5 &&
-				formData.account?.accountType === ACCOUNT_TYPE.COMPANY &&
+				formData.account?.accountType === ACCOUNT_TYPE.OWNER &&
 				registrationStatus === "success" && (
 					<AnalysisStep
 						companyName={
@@ -221,7 +221,7 @@ export function SignUpForm() {
 				)}
 
 			{currentStep === 5 &&
-				formData.account?.accountType === ACCOUNT_TYPE.COMPANY &&
+				formData.account?.accountType === ACCOUNT_TYPE.OWNER &&
 				registrationStatus === "error" && (
 					<RegistrationErrorStep
 						errorMessage={registrationError}

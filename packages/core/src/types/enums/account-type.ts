@@ -1,9 +1,9 @@
-import { Briefcase, Building2, type LucideIcon, User } from "lucide-react";
+import { Briefcase, type LucideIcon, Shield, User } from "lucide-react";
 
 export const ACCOUNT_TYPE = {
 	CLIENT: "CLIENT",
 	WORKER: "WORKER",
-	COMPANY: "COMPANY",
+	OWNER: "OWNER",
 } as const;
 
 export type AccountType = (typeof ACCOUNT_TYPE)[keyof typeof ACCOUNT_TYPE];
@@ -25,10 +25,10 @@ export const ACCOUNT_TYPE_DETAILS: Record<AccountType, AccountTypeProps> = {
 		label: "Profissional",
 		icon: Briefcase,
 	},
-	[ACCOUNT_TYPE.COMPANY]: {
-		value: ACCOUNT_TYPE.COMPANY,
-		label: "Empresa",
-		icon: Building2,
+	[ACCOUNT_TYPE.OWNER]: {
+		value: ACCOUNT_TYPE.OWNER,
+		label: "Proprietário",
+		icon: Shield,
 	},
 };
 

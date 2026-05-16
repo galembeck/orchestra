@@ -12,34 +12,56 @@ import type {
 	UpdateCompanyDTO,
 } from "../models/company.model.js";
 
-const appendIfDefined = (fd: FormData, key: string, value: unknown) => {
-	if (value === undefined || value === null) {
-		return;
-	}
-
-	if (value instanceof File) {
-		fd.append(key, value);
-	} else {
-		fd.append(key, String(value));
-	}
-};
+const CONTENT_DISPOSITION_FILENAME = /filename="?([^";]+)"?/i;
 
 export const companyService = {
-	register: (data: RegisterCompanyDTO) =>
-		API.post<{ userId: string; companyId: string }>("/auth/register/owner", {
-			name: data.ownerName,
-			email: data.ownerEmail,
-			document: data.ownerDocument.replace(/\D/g, ""),
-			cellphone: data.ownerCellphone.replace(/\D/g, ""),
-			password: data.ownerPassword,
-			acceptedTerms: data.acceptTerms,
-			company: {
-				name: data.fantasyName,
-				document: data.cnpj.replace(/\D/g, ""),
+	register: (data: RegisterCompanyDTO) => {
+		const form = new FormData();
+
+		form.append(
+			"data",
+			JSON.stringify({
+				name: data.ownerName,
 				email: data.ownerEmail,
-				segment: data.segment,
-			},
-		}),
+				document: data.ownerDocument.replace(/\D/g, ""),
+				cellphone: data.ownerCellphone.replace(/\D/g, ""),
+				password: data.ownerPassword,
+				acceptedTerms: data.acceptTerms,
+				company: {
+					fantasyName: data.fantasyName,
+					socialReason: data.socialReason,
+					cnpj: data.cnpj.replace(/\D/g, ""),
+					segment: data.segment,
+					zipcode: data.zipcode.replace(/\D/g, ""),
+					address: data.address,
+					number: data.number,
+					complement: data.complement,
+					neighborhood: data.neighborhood,
+					city: data.city,
+					state: data.state,
+				},
+			})
+		);
+
+		const docFields = [
+			"cnpjDocument",
+			"addressProof",
+			"ownerIdentity",
+			"operatingLicense",
+		] as const;
+
+		for (const field of docFields) {
+			const file = data[field];
+			if (file) {
+				form.append(field, file, file.name);
+			}
+		}
+
+		return API.postForm<{ userId: string; companyId: string }>(
+			"/auth/register/owner",
+			form
+		);
+	},
 
 	getMyCompanies: () => API.get<PublicCompanyDTO[]>("/company/me"),
 
@@ -51,8 +73,10 @@ export const companyService = {
 	update: (companyId: string, data: UpdateCompanyDTO) =>
 		API.put<PublicCompanyDTO>(`/company/${companyId}`, data),
 
-	updateConfiguration: (companyId: string, data: UpdateCompanyConfigurationDTO) =>
-		API.patch<PublicCompanyDTO>(`/company/${companyId}/configuration`, data),
+	updateConfiguration: (
+		companyId: string,
+		data: UpdateCompanyConfigurationDTO
+	) => API.patch<PublicCompanyDTO>(`/company/${companyId}/configuration`, data),
 
 	getDocuments: (companyId: string) =>
 		API.get<CompanyDocumentDTO[]>(`/company/${companyId}/documents`),
@@ -104,7 +128,7 @@ export const companyService = {
 		const blob = await res.blob();
 		const disposition = res.headers.get("content-disposition") ?? "";
 		const filename =
-			/filename="?([^";]+)"?/i.exec(disposition)?.[1] ??
+			CONTENT_DISPOSITION_FILENAME.exec(disposition)?.[1] ??
 			`equipe-${companyId}.csv`;
 
 		return { blob, filename };
