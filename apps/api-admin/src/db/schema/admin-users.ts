@@ -1,11 +1,13 @@
 import {
 	boolean,
+	jsonb,
 	pgTable,
 	text,
 	timestamp,
 	uuid,
 	varchar,
 } from "drizzle-orm/pg-core";
+import { adminRoles } from "./admin-roles.js";
 
 export const adminUsers = pgTable("admin_users", {
 	id: uuid("id").primaryKey().defaultRandom(),
@@ -15,6 +17,8 @@ export const adminUsers = pgTable("admin_users", {
 	registration: varchar("registration", { length: 50 }).notNull().unique(),
 	passwordHash: varchar("password_hash", { length: 255 }).notNull(),
 	avatarUrl: text("avatar_url"),
+	roleId: uuid("role_id").references(() => adminRoles.id),
+	permissionOverrides: jsonb("permission_overrides"),
 	isActive: boolean("is_active").notNull().default(true),
 	deletedAt: timestamp("deleted_at"),
 	createdAt: timestamp("created_at").notNull().defaultNow(),
