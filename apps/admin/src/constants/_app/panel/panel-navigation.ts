@@ -24,6 +24,22 @@ export const searchNavigationItems: NavigationItem[] = [
 		keywords: ["inicio", "home", "overview", "dashboard"],
 	},
 	{
+		id: "administrators",
+		title: "Administradores",
+		url: "/panel/administrators/platform",
+		description: "Lista de administradores com suas informações e permissões.",
+		group: "Operação",
+		icon: dashboardData.primary.find((item) => item.title === "Administradores")
+			?.icon,
+		keywords: [
+			"administradores",
+			"admin",
+			"administrators",
+			"overview",
+			"dashboard",
+		],
+	},
+	{
 		id: "validation",
 		title: "Validação de cadastro",
 		url: "/panel/validation",
@@ -31,7 +47,7 @@ export const searchNavigationItems: NavigationItem[] = [
 			"Acompanhamento de novos cadastros pendentes na plataforma para validação das empresas.",
 		group: "Operação",
 		icon: dashboardData.primary.find(
-			(item) => item.title === "Validação de cadastro"
+			(item) => item.title === "Validação de cadastro",
 		)?.icon,
 		keywords: ["validacao", "validation", "aproval", "aprovacao", "dashboard"],
 	},
@@ -75,5 +91,5 @@ export const groupNavigationItems = (items: NavigationItem[]) =>
 			acc[group].push(item);
 			return acc;
 		},
-		{} as Record<string, NavigationItem[]>
+		{} as Record<string, NavigationItem[]>,
 	);

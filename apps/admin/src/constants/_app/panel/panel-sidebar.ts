@@ -1,4 +1,4 @@
-import { CheckCircle, LayoutDashboard } from "lucide-react";
+import { CheckCircle, LayoutDashboard, ShieldUser } from "lucide-react";
 
 export const dashboardData = {
 	primary: [
@@ -9,10 +9,14 @@ export const dashboardData = {
 			isActive: true,
 		},
 		{
+			title: "Administradores",
+			icon: ShieldUser,
+			items: [{ title: "Plataforma", url: "/panel/administrators/platform" }],
+		},
+		{
 			title: "Validação de cadastro",
 			url: "/panel/validation",
 			icon: CheckCircle,
-			isActive: true,
 		},
 	],
 };
