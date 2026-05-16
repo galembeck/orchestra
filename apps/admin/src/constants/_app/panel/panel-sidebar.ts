@@ -1,4 +1,4 @@
-import { LayoutDashboard } from "lucide-react";
+import { CheckCircle, LayoutDashboard } from "lucide-react";
 
 export const dashboardData = {
 	primary: [
@@ -11,7 +11,7 @@ export const dashboardData = {
 		{
 			title: "Validação de cadastro",
 			url: "/panel/validation",
-			icon: LayoutDashboard,
+			icon: CheckCircle,
 			isActive: true,
 		},
 	],

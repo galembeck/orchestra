@@ -28,7 +28,7 @@ import { DashboardSidebar } from "../../~components/-dashboard-sidebar";
 import { ContentSearch } from "../../~components/sidebar-elements/sidebar-header/-content-search";
 
 export const Route = createFileRoute(
-	"/app/_company/_(organization-set)/$companySlug",
+	"/app/_company/_(organization-set)/$companySlug"
 )({
 	component: CompanyDashboardLayout,
 });
@@ -64,7 +64,7 @@ function CompanyDashboardLayout() {
 
 	const breadcrumbs = useMemo(
 		() => buildBreadcrumbs(pathname, companySlug),
-		[pathname, companySlug],
+		[pathname, companySlug]
 	);
 
 	const getGreeting = () => {
@@ -97,7 +97,7 @@ function CompanyDashboardLayout() {
 
 							<article className="flex flex-col gap-2">
 								<span className="font-jetbrains-mono font-medium text-[10px] text-foreground-tertiary uppercase tracking-[1.5px]">
-									Painel · {company.fantasyName} ·{" "}
+									{company.fantasyName} · Painel ·{" "}
 									{new Date().toLocaleDateString()}
 								</span>
 

@@ -15,6 +15,7 @@ import { Route as AuthSignInIndexRouteImport } from './pages/_auth/_sign-in/inde
 import { Route as AppPanelIndexRouteImport } from './pages/_app/panel/index'
 import { Route as AppPanelValidationIndexRouteImport } from './pages/_app/panel/validation/index'
 import { Route as AppPanelOverviewIndexRouteImport } from './pages/_app/panel/overview/index'
+import { Route as AppPanelValidationCompanyIdIndexRouteImport } from './pages/_app/panel/validation/$companyId/index'
 
 const AuthSignInLayoutRoute = AuthSignInLayoutRouteImport.update({
   id: '/_auth/_sign-in',
@@ -45,6 +46,12 @@ const AppPanelOverviewIndexRoute = AppPanelOverviewIndexRouteImport.update({
   path: '/overview/',
   getParentRoute: () => AppPanelLayoutRoute,
 } as any)
+const AppPanelValidationCompanyIdIndexRoute =
+  AppPanelValidationCompanyIdIndexRouteImport.update({
+    id: '/validation/$companyId/',
+    path: '/validation/$companyId/',
+    getParentRoute: () => AppPanelLayoutRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/panel': typeof AppPanelLayoutRouteWithChildren
@@ -52,12 +59,14 @@ export interface FileRoutesByFullPath {
   '/panel/': typeof AppPanelIndexRoute
   '/panel/overview/': typeof AppPanelOverviewIndexRoute
   '/panel/validation/': typeof AppPanelValidationIndexRoute
+  '/panel/validation/$companyId/': typeof AppPanelValidationCompanyIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/panel': typeof AppPanelIndexRoute
   '/': typeof AuthSignInIndexRoute
   '/panel/overview': typeof AppPanelOverviewIndexRoute
   '/panel/validation': typeof AppPanelValidationIndexRoute
+  '/panel/validation/$companyId': typeof AppPanelValidationCompanyIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -67,6 +76,7 @@ export interface FileRoutesById {
   '/_auth/_sign-in/': typeof AuthSignInIndexRoute
   '/_app/panel/overview/': typeof AppPanelOverviewIndexRoute
   '/_app/panel/validation/': typeof AppPanelValidationIndexRoute
+  '/_app/panel/validation/$companyId/': typeof AppPanelValidationCompanyIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -76,8 +86,14 @@ export interface FileRouteTypes {
     | '/panel/'
     | '/panel/overview/'
     | '/panel/validation/'
+    | '/panel/validation/$companyId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/panel' | '/' | '/panel/overview' | '/panel/validation'
+  to:
+    | '/panel'
+    | '/'
+    | '/panel/overview'
+    | '/panel/validation'
+    | '/panel/validation/$companyId'
   id:
     | '__root__'
     | '/_app/panel'
@@ -86,6 +102,7 @@ export interface FileRouteTypes {
     | '/_auth/_sign-in/'
     | '/_app/panel/overview/'
     | '/_app/panel/validation/'
+    | '/_app/panel/validation/$companyId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -137,6 +154,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppPanelOverviewIndexRouteImport
       parentRoute: typeof AppPanelLayoutRoute
     }
+    '/_app/panel/validation/$companyId/': {
+      id: '/_app/panel/validation/$companyId/'
+      path: '/validation/$companyId'
+      fullPath: '/panel/validation/$companyId/'
+      preLoaderRoute: typeof AppPanelValidationCompanyIdIndexRouteImport
+      parentRoute: typeof AppPanelLayoutRoute
+    }
   }
 }
 
@@ -144,12 +168,14 @@ interface AppPanelLayoutRouteChildren {
   AppPanelIndexRoute: typeof AppPanelIndexRoute
   AppPanelOverviewIndexRoute: typeof AppPanelOverviewIndexRoute
   AppPanelValidationIndexRoute: typeof AppPanelValidationIndexRoute
+  AppPanelValidationCompanyIdIndexRoute: typeof AppPanelValidationCompanyIdIndexRoute
 }
 
 const AppPanelLayoutRouteChildren: AppPanelLayoutRouteChildren = {
   AppPanelIndexRoute: AppPanelIndexRoute,
   AppPanelOverviewIndexRoute: AppPanelOverviewIndexRoute,
   AppPanelValidationIndexRoute: AppPanelValidationIndexRoute,
+  AppPanelValidationCompanyIdIndexRoute: AppPanelValidationCompanyIdIndexRoute,
 }
 
 const AppPanelLayoutRouteWithChildren = AppPanelLayoutRoute._addFileChildren(

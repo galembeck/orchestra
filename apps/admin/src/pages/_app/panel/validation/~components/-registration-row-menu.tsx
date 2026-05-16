@@ -41,7 +41,13 @@ export function RegistrationRowMenu({ company }: RegistrationRowMenuProps) {
 					<Building2 />
 					Detalhes da empresa
 				</DropdownMenuItem>
-				<DropdownMenuItem>
+				<DropdownMenuItem
+					onClick={() =>
+						navigate({
+							to: `/panel/validation/${company.id}` as never,
+						})
+					}
+				>
 					<FileText />
 					Ver documentos
 				</DropdownMenuItem>

@@ -2,6 +2,8 @@ import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import { createAdminUserRoute } from "./admin-users/create-admin-user.js";
 import { signInRoute } from "./auth/sign-in.js";
 import { approveCompanyRoute } from "./companies/approve-company.js";
+import { getCompanyDocumentsRoute } from "./companies/get-company-documents.js";
+import { getCompanyRegistrationRoute } from "./companies/get-company-registration.js";
 import { getCompanyRegistrationsRoute } from "./companies/get-registrations.js";
 import { rejectCompanyRoute } from "./companies/reject-company.js";
 import { getStatusRoute } from "./status/get-status.js";
@@ -13,6 +15,8 @@ export const routes: FastifyPluginAsyncZod = async (app) => {
 	await app.register(getMeRoute);
 	await app.register(createAdminUserRoute);
 	await app.register(getCompanyRegistrationsRoute);
+	await app.register(getCompanyRegistrationRoute);
+	await app.register(getCompanyDocumentsRoute);
 	await app.register(approveCompanyRoute);
 	await app.register(rejectCompanyRoute);
 };

@@ -9,6 +9,7 @@ const envSchema = z.object({
 		.enum(["development", "production", "test"])
 		.default("development"),
 	PORT: z.coerce.number().default(5006),
+	FILES_BASE_URL: z.string().url().default("http://localhost:5005"),
 });
 
 const parsed = envSchema.safeParse(process.env);

@@ -1,5 +1,4 @@
 import type { PublicUserDTO } from "@repo/core/models/user.model";
-import { formatApprovalDate } from "@repo/core/utils/format-approval-date";
 import { formatCNPJ } from "@repo/core/utils/format-masks";
 import { getCompanyInitials } from "@repo/core/utils/get-company-initials";
 import { Badge } from "@repo/ui/components/atoms/badge/badge";
@@ -10,8 +9,8 @@ import {
 import {
 	BadgeCheck,
 	Building2,
-	CalendarClock,
 	Ellipsis,
+	MapPin,
 	PenLine,
 	UserPlus,
 } from "lucide-react";
@@ -42,7 +41,7 @@ export function CompanyHeaderCard({ user }: CompanyHeaderCardProps) {
 				<article className="flex flex-col gap-2.5">
 					<div className="flex items-center gap-3">
 						<h2 className="font-instrument-serif text-3xl text-foreground-primary tracking-tight">
-							{fantasyName}
+							{user.name}
 						</h2>
 
 						<Badge
@@ -62,8 +61,8 @@ export function CompanyHeaderCard({ user }: CompanyHeaderCardProps) {
 							{cnpjLine}
 						</MetaItem>
 
-						<MetaItem icon={<CalendarClock className="h-3.25 w-3.25" />}>
-							{formatApprovalDate(company?.approvedAt)}
+						<MetaItem icon={<MapPin className="h-3.25 w-3.25" />}>
+							{company?.city} / {company?.state}
 						</MetaItem>
 
 						<MetaItem icon={<UserPlus className="h-3.25 w-3.25" />}>

@@ -51,10 +51,10 @@ function PanelValidationPage() {
 			queryClient.invalidateQueries({
 				queryKey: COMPANY_REGISTRATIONS_QUERY_KEY,
 			});
-			toast.success("Empresa aprovada com sucesso.");
+			toast.success("Cadastro de empresa aprovado com sucesso!");
 		},
 		onError: () => {
-			toast.error("Erro ao aprovar empresa. Tente novamente.");
+			toast.error("Ocorreu um erro ao aprovar o cadastro da empresa.");
 		},
 	});
 
@@ -64,10 +64,10 @@ function PanelValidationPage() {
 			queryClient.invalidateQueries({
 				queryKey: COMPANY_REGISTRATIONS_QUERY_KEY,
 			});
-			toast.success("Empresa recusada.");
+			toast.success("Cadastro de empresa recusado.");
 		},
 		onError: () => {
-			toast.error("Erro ao recusar empresa. Tente novamente.");
+			toast.error("Ocorreu um erro ao recusar o cadastro da empresa.");
 		},
 	});
 
@@ -95,28 +95,36 @@ function PanelValidationPage() {
 
 	return (
 		<div className="space-y-6">
-			<div>
-				<h1 className="font-inter font-semibold text-foreground-primary text-xl">
-					Validação de cadastro
+			<div className="flex flex-col gap-2">
+				<span className="font-jetbrains-mono font-medium text-[11px] text-foreground-tertiary uppercase tracking-[1.5px]">
+					Operação
+				</span>
+
+				<h1 className="font-instrument-serif font-medium text-3xl text-foreground-primary">
+					Validação de cadastros
 				</h1>
-				<p className="mt-1 font-inter text-foreground-secondary text-sm">
-					Gerencie e revise os novos cadastros de empresas na plataforma.
+
+				<p className="font-inter text-[13px] text-foreground-tertiary">
+					Visualize, aprove ou recuse os cadastro pendentes de empresas na
+					plataforma.
 				</p>
 			</div>
 
-			<div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+			<div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
 				<RegistrationStatsCard
 					description="Total de empresas cadastradas"
 					icon={Building2}
 					title="Total de cadastros"
 					value={companies.length}
 				/>
+
 				<RegistrationStatsCard
 					description="Aguardando análise"
 					icon={Clock}
 					title="Pendentes"
 					value={pendingCount}
 				/>
+
 				<RegistrationStatsCard
 					description={`${approvedCount} aprovadas · ${rejectedCount} recusadas`}
 					icon={CheckCircle2}
@@ -127,11 +135,13 @@ function PanelValidationPage() {
 
 			<Card>
 				<CardHeader>
-					<div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+					<div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
 						<div>
 							<CardTitle>Cadastros de empresas</CardTitle>
+
 							<CardDescription className="mt-1">
-								Revise os dados e aprove ou recuse cada cadastro.
+								Revise os dados das empresas e aprove ou recuse cada cadastro na
+								plataforma.
 							</CardDescription>
 						</div>
 
@@ -153,6 +163,7 @@ function PanelValidationPage() {
 						</div>
 					</div>
 				</CardHeader>
+
 				<CardContent className="p-0">
 					<RegistrationsTable
 						companies={filtered}
