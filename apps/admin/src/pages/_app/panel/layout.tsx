@@ -41,10 +41,10 @@ function PanelLayout() {
 							<article className="flex flex-col gap-2">
 								<Breadcrumb>
 									<BreadcrumbList>
-										{location.pathname !== "/app" && (
+										{location.pathname !== "/panel" && (
 											<>
 												<BreadcrumbItem>
-													<BreadcrumbLink href="/app/dashboard">
+													<BreadcrumbLink href="/panel/overview">
 														Painel Administrativo
 													</BreadcrumbLink>
 												</BreadcrumbItem>

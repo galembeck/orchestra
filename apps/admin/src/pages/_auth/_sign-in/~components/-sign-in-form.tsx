@@ -24,10 +24,11 @@ const signInFormSchema = z.object({
 		.refine(
 			(value) => {
 				const isEmail = z.email().safeParse(value).success;
+				// biome-ignore lint/performance/useTopLevelRegex: not important in this context
 				const isRegistration = /^\d+$/.test(value) && value.length >= 4;
 				return isEmail || isRegistration;
 			},
-			{ message: "Insira um e-mail ou matrícula válida." },
+			{ message: "Insira um e-mail ou matrícula válida." }
 		),
 	password: z.string().min(1, "Senha é obrigatória."),
 	rememberMe: z.boolean(),
@@ -53,7 +54,7 @@ export function SignInForm() {
 
 		onSuccess: (data) => {
 			toast.success(`Bem-vindo, ${data.user.name}!`);
-			navigate({ to: "/_app/panel" });
+			navigate({ to: "/panel" });
 		},
 
 		onError: (err) => {
@@ -61,7 +62,8 @@ export function SignInForm() {
 			const message =
 				apiErr.status === 401
 					? "E-mail, matrícula ou senha inválidos."
-					: apiErr.status === 403
+					: // biome-ignore lint/style/noNestedTernary: not important in this context
+						apiErr.status === 403
 						? "Conta desativada. Entre em contato com o suporte."
 						: "Erro ao realizar login. Tente novamente.";
 
@@ -193,7 +195,7 @@ export function SignInForm() {
 									onChange={(e) => field.handleChange(e.target.checked)}
 									type="checkbox"
 								/>
-								<span className="font-inter text-[13px] text-foreground-secondary select-none">
+								<span className="select-none font-inter text-[13px] text-foreground-secondary">
 									Manter-me conectado por 7 dias
 								</span>
 							</label>
