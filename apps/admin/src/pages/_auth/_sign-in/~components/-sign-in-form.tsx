@@ -1,5 +1,9 @@
 /** biome-ignore-all lint/correctness/noChildrenProp: required by field component */
 
+import {
+	type ApiException,
+	adminApi,
+} from "@repo/core/api/connection/api-admin";
 import { Button } from "@repo/ui/components/atoms/button/button";
 import { Input } from "@repo/ui/components/atoms/input/input";
 import {
@@ -15,7 +19,6 @@ import { ArrowRight, Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import z from "zod";
-import { type ApiException, adminApi } from "@/lib/api";
 
 const signInFormSchema = z.object({
 	identifier: z
@@ -24,11 +27,10 @@ const signInFormSchema = z.object({
 		.refine(
 			(value) => {
 				const isEmail = z.email().safeParse(value).success;
-				// biome-ignore lint/performance/useTopLevelRegex: not important in this context
 				const isRegistration = /^\d+$/.test(value) && value.length >= 4;
 				return isEmail || isRegistration;
 			},
-			{ message: "Insira um e-mail ou matrícula válida." }
+			{ message: "Insira um e-mail ou matrícula válida." },
 		),
 	password: z.string().min(1, "Senha é obrigatória."),
 	rememberMe: z.boolean(),
@@ -62,8 +64,7 @@ export function SignInForm() {
 			const message =
 				apiErr.status === 401
 					? "E-mail, matrícula ou senha inválidos."
-					: // biome-ignore lint/style/noNestedTernary: not important in this context
-						apiErr.status === 403
+					: apiErr.status === 403
 						? "Conta desativada. Entre em contato com o suporte."
 						: "Erro ao realizar login. Tente novamente.";
 

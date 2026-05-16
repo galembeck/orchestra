@@ -1,10 +1,10 @@
+import { companies } from "@repo/db/schema/companies.js";
+import { companyMembers } from "@repo/db/schema/company-members.js";
+import { roles } from "@repo/db/schema/roles.js";
+import { users } from "@repo/db/schema/users.js";
 import { eq } from "drizzle-orm";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import { z } from "zod";
-import { companies } from "@/db/schema/companies.js";
-import { companyMembers } from "@/db/schema/company-members.js";
-import { roles } from "@/db/schema/roles.js";
-import { users } from "@/db/schema/users.js";
 import { authenticate } from "@/http/middlewares/authenticate.js";
 import { notFound } from "@/lib/errors.js";
 

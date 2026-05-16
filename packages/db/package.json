@@ -1,0 +1,44 @@
+{
+	"name": "@repo/db",
+	"version": "0.0.0",
+	"type": "module",
+	"exports": {
+		"./schema/companies.js": {
+			"types": "./dist/schema/companies.d.ts",
+			"default": "./dist/schema/companies.js"
+		},
+		"./schema/users.js": {
+			"types": "./dist/schema/users.d.ts",
+			"default": "./dist/schema/users.js"
+		},
+		"./schema/roles.js": {
+			"types": "./dist/schema/roles.d.ts",
+			"default": "./dist/schema/roles.js"
+		},
+		"./schema/role-permissions.js": {
+			"types": "./dist/schema/role-permissions.d.ts",
+			"default": "./dist/schema/role-permissions.js"
+		},
+		"./schema/company-members.js": {
+			"types": "./dist/schema/company-members.d.ts",
+			"default": "./dist/schema/company-members.js"
+		},
+		"./schema/company-documents.js": {
+			"types": "./dist/schema/company-documents.d.ts",
+			"default": "./dist/schema/company-documents.js"
+		}
+	},
+	"scripts": {
+		"build": "tsc -p tsconfig.build.json",
+		"dev": "tsc -p tsconfig.build.json --watch",
+		"check-types": "tsc --noEmit"
+	},
+	"dependencies": {
+		"drizzle-orm": "^0.45.2"
+	},
+	"devDependencies": {
+		"@repo/typescript-config": "workspace:*",
+		"@types/node": "^24.12.2",
+		"typescript": "^6.0.3"
+	}
+}

@@ -10,7 +10,9 @@ export const rolePermissions = pgTable(
 			.references(() => roles.id, { onDelete: "cascade" }),
 		permissionKey: varchar("permission_key", { length: 100 }).notNull(),
 	},
-	(t) => [unique("role_permissions_role_key_unique").on(t.roleId, t.permissionKey)],
+	(t) => [
+		unique("role_permissions_role_key_unique").on(t.roleId, t.permissionKey),
+	]
 );
 
 export type RolePermission = typeof rolePermissions.$inferSelect;

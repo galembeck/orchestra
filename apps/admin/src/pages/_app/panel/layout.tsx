@@ -1,3 +1,4 @@
+import { adminAuthQueryOptions } from "@repo/core/services/admin/admin-auth.service";
 import { ThemeToggle } from "@repo/ui/components/atoms/theme-toggle/theme-toggle";
 import {
 	Breadcrumb,
@@ -12,21 +13,36 @@ import {
 	SidebarProvider,
 	SidebarTrigger,
 } from "@repo/ui/components/organisms/sidebar/sidebar";
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { PanelSidebar } from "./~components/-panel-sidebar";
 import { ContentSearch } from "./~components/sidebar-elements/sidebar-header/-content-search";
 
 export const Route = createFileRoute("/_app/panel")({
+	beforeLoad: async ({ context: { queryClient } }) => {
+		const user = await queryClient
+			.ensureQueryData(adminAuthQueryOptions)
+			.catch((err: { status?: number }) => {
+				if (err.status === 401) {
+					return null;
+				}
+				throw err;
+			});
+
+		if (!user) {
+			throw redirect({ to: "/" });
+		}
+	},
 	component: PanelLayout,
 });
 
-function PanelLayout() {
-	const pageLabels: Record<string, string> = {
-		"/panel/overview": "Visão geral",
-	};
+const PAGE_LABELS: Record<string, string> = {
+	"/panel/overview": "Visão geral",
+	"/panel/validation": "Validação de cadastro",
+};
 
+function PanelLayout() {
 	const currentPageLabel =
-		pageLabels[location.pathname] || "Página não reconhecida...";
+		PAGE_LABELS[location.pathname] ?? "Página não reconhecida...";
 
 	return (
 		<main className="bg-surface text-foreground-primary">

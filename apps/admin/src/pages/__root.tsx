@@ -1,10 +1,18 @@
+import type { QueryClient } from "@tanstack/react-query";
 import { ThemeProvider } from "@repo/core/providers/theme-provider";
 import { Toaster } from "@repo/ui/components/atoms/sooner/sooner";
-import { createRootRoute, HeadContent, Outlet } from "@tanstack/react-router";
+import {
+	HeadContent,
+	Outlet,
+	createRootRouteWithContext,
+} from "@tanstack/react-router";
 
-export const Route = createRootRoute({
+interface RouterContext {
+	queryClient: QueryClient;
+}
+
+export const Route = createRootRouteWithContext<RouterContext>()({
 	component: RootComponent,
-	// notFoundComponent: () => <NotFound />,
 	head: () => ({
 		meta: [
 			{

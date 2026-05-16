@@ -13,6 +13,7 @@ import { Route as AuthSignInLayoutRouteImport } from './pages/_auth/_sign-in/lay
 import { Route as AppPanelLayoutRouteImport } from './pages/_app/panel/layout'
 import { Route as AuthSignInIndexRouteImport } from './pages/_auth/_sign-in/index'
 import { Route as AppPanelIndexRouteImport } from './pages/_app/panel/index'
+import { Route as AppPanelValidationIndexRouteImport } from './pages/_app/panel/validation/index'
 import { Route as AppPanelOverviewIndexRouteImport } from './pages/_app/panel/overview/index'
 
 const AuthSignInLayoutRoute = AuthSignInLayoutRouteImport.update({
@@ -34,6 +35,11 @@ const AppPanelIndexRoute = AppPanelIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppPanelLayoutRoute,
 } as any)
+const AppPanelValidationIndexRoute = AppPanelValidationIndexRouteImport.update({
+  id: '/validation/',
+  path: '/validation/',
+  getParentRoute: () => AppPanelLayoutRoute,
+} as any)
 const AppPanelOverviewIndexRoute = AppPanelOverviewIndexRouteImport.update({
   id: '/overview/',
   path: '/overview/',
@@ -45,11 +51,13 @@ export interface FileRoutesByFullPath {
   '/': typeof AuthSignInIndexRoute
   '/panel/': typeof AppPanelIndexRoute
   '/panel/overview/': typeof AppPanelOverviewIndexRoute
+  '/panel/validation/': typeof AppPanelValidationIndexRoute
 }
 export interface FileRoutesByTo {
   '/panel': typeof AppPanelIndexRoute
   '/': typeof AuthSignInIndexRoute
   '/panel/overview': typeof AppPanelOverviewIndexRoute
+  '/panel/validation': typeof AppPanelValidationIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -58,12 +66,18 @@ export interface FileRoutesById {
   '/_app/panel/': typeof AppPanelIndexRoute
   '/_auth/_sign-in/': typeof AuthSignInIndexRoute
   '/_app/panel/overview/': typeof AppPanelOverviewIndexRoute
+  '/_app/panel/validation/': typeof AppPanelValidationIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/panel' | '/' | '/panel/' | '/panel/overview/'
+  fullPaths:
+    | '/panel'
+    | '/'
+    | '/panel/'
+    | '/panel/overview/'
+    | '/panel/validation/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/panel' | '/' | '/panel/overview'
+  to: '/panel' | '/' | '/panel/overview' | '/panel/validation'
   id:
     | '__root__'
     | '/_app/panel'
@@ -71,6 +85,7 @@ export interface FileRouteTypes {
     | '/_app/panel/'
     | '/_auth/_sign-in/'
     | '/_app/panel/overview/'
+    | '/_app/panel/validation/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -108,6 +123,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppPanelIndexRouteImport
       parentRoute: typeof AppPanelLayoutRoute
     }
+    '/_app/panel/validation/': {
+      id: '/_app/panel/validation/'
+      path: '/validation'
+      fullPath: '/panel/validation/'
+      preLoaderRoute: typeof AppPanelValidationIndexRouteImport
+      parentRoute: typeof AppPanelLayoutRoute
+    }
     '/_app/panel/overview/': {
       id: '/_app/panel/overview/'
       path: '/overview'
@@ -121,11 +143,13 @@ declare module '@tanstack/react-router' {
 interface AppPanelLayoutRouteChildren {
   AppPanelIndexRoute: typeof AppPanelIndexRoute
   AppPanelOverviewIndexRoute: typeof AppPanelOverviewIndexRoute
+  AppPanelValidationIndexRoute: typeof AppPanelValidationIndexRoute
 }
 
 const AppPanelLayoutRouteChildren: AppPanelLayoutRouteChildren = {
   AppPanelIndexRoute: AppPanelIndexRoute,
   AppPanelOverviewIndexRoute: AppPanelOverviewIndexRoute,
+  AppPanelValidationIndexRoute: AppPanelValidationIndexRoute,
 }
 
 const AppPanelLayoutRouteWithChildren = AppPanelLayoutRoute._addFileChildren(

@@ -15,13 +15,25 @@ export const searchNavigationItems: NavigationItem[] = [
 	{
 		id: "overview",
 		title: "Visão geral",
-		url: "/company/$companySlug/overview",
+		url: "/panel/overview",
 		description:
 			"Visão geral do painel administrativo com métricas gerais e informações relevantes sobre seu perfil e sua empresa.",
 		group: "Operação",
 		icon: dashboardData.primary.find((item) => item.title === "Visão geral")
 			?.icon,
 		keywords: ["inicio", "home", "overview", "dashboard"],
+	},
+	{
+		id: "validation",
+		title: "Validação de cadastro",
+		url: "/panel/validation",
+		description:
+			"Acompanhamento de novos cadastros pendentes na plataforma para validação das empresas.",
+		group: "Operação",
+		icon: dashboardData.primary.find(
+			(item) => item.title === "Validação de cadastro"
+		)?.icon,
+		keywords: ["validacao", "validation", "aproval", "aprovacao", "dashboard"],
 	},
 
 	{

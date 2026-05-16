@@ -1,7 +1,7 @@
 export const COMPANY_APPROVAL_STATUS = {
-	PENDING: 1,
-	APPROVED: 2,
-	REJECTED: 3,
+	PENDING: "PENDING",
+	APPROVED: "APPROVED",
+	REJECTED: "REJECTED",
 } as const;
 
 export type CompanyApprovalStatus =

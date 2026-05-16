@@ -1,12 +1,12 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { companies } from "@repo/db/schema/companies.js";
+import { companyDocuments } from "@repo/db/schema/company-documents.js";
+import { companyMembers } from "@repo/db/schema/company-members.js";
+import { users } from "@repo/db/schema/users.js";
 import { eq } from "drizzle-orm";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import { z } from "zod";
-import { companies } from "@/db/schema/companies.js";
-import { companyDocuments } from "@/db/schema/company-documents.js";
-import { companyMembers } from "@/db/schema/company-members.js";
-import { users } from "@/db/schema/users.js";
 import { hashPassword } from "@/lib/crypto.js";
 import { UPLOAD_DIR } from "@/lib/paths.js";
 import { ownerRegistrationSchema } from "@/schemas/user/owner-registration.schema.js";

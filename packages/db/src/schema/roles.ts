@@ -1,4 +1,11 @@
-import { boolean, pgTable, timestamp, unique, uuid, varchar } from "drizzle-orm/pg-core";
+import {
+	boolean,
+	pgTable,
+	timestamp,
+	unique,
+	uuid,
+	varchar,
+} from "drizzle-orm/pg-core";
 import { companies } from "./companies.js";
 
 export const roles = pgTable(
@@ -15,7 +22,7 @@ export const roles = pgTable(
 		createdAt: timestamp("created_at").notNull().defaultNow(),
 		updatedAt: timestamp("updated_at").notNull().defaultNow(),
 	},
-	(t) => [unique("roles_key_company_unique").on(t.key, t.companyId)],
+	(t) => [unique("roles_key_company_unique").on(t.key, t.companyId)]
 );
 
 export type Role = typeof roles.$inferSelect;

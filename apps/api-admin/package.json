@@ -23,6 +23,7 @@
 		"typescript": "^6.0.3"
 	},
 	"dependencies": {
+		"@repo/db": "workspace:*",
 		"@fastify/cookie": "^11.0.2",
 		"@fastify/cors": "^11.2.0",
 		"@fastify/jwt": "^10.0.0",

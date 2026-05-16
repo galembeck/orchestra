@@ -147,6 +147,9 @@ importers:
       '@fastify/swagger':
         specifier: ^9.7.0
         version: 9.7.0
+      '@repo/db':
+        specifier: workspace:*
+        version: link:../../packages/db
       '@scalar/fastify-api-reference':
         specifier: ^1.55.3
         version: 1.55.3
@@ -196,6 +199,9 @@ importers:
       '@fastify/swagger':
         specifier: ^9.7.0
         version: 9.7.0
+      '@repo/db':
+        specifier: workspace:*
+        version: link:../../packages/db
       '@scalar/fastify-api-reference':
         specifier: ^1.55.3
         version: 1.55.3
@@ -394,6 +400,22 @@ importers:
       typescript:
         specifier: ^5.8.2
         version: 5.9.2
+
+  packages/db:
+    dependencies:
+      drizzle-orm:
+        specifier: ^0.45.2
+        version: 0.45.2(postgres@3.4.9)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/node':
+        specifier: ^24.12.2
+        version: 24.12.2
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
 
   packages/eslint-config:
     devDependencies:

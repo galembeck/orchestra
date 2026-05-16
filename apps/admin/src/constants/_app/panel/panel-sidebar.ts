@@ -4,7 +4,13 @@ export const dashboardData = {
 	primary: [
 		{
 			title: "Visão geral",
-			url: "/company/$companySlug/overview",
+			url: "/panel/overview",
+			icon: LayoutDashboard,
+			isActive: true,
+		},
+		{
+			title: "Validação de cadastro",
+			url: "/panel/validation",
 			icon: LayoutDashboard,
 			isActive: true,
 		},

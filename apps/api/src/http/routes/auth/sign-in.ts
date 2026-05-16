@@ -1,7 +1,7 @@
-import { isNull, or, eq } from "drizzle-orm";
+import { users } from "@repo/db/schema/users.js";
+import { eq, or } from "drizzle-orm";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import { z } from "zod";
-import { users } from "@/db/schema/users.js";
 import { verifyPassword } from "@/lib/crypto.js";
 
 export const signInRoute: FastifyPluginAsyncZod = async (app) => {
@@ -44,12 +44,7 @@ export const signInRoute: FastifyPluginAsyncZod = async (app) => {
 					deletedAt: users.deletedAt,
 				})
 				.from(users)
-				.where(
-					or(
-						eq(users.email, identifier),
-						eq(users.document, identifier),
-					),
-				)
+				.where(or(eq(users.email, identifier), eq(users.document, identifier)))
 				.limit(1);
 
 			if (!user || user.deletedAt !== null) {

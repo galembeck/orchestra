@@ -1,13 +1,13 @@
+import { companyMembers } from "@repo/db/schema/company-members.js";
+import { rolePermissions } from "@repo/db/schema/role-permissions.js";
 import { and, eq } from "drizzle-orm";
 import type { FastifyReply, FastifyRequest } from "fastify";
-import { companyMembers } from "@/db/schema/company-members.js";
-import { rolePermissions } from "@/db/schema/role-permissions.js";
 import type { PermissionKeyValue } from "@/types/permissions.js";
 
 export function requirePermission(permission: PermissionKeyValue) {
 	return async (
 		req: FastifyRequest<{ Params: { companyId?: string } }>,
-		reply: FastifyReply
+		reply: FastifyReply,
 	): Promise<void> => {
 		const userId = req.user.sub;
 		const companyId = req.params.companyId;
@@ -26,8 +26,8 @@ export function requirePermission(permission: PermissionKeyValue) {
 			.where(
 				and(
 					eq(companyMembers.userId, userId),
-					eq(companyMembers.companyId, companyId)
-				)
+					eq(companyMembers.companyId, companyId),
+				),
 			)
 			.limit(1);
 
@@ -53,8 +53,8 @@ export function requirePermission(permission: PermissionKeyValue) {
 			.where(
 				and(
 					eq(rolePermissions.roleId, roleId),
-					eq(rolePermissions.permissionKey, permission)
-				)
+					eq(rolePermissions.permissionKey, permission),
+				),
 			)
 			.limit(1);
 

@@ -9,10 +9,14 @@ function createApiException(status: number, message: string): ApiException {
 }
 
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
+	const hasBody = options.body !== undefined && options.body !== null;
 	const res = await fetch(`${BASE_URL}${path}`, {
 		...options,
 		credentials: "include",
-		headers: { "Content-Type": "application/json", ...options.headers },
+		headers: {
+			...(hasBody ? { "Content-Type": "application/json" } : {}),
+			...options.headers,
+		},
 	});
 
 	if (!res.ok) {
@@ -20,7 +24,9 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
 
 		try {
 			const body = (await res.json()) as { message?: string };
-			if (body.message) message = body.message;
+			if (body.message) {
+				message = body.message;
+			}
 		} catch {
 			// ignore parse errors
 		}
