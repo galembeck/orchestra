@@ -1,46 +1,59 @@
+<div align="center">
+
+<img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
+<img src="https://img.shields.io/badge/TypeScript-6-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+<img src="https://img.shields.io/badge/Fastify-5-000000?style=for-the-badge&logo=fastify&logoColor=white" />
+<img src="https://img.shields.io/badge/Drizzle%20ORM-PostgreSQL-C5F74F?style=for-the-badge&logo=drizzle&logoColor=black" />
+<img src="https://img.shields.io/badge/Tailwind%20CSS-v4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" />
+<img src="https://img.shields.io/badge/Turborepo-Monorepo-EF4444?style=for-the-badge&logo=turborepo&logoColor=white" />
+
+<br /><br />
+
 # Orchestra
 
-> A full-stack, multi-tenant SaaS platform built on a modern pnpm + Turborepo monorepo.
+**Full-stack multi-tenant SaaS platform for businesses to manage teams, services, and operations.**  
+Built with React 19, Fastify 5, Drizzle ORM, and a pnpm + Turborepo monorepo.
 
-Orchestra lets businesses register on the platform, manage their team, define services, and control their operations — all from a polished, responsive web interface. An internal admin backoffice gives the platform operators full visibility and control over every tenant and user.
+[Overview](#-overview) · [Architecture](#-architecture) · [Apps](#-apps) · [Packages](#-packages) · [Tech Stack](#-tech-stack) · [Getting Started](#-getting-started) · [Code Standards](#-code-standards)
 
----
-
-## Table of Contents
-
-- [Architecture Overview](#architecture-overview)
-- [Apps](#apps)
-- [Packages](#packages)
-- [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-- [Development Workflow](#development-workflow)
-- [Code Standards](#code-standards)
-- [Project Structure](#project-structure)
+</div>
 
 ---
 
-## Architecture Overview
+## 📌 Overview
+
+Orchestra lets businesses register on the platform, manage their team, define services, and control their operations — all from a polished, responsive web interface. An internal admin backoffice gives platform operators full visibility and control over every tenant and user.
+
+- **Multi-tenant workspace** — Companies get isolated workspaces with team management, RBAC, and service configuration.
+- **Authentication** — JWT + HTTP-only cookie transport with separate flows for clients and company owners.
+- **Internal backoffice** — A dedicated admin SPA and API for platform operators, completely isolated from the customer-facing app.
+- **Type-safe end-to-end** — OpenAPI spec generated from Fastify routes → Kubb generates TypeScript types and TanStack Query hooks for the frontend automatically.
+- **Shared design system** — Atomic Design component library with Storybook, Tailwind v4, and full dark mode support.
+
+---
+
+## 🏛 Architecture
 
 ```
 orchestra-frontend/
 ├── apps/
-│   ├── web/          → Customer-facing SPA (React + Vite)
-│   ├── admin/        → Internal backoffice SPA (React + Vite)
-│   ├── api/          → Main platform API (Fastify + Drizzle ORM)
-│   └── api-admin/    → Internal admin API (Fastify + Drizzle ORM)
+│   ├── web/          → Customer-facing SPA  (React + Vite)
+│   ├── admin/        → Internal backoffice  (React + Vite)
+│   ├── api/          → Main platform API    (Fastify + Drizzle ORM)
+│   └── api-admin/    → Internal admin API   (Fastify + Drizzle ORM)
 └── packages/
-    ├── ui/           → Shared component library (Atomic Design)
-    ├── core/         → Shared utilities, hooks & API client (Kubb-generated)
-    ├── tailwind-config/   → Shared Tailwind v4 theme & tokens
+    ├── ui/                → Shared component library  (Atomic Design + Storybook)
+    ├── core/              → Shared utilities, hooks & Kubb-generated API client
+    ├── tailwind-config/   → Shared Tailwind v4 theme & design tokens
     ├── eslint-config/     → Shared ESLint presets
     └── typescript-config/ → Shared tsconfig presets
 ```
 
-All packages and apps are orchestrated by **Turborepo** with `pnpm` workspaces. Tasks run in parallel and are cached by Turborepo's remote cache — builds are fast and incremental.
+All packages and apps are orchestrated by **Turborepo** with `pnpm` workspaces. Tasks run in parallel and are cached — builds are fast and incremental.
 
 ---
 
-## Apps
+## 📦 Apps
 
 ### `web` — Customer Portal
 
@@ -75,9 +88,7 @@ A separate SPA for platform operators. Protected behind its own authentication, 
 
 ### `api` — Main Platform API
 
-Fastify-powered REST API serving the customer portal. Exposes a fully typed OpenAPI spec via `@scalar/fastify-api-reference` and drives automatic TypeScript client generation for the web app through **Kubb**.
-
-**Key domains:**
+Fastify-powered REST API serving the customer portal. Exposes a fully typed OpenAPI spec via `@scalar/fastify-api-reference` and drives automatic TypeScript client generation through **Kubb**.
 
 | Domain | Description |
 |---|---|
@@ -87,7 +98,7 @@ Fastify-powered REST API serving the customer portal. Exposes a fully typed Open
 | `company-members` | Team membership and roles |
 | `role-permissions` | Fine-grained RBAC |
 
-**Stack:** Fastify 5 · Drizzle ORM · PostgreSQL · Zod (request/response validation) · JWT + Cookies · OpenAPI / Scalar
+**Stack:** Fastify 5 · Drizzle ORM · PostgreSQL · Zod · JWT + Cookies · OpenAPI / Scalar
 
 ---
 
@@ -99,11 +110,11 @@ A separate Fastify server exclusively for the backoffice, with its own JWT authe
 
 ---
 
-## Packages
+## 🧩 Packages
 
 ### `@repo/ui` — Shared Component Library
 
-A compiled React component library following **Atomic Design** principles. Components are consumed directly by both `web` and `admin` apps.
+A compiled React component library following **Atomic Design** principles. Components are consumed by both `web` and `admin` apps.
 
 ```
 src/components/
@@ -114,9 +125,7 @@ src/components/
 
 - Tailwind CSS v4 with a `ui:` prefix to scope utility classes and prevent conflicts
 - Each component lives in its own directory with a co-located Storybook story
-- Supports light and dark themes via a `.dark` class toggle
-
-Run Storybook:
+- Light and dark themes via a `.dark` class toggle
 
 ```bash
 cd packages/ui
@@ -132,13 +141,12 @@ Central package consumed by both frontend apps. Contains:
 
 - **Kubb-generated API client** — TypeScript types and TanStack Query hooks auto-generated from the API's OpenAPI spec
 - Shared hooks and utility functions
-- Redux Toolkit store setup (shared state)
+- Redux Toolkit store setup
 - Date formatting helpers (`date-fns`)
 - Input masking (`imask`)
 
-Regenerate the API client after backend changes:
-
 ```bash
+# Regenerate after backend changes
 pnpm --filter @repo/core generate:api
 ```
 
@@ -156,8 +164,6 @@ Defines shared CSS custom properties and design tokens consumed by every app:
 
 ### `@repo/eslint-config` — Shared Linting
 
-Three ESLint presets for consistent quality across all packages:
-
 | Preset | Usage |
 |---|---|
 | `base` | JS + TypeScript + Prettier + Turbo |
@@ -170,8 +176,6 @@ All configs run with `--max-warnings 0` — lint warnings are treated as errors.
 
 ### `@repo/typescript-config` — Shared TypeScript
 
-Three tsconfig presets:
-
 | Preset | Usage |
 |---|---|
 | `base.json` | Shared strict settings |
@@ -180,7 +184,7 @@ Three tsconfig presets:
 
 ---
 
-## Tech Stack
+## 🛠 Tech Stack
 
 | Layer | Technology |
 |---|---|
@@ -199,7 +203,7 @@ Three tsconfig presets:
 
 ---
 
-## Getting Started
+## 🚀 Getting Started
 
 **Prerequisites:** Node.js ≥ 18, pnpm 10
 
@@ -218,7 +222,7 @@ pnpm dev
 Individual apps:
 
 ```bash
-pnpm turbo run dev --filter=@orchestra/web       # customer portal
+pnpm turbo run dev --filter=@orchestra/web       # customer portal  → localhost:3000
 pnpm turbo run dev --filter=@orchestra/admin     # internal backoffice
 pnpm turbo run dev --filter=@orchestra/api       # main API
 pnpm turbo run dev --filter=@orchestra/api-admin # admin API
@@ -226,25 +230,18 @@ pnpm turbo run dev --filter=@orchestra/api-admin # admin API
 
 ---
 
-## Development Workflow
+## 🔧 Development Workflow
 
 ```bash
-# Build everything
-pnpm build
+pnpm build          # build everything
+pnpm check-types    # type-check all packages
+pnpm lint           # lint all packages
+pnpm format         # format all files
+```
 
-# Type-check all packages
-pnpm check-types
+Rebuild the shared UI package (two steps):
 
-# Lint all packages
-pnpm lint
-
-# Format all files (Prettier for .ts/.tsx/.md)
-pnpm format
-
-# Biome — check and auto-fix (run from the specific app/package dir)
-pnpm dlx @biomejs/biome check --write <file>
-
-# Rebuild the shared UI package (two steps)
+```bash
 cd packages/ui
 pnpm build:styles       # Tailwind CSS → dist/index.css
 pnpm build:components   # TypeScript → dist/*.js
@@ -263,9 +260,14 @@ pnpm db:studio       # open Drizzle Studio
 
 ---
 
-## Code Standards
+## 📐 Code Standards
 
 This project enforces strict code quality through **Ultracite** (Biome under the hood).
+
+```bash
+pnpm dlx ultracite check  # check for issues
+pnpm dlx ultracite fix    # auto-fix most issues
+```
 
 Key rules:
 
@@ -280,16 +282,9 @@ Key rules:
 - **No `console.log`** or `debugger` in production code
 - **`rel="noopener"`** on all `target="_blank"` links
 
-Run the full check before committing:
-
-```bash
-pnpm dlx ultracite check
-pnpm dlx ultracite fix    # auto-fix most issues
-```
-
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 orchestra-frontend/
@@ -345,3 +340,18 @@ orchestra-frontend/
     ├── eslint-config/          # base / next-js / react-internal presets
     └── typescript-config/      # base / nextjs / react-library tsconfigs
 ```
+
+---
+
+## 👤 Author
+
+**Pedro Galembeck**  
+[github.com/galembeck](https://github.com/galembeck)
+
+---
+
+<div align="center">
+
+Built with care for teams that deserve great tooling.
+
+</div>
