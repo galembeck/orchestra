@@ -16,6 +16,7 @@ import { Route as AppPanelIndexRouteImport } from './pages/_app/panel/index'
 import { Route as AppPanelValidationIndexRouteImport } from './pages/_app/panel/validation/index'
 import { Route as AppPanelOverviewIndexRouteImport } from './pages/_app/panel/overview/index'
 import { Route as AppPanelValidationCompanyIdIndexRouteImport } from './pages/_app/panel/validation/$companyId/index'
+import { Route as AppPanelAdministratorsPlatformIndexRouteImport } from './pages/_app/panel/administrators/platform/index'
 
 const AuthSignInLayoutRoute = AuthSignInLayoutRouteImport.update({
   id: '/_auth/_sign-in',
@@ -52,6 +53,12 @@ const AppPanelValidationCompanyIdIndexRoute =
     path: '/validation/$companyId/',
     getParentRoute: () => AppPanelLayoutRoute,
   } as any)
+const AppPanelAdministratorsPlatformIndexRoute =
+  AppPanelAdministratorsPlatformIndexRouteImport.update({
+    id: '/administrators/platform/',
+    path: '/administrators/platform/',
+    getParentRoute: () => AppPanelLayoutRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/panel': typeof AppPanelLayoutRouteWithChildren
@@ -59,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/panel/': typeof AppPanelIndexRoute
   '/panel/overview/': typeof AppPanelOverviewIndexRoute
   '/panel/validation/': typeof AppPanelValidationIndexRoute
+  '/panel/administrators/platform/': typeof AppPanelAdministratorsPlatformIndexRoute
   '/panel/validation/$companyId/': typeof AppPanelValidationCompanyIdIndexRoute
 }
 export interface FileRoutesByTo {
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
   '/': typeof AuthSignInIndexRoute
   '/panel/overview': typeof AppPanelOverviewIndexRoute
   '/panel/validation': typeof AppPanelValidationIndexRoute
+  '/panel/administrators/platform': typeof AppPanelAdministratorsPlatformIndexRoute
   '/panel/validation/$companyId': typeof AppPanelValidationCompanyIdIndexRoute
 }
 export interface FileRoutesById {
@@ -76,6 +85,7 @@ export interface FileRoutesById {
   '/_auth/_sign-in/': typeof AuthSignInIndexRoute
   '/_app/panel/overview/': typeof AppPanelOverviewIndexRoute
   '/_app/panel/validation/': typeof AppPanelValidationIndexRoute
+  '/_app/panel/administrators/platform/': typeof AppPanelAdministratorsPlatformIndexRoute
   '/_app/panel/validation/$companyId/': typeof AppPanelValidationCompanyIdIndexRoute
 }
 export interface FileRouteTypes {
@@ -86,6 +96,7 @@ export interface FileRouteTypes {
     | '/panel/'
     | '/panel/overview/'
     | '/panel/validation/'
+    | '/panel/administrators/platform/'
     | '/panel/validation/$companyId/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -93,6 +104,7 @@ export interface FileRouteTypes {
     | '/'
     | '/panel/overview'
     | '/panel/validation'
+    | '/panel/administrators/platform'
     | '/panel/validation/$companyId'
   id:
     | '__root__'
@@ -102,6 +114,7 @@ export interface FileRouteTypes {
     | '/_auth/_sign-in/'
     | '/_app/panel/overview/'
     | '/_app/panel/validation/'
+    | '/_app/panel/administrators/platform/'
     | '/_app/panel/validation/$companyId/'
   fileRoutesById: FileRoutesById
 }
@@ -161,6 +174,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppPanelValidationCompanyIdIndexRouteImport
       parentRoute: typeof AppPanelLayoutRoute
     }
+    '/_app/panel/administrators/platform/': {
+      id: '/_app/panel/administrators/platform/'
+      path: '/administrators/platform'
+      fullPath: '/panel/administrators/platform/'
+      preLoaderRoute: typeof AppPanelAdministratorsPlatformIndexRouteImport
+      parentRoute: typeof AppPanelLayoutRoute
+    }
   }
 }
 
@@ -168,6 +188,7 @@ interface AppPanelLayoutRouteChildren {
   AppPanelIndexRoute: typeof AppPanelIndexRoute
   AppPanelOverviewIndexRoute: typeof AppPanelOverviewIndexRoute
   AppPanelValidationIndexRoute: typeof AppPanelValidationIndexRoute
+  AppPanelAdministratorsPlatformIndexRoute: typeof AppPanelAdministratorsPlatformIndexRoute
   AppPanelValidationCompanyIdIndexRoute: typeof AppPanelValidationCompanyIdIndexRoute
 }
 
@@ -175,6 +196,8 @@ const AppPanelLayoutRouteChildren: AppPanelLayoutRouteChildren = {
   AppPanelIndexRoute: AppPanelIndexRoute,
   AppPanelOverviewIndexRoute: AppPanelOverviewIndexRoute,
   AppPanelValidationIndexRoute: AppPanelValidationIndexRoute,
+  AppPanelAdministratorsPlatformIndexRoute:
+    AppPanelAdministratorsPlatformIndexRoute,
   AppPanelValidationCompanyIdIndexRoute: AppPanelValidationCompanyIdIndexRoute,
 }
 
