@@ -33,7 +33,7 @@
     },
     "headline": {
       "text": "Componha o serviço <highlight>certo</highlight>, na hora certa.",
-      "rotatingWords": ["certo", "pintor", "eletricista", "encanador"]
+      "rotatingWords": ["certo"]
     },
     "description": {
       "short": "Profissionais verificados perto de você. Converse pelo app, acompanhe ao vivo e pague pelo PIX.",
@@ -70,5 +70,85 @@
         "status": "Eletricista a caminho · Rua dos Pinheiros"
       }
     }
+  },
+  "categories": {
+    "eyebrow": "01 — Categorias",
+    "title": "Tudo o que sua casa ou empresa <emphasis>precisa</emphasis>.",
+    "viewAll": "Ver todas as {count} categorias",
+    "businessCount": "{count, plural, one {# empresa} other {# empresas}}",
+    "items": {
+      "painter": "Pintor",
+      "electrician": "Eletricista",
+      "plumber": "Encanador",
+      "airConditioning": "Ar-condicionado",
+      "gardening": "Jardinagem",
+      "carpentry": "Marceneiro",
+      "moving": "Mudança",
+      "pestControl": "Dedetização"
+    }
+  },
+  "howItWorks": {
+    "eyebrow": "02 — Como funciona · 3 passos",
+    "title": "Do primeiro toque ao serviço <emphasis>concluído</emphasis>.",
+    "description": "Sem WhatsApp confuso, sem orçamento em papel. Tudo registrado, rastreável e pago em um só lugar — para quem precisa e para quem entrega.",
+    "steps": {
+      "search": {
+        "title": "Busque por perto",
+        "description": "Descreva o que precisa e veja empresas verificadas no mapa, com avaliações reais e preços transparentes."
+      },
+      "chat": {
+        "title": "Combine pelo chat",
+        "description": "Converse direto com o profissional, envie fotos do problema e receba um orçamento claro antes de aceitar."
+      },
+      "track": {
+        "title": "Acompanhe ao vivo",
+        "description": "Localização em tempo real, ETA atualizado, notificações a cada etapa e pagamento pelo PIX direto no app."
+      }
+    },
+    "illustrations": {
+      "chat": {
+        "message": "Oi! Pode mandar uma foto da parede?",
+        "quoteLabel": "Orçamento",
+        "quoteService": "Pintura · 2 quartos",
+        "accept": "Aceitar orçamento"
+      },
+      "track": {
+        "accepted": "Orçamento aceito",
+        "onTheWay": "Profissional a caminho",
+        "inProgress": "Serviço em andamento",
+        "now": "agora",
+        "payOnCompletion": "Pagar ao concluir"
+      }
+    }
+  },
+  "cta": {
+    "eyebrow": "Comece agora · Grátis",
+    "headline": "Componha o serviço certo, <emphasis>hoje</emphasis>.",
+    "description": "Cadastre-se em 3 minutos. Sem cartão de crédito. Sem letrinhas miúdas.",
+    "primary": "Buscar um serviço",
+    "secondary": "Cadastrar minha empresa"
+  },
+  "footer": {
+    "home": "Orchestra, página inicial",
+    "navigation": "Rodapé",
+    "description": "A economia de serviços, afinada. Da casa à indústria, com quem faz bem feito.",
+    "groups": {
+      "clients": "Clientes",
+      "business": "Empresas",
+      "company": "Orchestra"
+    },
+    "links": {
+      "searchServices": "Buscar serviços",
+      "categories": "Categorias",
+      "howItWorks": "Como funciona",
+      "registerBusiness": "Cadastrar empresa",
+      "dashboard": "Painel",
+      "contactSales": "Falar com vendas",
+      "about": "Sobre",
+      "helpCenter": "Central de ajuda",
+      "privacy": "Privacidade"
+    },
+    "legal": "© {year} Orchestra · São Paulo, Brasil",
+    "tagline": "Feito com cuidado em SP"
   }
 }

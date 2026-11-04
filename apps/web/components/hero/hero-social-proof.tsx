@@ -1,32 +1,6 @@
 import { PLATFORM_STATS } from "@orchestra/shared/constants/hero";
 import { useTranslations } from "next-intl";
-
-const AVATAR_COLORS = ["#C9D3F5", "#0D1426", "#E9DCC0", "#2547D0"] as const;
-const AVATAR_RADIUS = 18;
-const AVATAR_SPACING = 26;
-
-function AvatarStack() {
-  return (
-    <svg
-      aria-hidden="true"
-      className="h-8 w-auto shrink-0 lg:h-10"
-      viewBox="0 0 118 40"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {AVATAR_COLORS.map((color, index) => (
-        <circle
-          className="stroke-background"
-          cx={AVATAR_RADIUS + 2 + index * AVATAR_SPACING}
-          cy="20"
-          fill={color}
-          key={color}
-          r={AVATAR_RADIUS}
-          strokeWidth="3"
-        />
-      ))}
-    </svg>
-  );
-}
+import { AvatarStack } from "@/components/hero/avatar-stack";
 
 export function HeroSocialProof() {
   const t = useTranslations("hero.socialProof");

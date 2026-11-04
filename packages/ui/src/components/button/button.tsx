@@ -6,12 +6,15 @@ const baseStyles =
 
 const variantStyles = {
   ghost: "text-foreground hover:bg-muted",
+  inverse: "bg-white text-ink hover:bg-white/90",
+  inverseOutline: "border border-white/40 text-white hover:bg-white/10",
   outline: "border border-border text-foreground hover:bg-muted",
   primary: "bg-foreground text-background hover:bg-foreground/85",
 } as const;
 
 const sizeStyles = {
   icon: "size-9.5",
+  lg: "px-7.5 py-4.25 text-base/5 lg:py-4.5",
   md: "px-5 py-3 text-[15px]/4.5",
   sm: "px-3.5 py-2.25 text-[13px]/4",
 } as const;

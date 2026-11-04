@@ -39,47 +39,50 @@ export function Navbar({
 
   return (
     <header
-      className={cn(
-        "border-border bg-background relative flex items-center justify-between border-b px-5 pt-3 pb-4 md:px-10 lg:py-7 xl:px-20",
-        className
-      )}
+      className={cn("border-border bg-background relative border-b", className)}
       {...props}
     >
-      <Logo aria-label={labels.home} href={homeHref} />
+      <div className="max-w-page px-page mx-auto flex w-full items-center justify-between pt-3 pb-4 lg:py-7">
+        <Logo aria-label={labels.home} href={homeHref} />
 
-      <nav aria-label={labels.navigation} className="hidden lg:block">
-        <NavLinks activeHref={currentHref} items={items} />
-      </nav>
+        <nav aria-label={labels.navigation} className="hidden lg:block">
+          <NavLinks activeHref={currentHref} items={items} />
+        </nav>
 
-      <div className="hidden items-center gap-3 lg:flex">
-        {controls ? (
-          <div className="flex items-center gap-1.5">{controls}</div>
-        ) : null}
+        <div className="hidden items-center gap-3 lg:flex">
+          {controls ? (
+            <div className="flex items-center gap-1.5">{controls}</div>
+          ) : null}
 
-        <ButtonLink className="px-4 py-2.5" href={signIn.href} variant="ghost">
-          {signIn.label}
-        </ButtonLink>
+          <ButtonLink
+            className="px-4 py-2.5"
+            href={signIn.href}
+            variant="ghost"
+          >
+            {signIn.label}
+          </ButtonLink>
 
-        <ButtonLink href={cta.href}>
-          {cta.label}
-          <ArrowRightIcon aria-hidden="true" className="size-4" />
-        </ButtonLink>
-      </div>
+          <ButtonLink href={cta.href}>
+            {cta.label}
+            <ArrowRightIcon aria-hidden="true" className="size-4" />
+          </ButtonLink>
+        </div>
 
-      <div className="flex items-center gap-2 lg:hidden">
-        <ButtonLink href={signIn.href} size="sm">
-          {signIn.label}
-        </ButtonLink>
+        <div className="flex items-center gap-2 lg:hidden">
+          <ButtonLink href={signIn.href} size="sm">
+            {signIn.label}
+          </ButtonLink>
 
-        <MobileMenu
-          activeHref={currentHref}
-          closeLabel={labels.closeMenu}
-          cta={cta}
-          items={items}
-          openLabel={labels.openMenu}
-        >
-          {controls}
-        </MobileMenu>
+          <MobileMenu
+            activeHref={currentHref}
+            closeLabel={labels.closeMenu}
+            cta={cta}
+            items={items}
+            openLabel={labels.openMenu}
+          >
+            {controls}
+          </MobileMenu>
+        </div>
       </div>
     </header>
   );

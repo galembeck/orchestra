@@ -2,10 +2,22 @@
 
 @theme {
   --animate-caret-blink: caret-blink 1.1s steps(2, start) infinite;
+  --animate-shimmer: shimmer 3.6s ease-in-out infinite;
 
   @keyframes caret-blink {
     to {
       visibility: hidden;
+    }
+  }
+
+  @keyframes shimmer {
+    from {
+      translate: -120% 0;
+    }
+
+    55%,
+    to {
+      translate: 220% 0;
     }
   }
 }

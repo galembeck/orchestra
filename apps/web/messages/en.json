@@ -33,7 +33,7 @@
     },
     "headline": {
       "text": "Compose the <highlight>right</highlight> service, at the right time.",
-      "rotatingWords": ["right", "painter", "electrician", "plumber"]
+      "rotatingWords": ["right"]
     },
     "description": {
       "short": "Verified professionals near you. Chat in the app, track them live and pay with PIX.",
@@ -70,5 +70,85 @@
         "status": "Electrician on the way · Rua dos Pinheiros"
       }
     }
+  },
+  "categories": {
+    "eyebrow": "01 — Categories",
+    "title": "Everything your home or business <emphasis>needs</emphasis>.",
+    "viewAll": "View all {count} categories",
+    "businessCount": "{count, plural, one {# business} other {# businesses}}",
+    "items": {
+      "painter": "Painter",
+      "electrician": "Electrician",
+      "plumber": "Plumber",
+      "airConditioning": "Air conditioning",
+      "gardening": "Gardening",
+      "carpentry": "Carpentry",
+      "moving": "Moving",
+      "pestControl": "Pest control"
+    }
+  },
+  "howItWorks": {
+    "eyebrow": "02 — How it works · 3 steps",
+    "title": "From the first tap to a <emphasis>finished</emphasis> job.",
+    "description": "No messy WhatsApp threads, no paper quotes. Everything recorded, trackable and paid in one place — for those who need it and those who deliver.",
+    "steps": {
+      "search": {
+        "title": "Search nearby",
+        "description": "Describe what you need and see verified businesses on the map, with real reviews and transparent prices."
+      },
+      "chat": {
+        "title": "Agree over chat",
+        "description": "Talk directly to the professional, send photos of the problem and get a clear quote before accepting."
+      },
+      "track": {
+        "title": "Track it live",
+        "description": "Real-time location, updated ETA, notifications at every step and PIX payment right in the app."
+      }
+    },
+    "illustrations": {
+      "chat": {
+        "message": "Hi! Could you send a photo of the wall?",
+        "quoteLabel": "Quote",
+        "quoteService": "Painting · 2 bedrooms",
+        "accept": "Accept quote"
+      },
+      "track": {
+        "accepted": "Quote accepted",
+        "onTheWay": "Professional on the way",
+        "inProgress": "Service in progress",
+        "now": "now",
+        "payOnCompletion": "Pay on completion"
+      }
+    }
+  },
+  "cta": {
+    "eyebrow": "Get started · Free",
+    "headline": "Compose the right service, <emphasis>today</emphasis>.",
+    "description": "Sign up in 3 minutes. No credit card. No fine print.",
+    "primary": "Find a service",
+    "secondary": "Register my business"
+  },
+  "footer": {
+    "home": "Orchestra, home page",
+    "navigation": "Footer",
+    "description": "The service economy, in tune. From homes to industry, with people who do it right.",
+    "groups": {
+      "clients": "Customers",
+      "business": "Businesses",
+      "company": "Orchestra"
+    },
+    "links": {
+      "searchServices": "Find services",
+      "categories": "Categories",
+      "howItWorks": "How it works",
+      "registerBusiness": "Register business",
+      "dashboard": "Dashboard",
+      "contactSales": "Talk to sales",
+      "about": "About",
+      "helpCenter": "Help center",
+      "privacy": "Privacy"
+    },
+    "legal": "© {year} Orchestra · São Paulo, Brazil",
+    "tagline": "Made with care in SP"
   }
 }

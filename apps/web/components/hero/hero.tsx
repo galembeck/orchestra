@@ -11,7 +11,7 @@ export function Hero() {
   return (
     <section
       aria-labelledby={HERO_HEADING_ID}
-      className="flex flex-col overflow-x-clip px-5 pt-10 md:px-10 lg:flex-row lg:items-center lg:gap-12 lg:pt-22 lg:pb-24 xl:px-20"
+      className="max-w-page px-page mx-auto flex w-full flex-col overflow-x-clip pt-10 lg:flex-row lg:items-center lg:gap-12 lg:pt-22 lg:pb-24"
     >
       <div className="flex min-w-0 flex-col gap-6 pb-6 lg:flex-1 lg:gap-8 lg:pb-0">
         <HeroEyebrow />

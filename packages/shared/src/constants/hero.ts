@@ -4,6 +4,13 @@ export const PLATFORM_STATS = {
   verifiedBusinesses: 12_400,
 } as const;
 
+export const REVIEWER_AVATARS = [
+  "/assets/images/avatars/reviewer-1.webp",
+  "/assets/images/avatars/reviewer-2.webp",
+  "/assets/images/avatars/reviewer-3.webp",
+  "/assets/images/avatars/reviewer-4.webp",
+] as const;
+
 export const HERO_SHOWCASE = {
   eta: {
     minutes: 12,

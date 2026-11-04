@@ -129,6 +129,20 @@
 
   /* Mono eyebrow labels. */
   --tracking-eyebrow: 0.14em;
+
+  --container-page: 90rem;
+}
+
+@utility px-page {
+  padding-inline: --spacing(5);
+
+  @variant md {
+    padding-inline: --spacing(10);
+  }
+
+  @variant xl {
+    padding-inline: --spacing(24);
+  }
 }
 
 @layer base {
