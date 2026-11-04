@@ -1,0 +1,8 @@
+# Keep LF in the repo and working tree so Biome's LF formatting stays stable on Windows.
+* text=auto eol=lf
+
+*.ico binary
+*.png binary
+*.jpg binary
+*.webp binary
+*.woff2 binary

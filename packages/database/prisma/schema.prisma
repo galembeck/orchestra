@@ -1,0 +1,23 @@
+// Prisma schema for Orchestra.
+// The connection URL lives in prisma.config.ts (Prisma 7 no longer reads it here).
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Starter model so the generated client has something to type.
+// Replace it with the real domain (companies, services, orders…).
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
