@@ -1,5 +1,5 @@
+import { env } from "@orchestra/env/server";
 import { PrismaPg } from "@prisma/adapter-pg";
-import { env } from "@repo/env/server";
 import { PrismaClient } from "./generated/prisma/client.js";
 
 const createPrismaClient = () =>
@@ -19,4 +19,4 @@ if (env.NODE_ENV !== "production") {
   globalForPrisma.prisma = prisma;
 }
 
-// Model types and the Prisma namespace come from "@repo/database/client".
+// Model types and the Prisma namespace come from "@orchestra/database/client".

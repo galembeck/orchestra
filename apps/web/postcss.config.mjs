@@ -1,4 +1,4 @@
-import sharedConfig from "@repo/tailwind-config/postcss";
+import sharedConfig from "@orchestra/tailwind-config/postcss";
 
 const config = { ...sharedConfig };
 

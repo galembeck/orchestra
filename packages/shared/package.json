@@ -1,0 +1,25 @@
+{
+  "name": "@orchestra/shared",
+  "version": "0.0.0",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    "./constants/*": "./src/constants/*.ts",
+    "./hooks/*": "./src/hooks/*.ts",
+    "./types/*": "./src/types/*.ts",
+    "./utils/*": "./src/utils/*.ts"
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@orchestra/typescript-config": "workspace:*",
+    "@types/react": "19.3.0",
+    "react": "19.3.1",
+    "typescript": "7.0.2"
+  },
+  "peerDependencies": {
+    "react": "^19.3.1"
+  }
+}

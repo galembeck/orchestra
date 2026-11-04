@@ -1,5 +1,5 @@
-import { prisma } from "@repo/database";
-import { env } from "@repo/env/server";
+import { prisma } from "@orchestra/database";
+import { env } from "@orchestra/env/server";
 import { buildApp } from "./app.js";
 
 const app = await buildApp();

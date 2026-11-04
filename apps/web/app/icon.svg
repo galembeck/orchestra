@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
+  <title>Orchestra</title>
+  <style>
+    .ring { stroke: #0D1426; }
+    .arc { stroke: #2547D0; }
+    .dot { fill: #2547D0; }
+    @media (prefers-color-scheme: dark) {
+      .ring { stroke: #FFFFFF; }
+      .arc { stroke: #5B7BFF; }
+      .dot { fill: #5B7BFF; }
+    }
+  </style>
+  <circle class="ring" cx="15" cy="15" fill="none" r="13.6" stroke-width="2.4" />
+  <path class="arc" d="M8 19.5 C12 9, 18 9, 22 19.5" fill="none" stroke-linecap="round" stroke-width="3" />
+  <circle class="dot" cx="22" cy="19.5" r="2.8" />
+</svg>

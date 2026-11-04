@@ -1,0 +1,74 @@
+{
+  "metadata": {
+    "title": "Orchestra | Componha o serviço certo, na hora certa",
+    "description": "Encontre profissionais verificados perto de você. Converse pelo app, acompanhe ao vivo e pague pelo PIX."
+  },
+  "navigation": {
+    "label": "Principal",
+    "home": "Orchestra, página inicial",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu",
+    "items": {
+      "services": "Serviços",
+      "howItWorks": "Como funciona",
+      "forBusiness": "Para empresas",
+      "help": "Ajuda"
+    },
+    "actions": {
+      "signIn": "Entrar",
+      "registerBusiness": "Cadastrar empresa"
+    }
+  },
+  "theme": {
+    "toggle": "Alternar tema claro e escuro"
+  },
+  "locale": {
+    "label": "Idioma",
+    "select": "Selecionar idioma"
+  },
+  "hero": {
+    "eyebrow": {
+      "count": "{count, number}+ empresas verificadas",
+      "location": "São Paulo, BR"
+    },
+    "headline": {
+      "text": "Componha o serviço <highlight>certo</highlight>, na hora certa.",
+      "rotatingWords": ["certo", "pintor", "eletricista", "encanador"]
+    },
+    "description": {
+      "short": "Profissionais verificados perto de você. Converse pelo app, acompanhe ao vivo e pague pelo PIX.",
+      "long": "Encontre pintores, eletricistas e encanadores verificados perto de você. Converse pelo app, acompanhe ao vivo e pague pelo PIX — tudo em um só lugar."
+    },
+    "search": {
+      "label": "Do que você precisa?",
+      "placeholders": [
+        "Pintor para apartamento de 2 quartos",
+        "Eletricista para trocar o disjuntor",
+        "Encanador para vazamento na cozinha"
+      ],
+      "neighborhood": "Pinheiros",
+      "city": "São Paulo",
+      "locationLabel": "Localização",
+      "submit": "Buscar",
+      "submitLong": "Buscar profissionais"
+    },
+    "socialProof": {
+      "rating": "{rating, number}",
+      "ratingLabel": "Nota média {rating, number} de 5",
+      "reviews": "{count, number, ::compact-short} de avaliações reais",
+      "payment": "Pagamento protegido"
+    },
+    "stage": {
+      "provider": {
+        "role": "Pintor",
+        "distance": "{distance, number} km",
+        "verified": "Verificado"
+      },
+      "eta": {
+        "live": "Ao vivo",
+        "arrival": "Chega em <highlight>{minutes} min</highlight>",
+        "status": "Eletricista a caminho · Rua dos Pinheiros"
+      }
+    }
+  }
+}

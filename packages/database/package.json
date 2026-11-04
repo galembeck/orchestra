@@ -1,5 +1,5 @@
 {
-  "name": "@repo/database",
+  "name": "@orchestra/database",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -23,12 +23,12 @@
     "dev": "tsc --watch --preserveWatchOutput"
   },
   "dependencies": {
+    "@orchestra/env": "workspace:*",
     "@prisma/adapter-pg": "7.10.1",
-    "@prisma/client": "7.10.1",
-    "@repo/env": "workspace:*"
+    "@prisma/client": "7.10.1"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
+    "@orchestra/typescript-config": "workspace:*",
     "@types/node": "26.6.6",
     "prisma": "7.10.1",
     "typescript": "7.0.2"

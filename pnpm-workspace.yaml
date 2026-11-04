@@ -8,6 +8,7 @@ autoInstallPeers: true
 allowBuilds:
   "@parcel/watcher": true
   "@prisma/engines": true
+  "@swc/core": false
   "esbuild": true
   "pnpm": true
   "prisma": true

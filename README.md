@@ -32,9 +32,9 @@ This Turborepo includes the following packages/apps:
 - `docs`: a [Next.js](https://nextjs.org/) app with [Tailwind CSS](https://tailwindcss.com/)
 - `web`: another [Next.js](https://nextjs.org/) app with [Tailwind CSS](https://tailwindcss.com/)
 - `ui`: a compiled React component library with [Tailwind CSS](https://tailwindcss.com/) shared by both `web` and `docs` applications
-- `@repo/tailwind-config`: shared Tailwind CSS theme and PostCSS configuration
-- `@repo/eslint-config`: `eslint` flat configurations (includes `@next/eslint-plugin-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- `@orchestra/tailwind-config`: shared Tailwind CSS theme and PostCSS configuration
+- `@orchestra/eslint-config`: `eslint` flat configurations (includes `@next/eslint-plugin-next` and `eslint-config-prettier`)
+- `@orchestra/typescript-config`: `tsconfig.json`s used throughout the monorepo
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
@@ -47,7 +47,7 @@ The `ui` package compiles its components and type declarations with TypeScript a
 - Avoid class-name collisions by using Tailwind CSS v4's `ui:` prefix via `@import "tailwindcss" prefix(ui);` in [packages/ui/src/styles.css](packages/ui/src/styles.css).
 - Maintain clear package export boundaries.
 
-Another option is to consume `packages/ui` directly from source without building. Tailwind CSS v4 automatically detects class names in your source files, but it does not scan other packages in `node_modules`. If you use this option, update the package exports to point to source, configure Next.js to transpile `@repo/ui`, and add [`@source` directives](https://tailwindcss.com/docs/functions-and-directives#source-directive) to your apps' CSS entry points. Keep a prefixed CSS entry point for the `ui:` classes, or remove the prefixes when letting the apps generate those styles.
+Another option is to consume `packages/ui` directly from source without building. Tailwind CSS v4 automatically detects class names in your source files, but it does not scan other packages in `node_modules`. If you use this option, update the package exports to point to source, configure Next.js to transpile `@orchestra/ui`, and add [`@source` directives](https://tailwindcss.com/docs/functions-and-directives#source-directive) to your apps' CSS entry points. Keep a prefixed CSS entry point for the `ui:` classes, or remove the prefixes when letting the apps generate those styles.
 
 ### Utilities
 

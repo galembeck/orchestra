@@ -1,0 +1,24 @@
+<svg
+  height="30"
+  viewBox="0 0 30 30"
+  width="30"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <title>Orchestra</title>
+  <circle
+    cx="15"
+    cy="15"
+    fill="none"
+    r="14"
+    stroke="#FFFFFF"
+    stroke-width="1.5"
+  />
+  <path
+    d="M8 19.5 C12 9, 18 9, 22 19.5"
+    fill="none"
+    stroke="#5B7BFF"
+    stroke-linecap="round"
+    stroke-width="2"
+  />
+  <circle cx="22" cy="19.5" fill="#5B7BFF" r="2.2" />
+</svg>

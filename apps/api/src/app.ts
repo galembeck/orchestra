@@ -1,6 +1,6 @@
 import cors from "@fastify/cors";
 import helmet from "@fastify/helmet";
-import { env } from "@repo/env/server";
+import { env } from "@orchestra/env/server";
 import Fastify from "fastify";
 
 export async function buildApp() {

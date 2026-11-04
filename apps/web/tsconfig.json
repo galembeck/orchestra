@@ -1,12 +1,13 @@
 {
-  "extends": "@repo/typescript-config/nextjs.json",
+  "extends": "@orchestra/typescript-config/nextjs.json",
   "compilerOptions": {
     "declaration": false,
     "declarationMap": false,
     "incremental": true,
     "paths": {
       "@/*": ["./*"],
-      "@repo/ui/*": ["../../packages/ui/src/*"]
+      "@orchestra/shared/*": ["../../packages/shared/src/*"],
+      "@orchestra/ui/*": ["../../packages/ui/src/*"]
     }
   },
   "include": [

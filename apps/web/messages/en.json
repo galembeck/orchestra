@@ -1,0 +1,74 @@
+{
+  "metadata": {
+    "title": "Orchestra | Compose the right service, at the right time",
+    "description": "Find verified professionals near you. Chat in the app, track them live and pay with PIX."
+  },
+  "navigation": {
+    "label": "Main",
+    "home": "Orchestra, home page",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "items": {
+      "services": "Services",
+      "howItWorks": "How it works",
+      "forBusiness": "For businesses",
+      "help": "Help"
+    },
+    "actions": {
+      "signIn": "Sign in",
+      "registerBusiness": "Register business"
+    }
+  },
+  "theme": {
+    "toggle": "Toggle light and dark theme"
+  },
+  "locale": {
+    "label": "Language",
+    "select": "Select language"
+  },
+  "hero": {
+    "eyebrow": {
+      "count": "{count, number}+ verified businesses",
+      "location": "São Paulo, BR"
+    },
+    "headline": {
+      "text": "Compose the <highlight>right</highlight> service, at the right time.",
+      "rotatingWords": ["right", "painter", "electrician", "plumber"]
+    },
+    "description": {
+      "short": "Verified professionals near you. Chat in the app, track them live and pay with PIX.",
+      "long": "Find verified painters, electricians and plumbers near you. Chat in the app, track them live and pay with PIX — all in one place."
+    },
+    "search": {
+      "label": "What do you need?",
+      "placeholders": [
+        "Painter for a 2-bedroom apartment",
+        "Electrician to replace a breaker",
+        "Plumber for a kitchen leak"
+      ],
+      "neighborhood": "Pinheiros",
+      "city": "São Paulo",
+      "locationLabel": "Location",
+      "submit": "Search",
+      "submitLong": "Search professionals"
+    },
+    "socialProof": {
+      "rating": "{rating, number}",
+      "ratingLabel": "Average rating {rating, number} out of 5",
+      "reviews": "{count, number, ::compact-short} real reviews",
+      "payment": "Protected payment"
+    },
+    "stage": {
+      "provider": {
+        "role": "Painter",
+        "distance": "{distance, number} km",
+        "verified": "Verified"
+      },
+      "eta": {
+        "live": "Live",
+        "arrival": "Arrives in <highlight>{minutes} min</highlight>",
+        "status": "Electrician on the way · Rua dos Pinheiros"
+      }
+    }
+  }
+}

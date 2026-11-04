@@ -11,10 +11,10 @@
   },
   "iconLibrary": "lucide",
   "aliases": {
-    "components": "@repo/ui/components",
-    "utils": "@repo/ui/lib/utils",
-    "hooks": "@repo/ui/hooks",
-    "lib": "@repo/ui/lib",
-    "ui": "@repo/ui/components"
+    "components": "@orchestra/ui/components",
+    "utils": "@orchestra/ui/lib/utils",
+    "hooks": "@orchestra/ui/hooks",
+    "lib": "@orchestra/ui/lib",
+    "ui": "@orchestra/ui/components"
   }
 }

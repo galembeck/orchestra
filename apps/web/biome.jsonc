@@ -6,5 +6,17 @@
     "ultracite/biome/next",
     "ultracite/biome/react"
   ],
+  "overrides": [
+    {
+      "includes": ["components/**/orb-scene/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noUnknownAttribute": "off"
+          }
+        }
+      }
+    }
+  ],
   "root": false
 }

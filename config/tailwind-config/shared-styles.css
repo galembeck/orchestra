@@ -1,7 +1,7 @@
 /*
  * Orchestra design system: shared Tailwind CSS v4 theme.
  * Import it once from each app's CSS entry point:
- *   @import "@repo/tailwind-config";
+ *   @import "@orchestra/tailwind-config";
  *
  * Semantic tokens follow shadcn/ui naming so shadcn, Magic UI and Aceternity
  * components inherit the brand without per-component overrides.
