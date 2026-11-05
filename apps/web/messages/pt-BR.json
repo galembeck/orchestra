@@ -16,7 +16,8 @@
     },
     "actions": {
       "signIn": "Entrar",
-      "registerBusiness": "Cadastrar empresa"
+      "registerBusiness": "Cadastrar empresa",
+      "signUp": "Criar conta"
     }
   },
   "theme": {
@@ -150,5 +151,92 @@
     },
     "legal": "© {year} Orchestra · São Paulo, Brasil",
     "tagline": "Feito com cuidado em SP"
+  },
+  "auth": {
+    "showcase": {
+      "eyebrow": "Orchestra · Para clientes",
+      "headline": "A economia de serviços, <emphasis>afinada</emphasis>.",
+      "description": "Encontre profissionais verificados, combine tudo pelo chat e acompanhe cada etapa em tempo real.",
+      "highlights": {
+        "verified": "Empresas verificadas e avaliações reais",
+        "tracking": "Acompanhamento ao vivo do profissional",
+        "payment": "Pagamento protegido pelo PIX"
+      }
+    },
+    "fields": {
+      "name": {
+        "label": "Nome",
+        "placeholder": "Como podemos te chamar?"
+      },
+      "email": {
+        "label": "E-mail",
+        "placeholder": "voce@exemplo.com"
+      },
+      "password": {
+        "label": "Senha",
+        "hint": "Use pelo menos {min} caracteres, com letras e números.",
+        "show": "Mostrar senha",
+        "hide": "Ocultar senha"
+      }
+    },
+    "divider": "ou",
+    "google": "Continuar com Google",
+    "signIn": {
+      "metaTitle": "Entrar | Orchestra",
+      "title": "Bem-vindo de volta",
+      "description": "Entre para acompanhar seus pedidos e conversar com os profissionais.",
+      "submit": "Entrar",
+      "noAccount": "Ainda não tem uma conta?",
+      "signUpLink": "Criar conta",
+      "pending": "Entrando…"
+    },
+    "signUp": {
+      "metaTitle": "Criar conta | Orchestra",
+      "title": "Crie sua conta",
+      "description": "Leva menos de 3 minutos. Sem cartão de crédito.",
+      "consentLegend": "Termos e confirmação de idade",
+      "terms": "Li e aceito os <terms>Termos de uso</terms> e a <privacy>Política de privacidade</privacy>.",
+      "age": "Declaro que tenho {age} anos ou mais.",
+      "submit": "Criar conta",
+      "hasAccount": "Já tem uma conta?",
+      "signInLink": "Entrar",
+      "businessPrompt": "É uma empresa? <link>Cadastre sua empresa</link>",
+      "pending": "Criando conta…"
+    },
+    "errors": {
+      "generic": "Verifique este campo.",
+      "nameRequired": "Informe seu nome.",
+      "nameTooLong": "Seu nome está muito longo.",
+      "emailRequired": "Informe seu e-mail.",
+      "emailInvalid": "Informe um e-mail válido.",
+      "passwordRequired": "Informe sua senha.",
+      "passwordTooShort": "A senha precisa ter pelo menos 8 caracteres.",
+      "passwordTooLong": "A senha pode ter no máximo 72 caracteres.",
+      "passwordNeedsLetter": "A senha precisa ter pelo menos uma letra.",
+      "passwordNeedsDigit": "A senha precisa ter pelo menos um número.",
+      "termsRequired": "Você precisa aceitar os termos para continuar.",
+      "ageRequired": "É preciso ter 18 anos ou mais para usar a Orchestra."
+    },
+    "formErrors": {
+      "accountNotLinked": "Este e-mail já tem uma conta com senha que ainda não foi confirmada. Confirme o e-mail ou entre com e-mail e senha.",
+      "emailNotVerified": "Confirme seu e-mail antes de entrar. Procure o link que enviamos na sua caixa de entrada.",
+      "generic": "Algo deu errado. Tente novamente em instantes.",
+      "invalidCredentials": "E-mail ou senha incorretos.",
+      "signUpAction": "Criar uma conta",
+      "signUpRequired": "Ainda não existe uma conta com este Google. Crie sua conta para continuar.",
+      "tooManyRequests": "Muitas tentativas seguidas. Aguarde um minuto e tente de novo."
+    },
+    "resend": {
+      "action": "Reenviar e-mail de confirmação",
+      "cooldown": "Reenviar em {seconds}s",
+      "error": "Não foi possível reenviar agora. Tente novamente em instantes.",
+      "sent": "Pronto! Se houver uma conta pendente, um novo link chegará em instantes."
+    },
+    "checkEmail": {
+      "title": "Confira seu e-mail",
+      "description": "Enviamos um link de confirmação para <email></email>. Abra o e-mail e clique no link para ativar sua conta.",
+      "notReceived": "Não recebeu? Verifique a caixa de spam ou peça um novo link.",
+      "useAnotherEmail": "Usar outro e-mail"
+    }
   }
 }

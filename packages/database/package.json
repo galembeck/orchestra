@@ -8,6 +8,10 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./factory": {
+      "types": "./dist/create-prisma-client.d.ts",
+      "default": "./dist/create-prisma-client.js"
+    },
     "./client": {
       "types": "./dist/generated/prisma/client.d.ts",
       "default": "./dist/generated/prisma/client.js"
@@ -16,6 +20,7 @@
   "scripts": {
     "build": "tsc",
     "check-types": "tsc --noEmit",
+    "db:deploy": "prisma migrate deploy",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:push": "prisma db push",

@@ -5,17 +5,14 @@ import {
   NAV_ITEMS,
   SIGN_IN_LINK,
 } from "@orchestra/shared/constants/navigation";
-import { LocaleSwitcher } from "@orchestra/ui/components/locale-switcher/locale-switcher";
 import { Navbar } from "@orchestra/ui/components/navbar/navbar";
-import { ThemeToggle } from "@orchestra/ui/components/theme-toggle/theme-toggle";
 import { useLocale, useTranslations } from "next-intl";
+import { SiteControls } from "@/components/site-controls/site-controls";
 import { localizeHref } from "@/i18n/localize-href";
-import { useLocaleChange } from "@/i18n/use-locale-change";
 
 export function SiteHeader() {
   const t = useTranslations();
   const locale = useLocale();
-  const { changeLocale, isPending } = useLocaleChange();
 
   const items = NAV_ITEMS.map(({ href, labelKey }) => ({
     href: localizeHref(href, locale),
@@ -24,18 +21,7 @@ export function SiteHeader() {
 
   return (
     <Navbar
-      controls={
-        <>
-          <LocaleSwitcher
-            disabled={isPending}
-            labels={{ menu: t("locale.label"), trigger: t("locale.select") }}
-            locale={locale}
-            onLocaleChange={changeLocale}
-          />
-
-          <ThemeToggle label={t("theme.toggle")} />
-        </>
-      }
+      controls={<SiteControls />}
       cta={{
         href: localizeHref(BUSINESS_SIGN_UP_LINK.href, locale),
         label: t(`navigation.actions.${BUSINESS_SIGN_UP_LINK.labelKey}`),

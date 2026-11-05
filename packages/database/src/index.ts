@@ -1,22 +1,20 @@
 import { env } from "@orchestra/env/server";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "./generated/prisma/client.js";
+import {
+  createPrismaClient,
+  type DatabaseClient,
+} from "./create-prisma-client.js";
 
-const createPrismaClient = () =>
-  new PrismaClient({
-    adapter: new PrismaPg({ connectionString: env.DATABASE_URL }),
-    log: env.NODE_ENV === "development" ? ["warn", "error"] : ["error"],
-  });
-
-// Reuse one client across hot reloads in development.
 const globalForPrisma = globalThis as unknown as {
-  prisma?: ReturnType<typeof createPrismaClient>;
+  prisma?: DatabaseClient;
 };
 
-export const prisma = globalForPrisma.prisma ?? createPrismaClient();
+export const prisma =
+  globalForPrisma.prisma ??
+  createPrismaClient({
+    connectionString: env.DATABASE_URL,
+    logQueries: env.NODE_ENV === "development",
+  });
 
 if (env.NODE_ENV !== "production") {
   globalForPrisma.prisma = prisma;
 }
-
-// Model types and the Prisma namespace come from "@orchestra/database/client".

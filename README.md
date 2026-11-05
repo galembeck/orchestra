@@ -1,59 +1,40 @@
-# Turborepo Tailwind CSS starter
+# Orchestra
 
-This Turborepo starter is maintained by the Turborepo core team.
+Turborepo monorepo: Next.js web app (`apps/web`), Fastify API (`apps/api`), and shared packages (`packages/*`).
 
-## Using this example
+## Requirements
 
-Use Node.js 26.13.0 or newer and pnpm 12.16.1.
+- Node.js 26.13+ and pnpm 12.16+
+- Docker (for Postgres and Mailpit in development)
 
-Create a new repository with this example:
-
-```sh
-npx create-turbo@latest -e with-tailwind
-```
-
-From the generated repository (or this example's directory), install dependencies and start both apps:
+## Getting started
 
 ```sh
 pnpm install
-pnpm dev
+cp .env.example .env
+openssl rand -base64 32   # paste into BETTER_AUTH_SECRET
+pnpm db:up                # Postgres on :5432, Mailpit on :1025 (inbox at http://localhost:8025)
+pnpm db:migrate
+pnpm dev                  # web on :3000, API on :3333
 ```
 
-Open `docs` at [http://localhost:3000](http://localhost:3000) and `web` at [http://localhost:3001](http://localhost:3001).
+## Authentication
 
-Run `pnpm build`, `pnpm lint`, and `pnpm check-types` from the repository root to build, lint, and type-check all packages.
+Authentication uses [Better Auth](https://www.better-auth.com) inside the API at `/api/auth/*`. The web app proxies that path to the API (see `apps/web/next.config.ts`), so the browser only talks to its own origin and session cookies stay first-party.
 
-## What's inside?
+- **Email and password**: users must verify their email before signing in. Verification emails are sent over SMTP (Mailpit in development) in the visitor's language.
+- **Google**: set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`. The authorized redirect URI is `${WEB_URL}/api/auth/callback/google`. Google only creates accounts from the sign-up page, after the terms and age confirmations.
+- **Consent**: every user stores `terms_accepted_at`, `terms_version` and `adult_confirmed_at`. The API rejects any account creation without them.
+- **Validation**: the zod schemas in `packages/shared/src/schemas/auth.ts` run in the browser and again in the API.
+- **Rate limiting**: stored in Postgres, stricter on sign-in, sign-up and verification emails. Set `TRUSTED_PROXY_HOPS` to the number of proxies in front of the API (1 for the Next.js proxy) so client IPs can't be spoofed.
 
-This Turborepo includes the following packages/apps:
+## Scripts
 
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app with [Tailwind CSS](https://tailwindcss.com/)
-- `web`: another [Next.js](https://nextjs.org/) app with [Tailwind CSS](https://tailwindcss.com/)
-- `ui`: a compiled React component library with [Tailwind CSS](https://tailwindcss.com/) shared by both `web` and `docs` applications
-- `@orchestra/tailwind-config`: shared Tailwind CSS theme and PostCSS configuration
-- `@orchestra/eslint-config`: `eslint` flat configurations (includes `@next/eslint-plugin-next` and `eslint-config-prettier`)
-- `@orchestra/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Building packages/ui
-
-The `ui` package compiles its components and type declarations with TypeScript and its styles with the Tailwind CSS CLI into `dist`. Both Next.js apps consume these built exports. Turborepo runs `build:components` and `build:styles` before building dependent apps, and builds the shared package before starting their development servers. The `ui` development tasks then watch for component and style changes.
-
-- Share one theme from `packages/tailwind-config/shared-styles.css` across apps and packages.
-- Keep component compilation independent of the consuming framework.
-- Avoid class-name collisions by using Tailwind CSS v4's `ui:` prefix via `@import "tailwindcss" prefix(ui);` in [packages/ui/src/styles.css](packages/ui/src/styles.css).
-- Maintain clear package export boundaries.
-
-Another option is to consume `packages/ui` directly from source without building. Tailwind CSS v4 automatically detects class names in your source files, but it does not scan other packages in `node_modules`. If you use this option, update the package exports to point to source, configure Next.js to transpile `@orchestra/ui`, and add [`@source` directives](https://tailwindcss.com/docs/functions-and-directives#source-directive) to your apps' CSS entry points. Keep a prefixed CSS entry point for the `ui:` classes, or remove the prefixes when letting the apps generate those styles.
-
-### Utilities
-
-This Turborepo has some additional tools already set up for you:
-
-- [Tailwind CSS](https://tailwindcss.com/) for styles
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+| Command | Description |
+| --- | --- |
+| `pnpm dev` | Run every app in watch mode |
+| `pnpm test` | Unit and integration tests (the API suite runs against an embedded Postgres, no Docker needed) |
+| `pnpm check-types` | Type-check every package |
+| `pnpm lint` / `pnpm format` | Ultracite (Biome) check / fix |
+| `pnpm db:migrate` | Create and apply migrations in development |
+| `pnpm db:deploy` | Apply pending migrations in production |

@@ -34,6 +34,15 @@
       "cache": false,
       "persistent": true,
       "env": ["DATABASE_URL"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$"],
+      "outputs": []
+    },
+    "db:deploy": {
+      "cache": false,
+      "env": ["DATABASE_URL"]
     }
   }
 }

@@ -17,6 +17,15 @@ export const SIGN_IN_LINK = {
   labelKey: "signIn",
 } as const satisfies NavLinkDefinition;
 
+export const SIGN_UP_LINK = {
+  href: "/sign-up",
+  labelKey: "signUp",
+} as const satisfies NavLinkDefinition;
+
+export const TERMS_PATH = "/terms";
+
+export const PRIVACY_PATH = "/privacy";
+
 export const BUSINESS_SIGN_UP_LINK = {
   href: "/company/register",
   labelKey: "registerBusiness",
@@ -43,7 +52,7 @@ export const FOOTER_LINK_GROUPS = [
     links: [
       { href: "/about", labelKey: "about" },
       { href: "/help", labelKey: "helpCenter" },
-      { href: "/privacy", labelKey: "privacy" },
+      { href: PRIVACY_PATH, labelKey: "privacy" },
     ],
     titleKey: "company",
   },

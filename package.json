@@ -4,15 +4,17 @@
   "scripts": {
     "build": "turbo run build",
     "check-types": "turbo run check-types",
+    "db:deploy": "turbo run db:deploy",
     "db:down": "docker compose down",
     "db:generate": "turbo run db:generate",
     "db:migrate": "turbo run db:migrate",
     "db:push": "turbo run db:push",
     "db:studio": "turbo run db:studio",
-    "db:up": "docker compose up -d postgres",
+    "db:up": "docker compose up -d postgres mailpit",
     "dev": "turbo run dev",
     "format": "ultracite fix",
-    "lint": "ultracite check"
+    "lint": "ultracite check",
+    "test": "turbo run test"
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.4",

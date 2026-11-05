@@ -1,22 +1,55 @@
 import cors from "@fastify/cors";
 import helmet from "@fastify/helmet";
-import { env } from "@orchestra/env/server";
-import Fastify from "fastify";
+import type { DatabaseClient } from "@orchestra/database/factory";
+import Fastify, { type FastifyServerOptions } from "fastify";
+import type { AppConfig } from "./config.js";
+import { createBackgroundTasks } from "./lib/background-tasks.js";
+import { createAuth } from "./modules/auth/auth.js";
+import { authRoutes } from "./modules/auth/auth-routes.js";
+import type { Mailer } from "./modules/mail/mailer.js";
 
-export async function buildApp() {
+export interface BuildAppOptions {
+  config: AppConfig;
+  database: DatabaseClient;
+  logger?: FastifyServerOptions["logger"];
+  mailer: Mailer;
+}
+
+export async function buildApp({
+  config,
+  database,
+  logger = { level: config.isProduction ? "info" : "debug" },
+  mailer,
+}: BuildAppOptions) {
   const app = Fastify({
-    logger: {
-      level: env.NODE_ENV === "production" ? "info" : "debug",
-    },
+    logger,
+    trustProxy: (_address, hop) => hop < config.trustedProxyHops,
+  });
+
+  const backgroundTasks = createBackgroundTasks((error) => {
+    app.log.error({ err: error }, "background task failed");
+  });
+
+  const auth = createAuth({
+    backgroundTasks,
+    config,
+    database,
+    logger: app.log,
+    mailer,
   });
 
   await app.register(helmet);
   await app.register(cors, {
     credentials: true,
-    origin: env.WEB_URL,
+    origin: config.webUrl,
   });
+  await app.register(authRoutes, { auth, publicOrigin: config.webUrl });
 
   app.get("/health", () => ({ status: "ok" }));
 
-  return app;
+  app.addHook("onClose", async () => {
+    await backgroundTasks.drain();
+  });
+
+  return { app, auth, backgroundTasks };
 }

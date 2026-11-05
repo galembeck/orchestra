@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import { CtaActions } from "@/components/cta/cta-actions";
-import { WavyStaffLines } from "@/components/cta/wavy-staff-lines";
+import { WavyStaffLines } from "@/components/wavy-staff-lines/wavy-staff-lines";
 
 const CTA_HEADING_ID = "cta-heading";
 
