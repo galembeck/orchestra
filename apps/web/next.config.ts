@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
       destination: `${env.API_URL}${AUTH_BASE_PATH}/:path*`,
       source: `${AUTH_BASE_PATH}/:path*`,
     },
+    {
+      destination: `${env.API_URL}/:path*`,
+      source: "/api/:path*",
+    },
   ],
   transpilePackages: ["@orchestra/shared", "@orchestra/ui"],
 };

@@ -1,3 +1,5 @@
+import { randomUUID } from "node:crypto";
+import type { CompanyRole } from "@orchestra/database/client";
 import {
   createPrismaClient,
   type DatabaseClient,
@@ -7,6 +9,10 @@ import { buildApp } from "../../src/app.js";
 import type { AppConfig } from "../../src/config.js";
 import type { Mailer, MailMessage } from "../../src/modules/mail/mailer.js";
 
+const VERIFICATION_LINK_PATTERN =
+  /https?:\/\/\S+\/api\/auth\/verify-email\?\S+/u;
+const FIXTURE_PASSWORD = "harmonia2026";
+
 export const TEST_WEB_URL = "http://localhost:3000";
 
 const TEST_TABLES = [
@@ -15,6 +21,12 @@ const TEST_TABLES = [
   "verifications",
   "rate_limits",
   "users",
+  "companies",
+  "members",
+  "invites",
+  "job_roles",
+  "company_job_roles",
+  "member_job_roles",
 ] as const;
 
 export interface RecordingMailer extends Mailer {
@@ -94,3 +106,97 @@ export const postAuth = (
     payload: JSON.stringify(payload),
     url: `/api/auth${path}`,
   });
+
+const readCookieHeader = (header: string | string[] | undefined) => {
+  if (!header) {
+    return "";
+  }
+  const cookies = Array.isArray(header) ? header : [header];
+  return cookies.map((cookie) => cookie.split(";")[0]).join("; ");
+};
+
+export interface CreateMemberFixtureOptions {
+  companyName?: string;
+  companySlug?: string;
+  role: CompanyRole;
+}
+
+export interface MemberFixture {
+  companyId: string;
+  companySlug: string;
+  cookie: string;
+  userId: string;
+}
+
+export interface VerifiedUserFixture {
+  cookie: string;
+  email: string;
+  userId: string;
+}
+
+export const createVerifiedUserFixture = async (
+  testApp: TestApp,
+  options: { email?: string } = {}
+): Promise<VerifiedUserFixture> => {
+  const email = options.email ?? `member-${randomUUID()}@example.com`;
+
+  await postAuth(testApp, "/sign-up/email", {
+    acceptedTerms: true,
+    email,
+    isAdult: true,
+    name: "Test Member",
+    password: FIXTURE_PASSWORD,
+  });
+  await testApp.backgroundTasks.drain();
+
+  const message = testApp.mailer.sent.find((sent) => sent.to === email);
+  if (!message) {
+    throw new Error(`No verification email was sent to ${email}.`);
+  }
+  const link = message.text.match(VERIFICATION_LINK_PATTERN)?.[0];
+  if (!link) {
+    throw new Error(`No verification link found for ${email}.`);
+  }
+
+  const { pathname, search } = new URL(link);
+  const verification = await testApp.app.inject({
+    method: "GET",
+    url: `${pathname}${search}`,
+  });
+  const cookie = readCookieHeader(verification.headers["set-cookie"]);
+
+  const user = await testApp.database.user.findUniqueOrThrow({
+    where: { email },
+  });
+
+  return { cookie, email, userId: user.id };
+};
+
+export const createMemberFixture = async (
+  testApp: TestApp,
+  options: CreateMemberFixtureOptions
+): Promise<MemberFixture> => {
+  const { cookie, userId } = await createVerifiedUserFixture(testApp);
+
+  const companySlug = options.companySlug ?? `company-${randomUUID()}`;
+  const company = await testApp.database.company.upsert({
+    create: {
+      name: options.companyName ?? "Test Company",
+      ownerId: userId,
+      slug: companySlug,
+    },
+    update: {},
+    where: { slug: companySlug },
+  });
+
+  await testApp.database.member.create({
+    data: { companyId: company.id, role: options.role, userId },
+  });
+
+  return {
+    companyId: company.id,
+    companySlug: company.slug,
+    cookie,
+    userId,
+  };
+};

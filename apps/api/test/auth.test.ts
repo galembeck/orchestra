@@ -199,6 +199,18 @@ describe("email sign-in", () => {
     });
   });
 
+  it("includes a null company on the session for a user with no membership", async () => {
+    await verifyLatestEmail(testApp);
+    const signInResponse = await signIn(testApp);
+    const sessionCookies = readCookies(signInResponse.headers["set-cookie"]);
+    const session = await testApp.app.inject({
+      headers: { cookie: toCookieHeader(sessionCookies) },
+      method: "GET",
+      url: "/api/auth/get-session",
+    });
+    expect(session.json()).toMatchObject({ user: { company: null } });
+  });
+
   it("rejects a wrong password without revealing which field was wrong", async () => {
     await verifyLatestEmail(testApp);
 

@@ -21,6 +21,7 @@
     },
     "profileMenu": {
       "trigger": "Account menu",
+      "dashboard": "Dashboard",
       "profile": "Profile",
       "settings": "Settings",
       "logOut": "Log out"
@@ -243,6 +244,79 @@
       "description": "We sent a confirmation link to <email></email>. Open the email and click the link to activate your account.",
       "notReceived": "Didn't get it? Check your spam folder or ask for a new link.",
       "useAnotherEmail": "Use another email"
+    }
+  },
+  "companySettings": {
+    "title": "Company settings",
+    "nameLabel": "Company name",
+    "submit": "Save changes",
+    "pending": "Saving…",
+    "errors": {
+      "generic": "Something went wrong. Please try again."
+    },
+    "transferOwnership": {
+      "trigger": "Transfer ownership",
+      "title": "Transfer ownership",
+      "description": "Pick a team member to become the new owner of this company. You'll keep your admin access.",
+      "memberLabel": "New owner",
+      "memberPlaceholder": "Select a member",
+      "confirm": "Transfer ownership",
+      "pending": "Transferring…",
+      "error": "Something went wrong. Please try again.",
+      "close": "Close"
+    }
+  },
+  "membersPage": {
+    "title": "Members",
+    "remove": "Remove",
+    "roles": {
+      "ADMIN": "Admin",
+      "BILLING": "Billing",
+      "MEMBER": "Member"
+    },
+    "inviteForm": {
+      "emailLabel": "Email",
+      "roleLabel": "Role",
+      "submit": "Send invite",
+      "pending": "Sending…",
+      "pendingTitle": "Pending invites",
+      "revoke": "Revoke",
+      "errors": {
+        "generic": "Something went wrong. Please try again."
+      }
+    }
+  },
+  "inviteAccept": {
+    "title": "Accepting invitation",
+    "pending": "Just a moment…",
+    "signInPrompt": "Sign in to accept this invitation.",
+    "signInLink": "Sign in",
+    "errors": {
+      "expired": "This invite has expired. Ask the company admin to send a new one.",
+      "emailMismatch": "This invite was sent to a different email address. Sign in with that email to accept it.",
+      "alreadyHasCompany": "You already belong to a company.",
+      "notFound": "This invite doesn't exist or was already used.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "companyJobRoles": {
+    "title": "Job roles",
+    "submit": "Save changes",
+    "pending": "Saving…",
+    "errors": {
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "companyRegister": {
+    "title": "Register your company",
+    "description": "Create your company's profile on Orchestra to start managing your team.",
+    "nameLabel": "Company name",
+    "namePlaceholder": "Acme Services",
+    "submit": "Create company",
+    "pending": "Creating company…",
+    "errors": {
+      "alreadyHasCompany": "You already belong to a company.",
+      "generic": "Something went wrong. Please try again."
     }
   }
 }

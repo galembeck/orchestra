@@ -14,13 +14,14 @@ import { useCallback } from "react";
 import { SiteControls } from "@/components/site-controls/site-controls";
 import { localizeHref } from "@/i18n/localize-href";
 import { useRouter } from "@/i18n/navigation";
-import { authClient, signOut } from "@/lib/auth-client";
+import { signOut } from "@/lib/auth-client";
+import { useSessionCompany } from "@/lib/use-session-company";
 
 export function SiteHeader() {
   const t = useTranslations();
   const locale = useLocale();
   const router = useRouter();
-  const { data: session } = authClient.useSession();
+  const { company, session } = useSessionCompany();
 
   const handleLogOut = useCallback(() => {
     signOut().then(() => {
@@ -52,7 +53,13 @@ export function SiteHeader() {
       profileMenu={
         session ? (
           <ProfileDropdown
+            dashboardHref={
+              company
+                ? localizeHref(`/company/${company.slug}`, locale)
+                : undefined
+            }
             labels={{
+              dashboard: t("navigation.profileMenu.dashboard"),
               logOut: t("navigation.profileMenu.logOut"),
               profile: t("navigation.profileMenu.profile"),
               settings: t("navigation.profileMenu.settings"),

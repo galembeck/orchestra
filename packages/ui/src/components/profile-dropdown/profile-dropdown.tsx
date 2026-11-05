@@ -8,9 +8,15 @@ import {
   DropdownMenuTrigger,
 } from "@orchestra/ui/components/dropdown-menu/dropdown-menu";
 import { cn } from "@orchestra/ui/lib/utils";
-import { LogOutIcon, SettingsIcon, UserIcon } from "lucide-react";
+import {
+  LayoutDashboardIcon,
+  LogOutIcon,
+  SettingsIcon,
+  UserIcon,
+} from "lucide-react";
 
 export interface ProfileDropdownLabels {
+  dashboard: string;
   logOut: string;
   profile: string;
   settings: string;
@@ -24,6 +30,7 @@ export interface ProfileDropdownUser {
 
 export interface ProfileDropdownProps {
   className?: string;
+  dashboardHref?: string;
   labels: ProfileDropdownLabels;
   onLogOut: () => void;
   profileHref: string;
@@ -40,6 +47,7 @@ function getInitials(name: string): string {
 
 export function ProfileDropdown({
   className,
+  dashboardHref,
   labels,
   onLogOut,
   profileHref,
@@ -74,6 +82,15 @@ export function ProfileDropdown({
       </DropdownMenuTrigger>
 
       <DropdownMenuContent>
+        {dashboardHref ? (
+          <DropdownMenuItem asChild>
+            <a href={dashboardHref}>
+              <LayoutDashboardIcon aria-hidden="true" className="size-4" />
+              {labels.dashboard}
+            </a>
+          </DropdownMenuItem>
+        ) : null}
+
         <DropdownMenuItem asChild>
           <a href={profileHref}>
             <UserIcon aria-hidden="true" className="size-4" />
