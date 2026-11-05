@@ -21,6 +21,7 @@ export type NavbarProps = ComponentProps<"header"> & {
   homeHref?: string;
   items: readonly NavItem[];
   labels: NavbarLabels;
+  profileMenu?: ReactNode;
   signIn: NavItem;
 };
 
@@ -32,6 +33,7 @@ export function Navbar({
   homeHref = "/",
   items,
   labels,
+  profileMenu,
   signIn,
   ...props
 }: NavbarProps) {
@@ -54,24 +56,30 @@ export function Navbar({
             <div className="flex items-center gap-1.5">{controls}</div>
           ) : null}
 
-          <ButtonLink
-            className="px-4 py-2.5"
-            href={signIn.href}
-            variant="ghost"
-          >
-            {signIn.label}
-          </ButtonLink>
+          {profileMenu ?? (
+            <>
+              <ButtonLink
+                className="px-4 py-2.5"
+                href={signIn.href}
+                variant="ghost"
+              >
+                {signIn.label}
+              </ButtonLink>
 
-          <ButtonLink href={cta.href}>
-            {cta.label}
-            <ArrowRightIcon aria-hidden="true" className="size-4" />
-          </ButtonLink>
+              <ButtonLink href={cta.href}>
+                {cta.label}
+                <ArrowRightIcon aria-hidden="true" className="size-4" />
+              </ButtonLink>
+            </>
+          )}
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
-          <ButtonLink href={signIn.href} size="sm">
-            {signIn.label}
-          </ButtonLink>
+          {profileMenu ?? (
+            <ButtonLink href={signIn.href} size="sm">
+              {signIn.label}
+            </ButtonLink>
+          )}
 
           <MobileMenu
             activeHref={currentHref}
@@ -79,6 +87,7 @@ export function Navbar({
             cta={cta}
             items={items}
             openLabel={labels.openMenu}
+            profileMenu={profileMenu}
           >
             {controls}
           </MobileMenu>

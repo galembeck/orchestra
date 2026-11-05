@@ -18,6 +18,12 @@
       "signIn": "Sign in",
       "registerBusiness": "Register business",
       "signUp": "Sign up"
+    },
+    "profileMenu": {
+      "trigger": "Account menu",
+      "profile": "Profile",
+      "settings": "Settings",
+      "logOut": "Log out"
     }
   },
   "theme": {

@@ -14,3 +14,12 @@ export const authClient = createAuthClient({
     }),
   ],
 });
+
+export async function isAuthenticated(): Promise<boolean> {
+  const { data } = await authClient.getSession();
+  return Boolean(data?.session);
+}
+
+export async function signOut(): Promise<void> {
+  await authClient.signOut();
+}

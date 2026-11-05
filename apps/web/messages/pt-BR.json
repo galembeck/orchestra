@@ -18,6 +18,12 @@
       "signIn": "Entrar",
       "registerBusiness": "Cadastrar empresa",
       "signUp": "Criar conta"
+    },
+    "profileMenu": {
+      "trigger": "Menu da conta",
+      "profile": "Perfil",
+      "settings": "Configurações",
+      "logOut": "Sair"
     }
   },
   "theme": {

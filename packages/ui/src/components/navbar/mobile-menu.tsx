@@ -14,6 +14,7 @@ export interface MobileMenuProps {
   cta: NavItem;
   items: readonly NavItem[];
   openLabel: string;
+  profileMenu?: ReactNode;
 }
 
 export function MobileMenu({
@@ -24,6 +25,7 @@ export function MobileMenu({
   cta,
   items,
   openLabel,
+  profileMenu,
 }: MobileMenuProps) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
@@ -94,10 +96,12 @@ export function MobileMenu({
           })}
         </ul>
 
-        <ButtonLink className="mt-6 w-full" href={cta.href} onClick={close}>
-          {cta.label}
-          <ArrowRightIcon aria-hidden="true" className="size-4" />
-        </ButtonLink>
+        {profileMenu ?? (
+          <ButtonLink className="mt-6 w-full" href={cta.href} onClick={close}>
+            {cta.label}
+            <ArrowRightIcon aria-hidden="true" className="size-4" />
+          </ButtonLink>
+        )}
 
         {children ? (
           <div className="mt-5 flex items-center justify-center gap-2">

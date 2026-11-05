@@ -55,6 +55,33 @@ export function DropdownMenuLabel({
   );
 }
 
+export function DropdownMenuItem({
+  className,
+  ...props
+}: ComponentProps<typeof DropdownMenuPrimitive.Item>) {
+  return (
+    <DropdownMenuPrimitive.Item
+      className={cn(
+        "text-foreground focus:bg-muted flex cursor-pointer items-center gap-2.5 rounded-lg py-2.5 pr-2.5 pl-2.5 font-sans text-sm/5 outline-none select-none data-disabled:pointer-events-none data-disabled:opacity-50",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+export function DropdownMenuSeparator({
+  className,
+  ...props
+}: ComponentProps<typeof DropdownMenuPrimitive.Separator>) {
+  return (
+    <DropdownMenuPrimitive.Separator
+      className={cn("bg-border -mx-1.5 my-1.5 h-px", className)}
+      {...props}
+    />
+  );
+}
+
 export function DropdownMenuRadioGroup(
   props: ComponentProps<typeof DropdownMenuPrimitive.RadioGroup>
 ) {

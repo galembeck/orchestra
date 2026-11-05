@@ -31,6 +31,16 @@ export const BUSINESS_SIGN_UP_LINK = {
   labelKey: "registerBusiness",
 } as const satisfies NavLinkDefinition;
 
+export const PROFILE_LINK = {
+  href: "/profile",
+  labelKey: "profile",
+} as const satisfies NavLinkDefinition;
+
+export const SETTINGS_LINK = {
+  href: "/settings",
+  labelKey: "settings",
+} as const satisfies NavLinkDefinition;
+
 export const FOOTER_LINK_GROUPS = [
   {
     links: [
