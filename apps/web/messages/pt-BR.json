@@ -21,6 +21,7 @@
     },
     "profileMenu": {
       "trigger": "Menu da conta",
+      "dashboard": "Painel",
       "profile": "Perfil",
       "settings": "Configurações",
       "logOut": "Sair"
@@ -243,6 +244,79 @@
       "description": "Enviamos um link de confirmação para <email></email>. Abra o e-mail e clique no link para ativar sua conta.",
       "notReceived": "Não recebeu? Verifique a caixa de spam ou peça um novo link.",
       "useAnotherEmail": "Usar outro e-mail"
+    }
+  },
+  "companySettings": {
+    "title": "Configurações da empresa",
+    "nameLabel": "Nome da empresa",
+    "submit": "Salvar alterações",
+    "pending": "Salvando…",
+    "errors": {
+      "generic": "Algo deu errado. Tente novamente."
+    },
+    "transferOwnership": {
+      "trigger": "Transferir propriedade",
+      "title": "Transferir propriedade",
+      "description": "Escolha um membro da equipe para se tornar o novo proprietário desta empresa. Você manterá seu acesso de administrador.",
+      "memberLabel": "Novo proprietário",
+      "memberPlaceholder": "Selecione um membro",
+      "confirm": "Transferir propriedade",
+      "pending": "Transferindo…",
+      "error": "Algo deu errado. Tente novamente.",
+      "close": "Fechar"
+    }
+  },
+  "membersPage": {
+    "title": "Membros",
+    "remove": "Remover",
+    "roles": {
+      "ADMIN": "Administrador",
+      "BILLING": "Financeiro",
+      "MEMBER": "Membro"
+    },
+    "inviteForm": {
+      "emailLabel": "E-mail",
+      "roleLabel": "Função",
+      "submit": "Enviar convite",
+      "pending": "Enviando…",
+      "pendingTitle": "Convites pendentes",
+      "revoke": "Revogar",
+      "errors": {
+        "generic": "Algo deu errado. Tente novamente."
+      }
+    }
+  },
+  "inviteAccept": {
+    "title": "Aceitando convite",
+    "pending": "Só um instante…",
+    "signInPrompt": "Entre para aceitar este convite.",
+    "signInLink": "Entrar",
+    "errors": {
+      "expired": "Este convite expirou. Peça ao administrador da empresa para enviar um novo.",
+      "emailMismatch": "Este convite foi enviado para outro e-mail. Entre com esse e-mail para aceitá-lo.",
+      "alreadyHasCompany": "Você já faz parte de uma empresa.",
+      "notFound": "Este convite não existe ou já foi usado.",
+      "generic": "Algo deu errado. Tente novamente."
+    }
+  },
+  "companyJobRoles": {
+    "title": "Funções de trabalho",
+    "submit": "Salvar alterações",
+    "pending": "Salvando…",
+    "errors": {
+      "generic": "Algo deu errado. Tente novamente."
+    }
+  },
+  "companyRegister": {
+    "title": "Cadastre sua empresa",
+    "description": "Crie o perfil da sua empresa na Orchestra para começar a gerenciar sua equipe.",
+    "nameLabel": "Nome da empresa",
+    "namePlaceholder": "Acme Serviços",
+    "submit": "Criar empresa",
+    "pending": "Criando empresa…",
+    "errors": {
+      "alreadyHasCompany": "Você já faz parte de uma empresa.",
+      "generic": "Algo deu errado. Tente novamente."
     }
   }
 }

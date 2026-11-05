@@ -20,8 +20,107 @@ model User {
   updatedAt        DateTime  @updatedAt @map("updated_at")
   sessions         Session[]
   accounts         Account[]
+  owns_companies   Company[]
+  member           Member?
+  authoredInvites  Invite[]
 
   @@map("users")
+}
+
+enum CompanyRole {
+  ADMIN
+  BILLING
+  MEMBER
+}
+
+enum InviteStatus {
+  PENDING
+  ACCEPTED
+  REVOKED
+}
+
+model Company {
+  id        String   @id @default(uuid())
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  ownerId String @map("owner_id")
+  owner   User   @relation(fields: [ownerId], references: [id])
+
+  members  Member[]
+  invites  Invite[]
+  jobRoles CompanyJobRole[]
+
+  @@map("companies")
+}
+
+model Member {
+  id        String      @id @default(uuid())
+  role      CompanyRole @default(MEMBER)
+  createdAt DateTime    @default(now()) @map("created_at")
+
+  userId String @unique @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  companyId String  @map("company_id")
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  jobRoles MemberJobRole[]
+
+  @@map("members")
+}
+
+model Invite {
+  id        String       @id @default(uuid())
+  email     String
+  role      CompanyRole  @default(MEMBER)
+  token     String       @unique
+  status    InviteStatus @default(PENDING)
+  expiresAt DateTime     @map("expires_at")
+  createdAt DateTime     @default(now()) @map("created_at")
+
+  companyId String  @map("company_id")
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  authorId String? @map("author_id")
+  author   User?   @relation(fields: [authorId], references: [id], onDelete: SetNull)
+
+  @@unique([email, companyId])
+  @@index([email])
+  @@map("invites")
+}
+
+model JobRole {
+  id   String @id @default(uuid())
+  key  String @unique
+  slug String @unique
+
+  companies CompanyJobRole[]
+  members   MemberJobRole[]
+
+  @@map("job_roles")
+}
+
+model CompanyJobRole {
+  companyId String  @map("company_id")
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  jobRoleId String  @map("job_role_id")
+  jobRole   JobRole @relation(fields: [jobRoleId], references: [id], onDelete: Cascade)
+
+  @@id([companyId, jobRoleId])
+  @@map("company_job_roles")
+}
+
+model MemberJobRole {
+  memberId  String  @map("member_id")
+  member    Member  @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  jobRoleId String  @map("job_role_id")
+  jobRole   JobRole @relation(fields: [jobRoleId], references: [id], onDelete: Cascade)
+
+  @@id([memberId, jobRoleId])
+  @@map("member_job_roles")
 }
 
 model Session {

@@ -190,6 +190,9 @@ importers:
       '@orchestra/env':
         specifier: workspace:*
         version: link:../../packages/env
+      '@orchestra/rbac':
+        specifier: workspace:*
+        version: link:../../packages/rbac
       '@orchestra/shared':
         specifier: workspace:*
         version: link:../../packages/shared
@@ -199,6 +202,9 @@ importers:
       fastify:
         specifier: 5.12.8
         version: 5.12.8
+      fastify-plugin:
+        specifier: 6.0.1
+        version: 6.0.1
       nodemailer:
         specifier: 10.3.1
         version: 10.3.1
@@ -236,6 +242,9 @@ importers:
       '@orchestra/env':
         specifier: workspace:*
         version: link:../../packages/env
+      '@orchestra/rbac':
+        specifier: workspace:*
+        version: link:../../packages/rbac
       '@orchestra/shared':
         specifier: workspace:*
         version: link:../../packages/shared
@@ -317,6 +326,9 @@ importers:
       '@orchestra/env':
         specifier: workspace:*
         version: link:../env
+      '@orchestra/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@prisma/adapter-pg':
         specifier: 7.10.1
         version: 7.10.1
@@ -333,6 +345,9 @@ importers:
       prisma:
         specifier: 7.10.1
         version: 7.10.1(@types/node@26.6.6)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(magicast@0.5.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@7.0.2)
+      tsx:
+        specifier: 4.23.15
+        version: 4.23.15
       typescript:
         specifier: 7.0.2
         version: 7.0.2
@@ -358,6 +373,28 @@ importers:
       typescript:
         specifier: 7.0.2
         version: 7.0.2
+
+  packages/rbac:
+    dependencies:
+      '@casl/ability':
+        specifier: 7.1.1
+        version: 7.1.1
+      zod:
+        specifier: 4.6.7
+        version: 4.6.7
+    devDependencies:
+      '@orchestra/typescript-config':
+        specifier: workspace:*
+        version: link:../../config/typescript-config
+      '@types/node':
+        specifier: 26.6.6
+        version: 26.6.6
+      typescript:
+        specifier: 7.0.2
+        version: 7.0.2
+      vitest:
+        specifier: 5.1.0
+        version: 5.1.0(@types/node@26.6.6)(vite@8.3.5(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1))
 
   packages/shared:
     dependencies:
@@ -651,6 +688,9 @@ packages:
 
   '@cacheable/utils@2.5.0':
     resolution: {integrity: sha512-buipgOVDkkPXNR5+xBpDw7Zk2n1EvU7qBJCNUcL7rhQ//kfpOXPAvQ511Os0vpLYJ1pZnvudNytkQt2hst3wqA==}
+
+  '@casl/ability@7.1.1':
+    resolution: {integrity: sha512-1WL90aW65z7RyaoFhOrfUua6e8gk5I2DS7WDjTTI5/qtGnFcnesX4LvfXkqO21LexTswLq71s4Lfs93eI45z8A==}
 
   '@clack/core@1.5.1':
     resolution: {integrity: sha512-iHTrHA8MtVuLl2TfZySmcKv1qO2PoyC9Z7pfSDozEuV5vtY3/wcOPKJXlqJ5Oq2Cx5DDGQGAMVx6HZfRRoVEbQ==}
@@ -2803,6 +2843,18 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@ucast/core@2.0.0':
+    resolution: {integrity: sha512-4XVx6LzPXZGvnZO5jp39cm/G4UvuwvEdtmg+9+4+zl6uFkCcB7UJacvtMYeBE56GJVT99Zqy6Pii7dGJq3Kz9Q==}
+
+  '@ucast/js@4.0.1':
+    resolution: {integrity: sha512-9O5xPBvwEWQk2WvO69Eh2WJB8QljVZ2vRVdFvfnKjlZwWXcYxp1lqLBhwXBU1AtuSgCvKhJPkXdjKJggUmAmQQ==}
+
+  '@ucast/mongo2js@2.0.0':
+    resolution: {integrity: sha512-vNBZzRnsfLr/TSxEoxz6W6hHQ5tmWsfEeC0nCq5z8RezC1AqIRy3cfHm8AGvlGtcn+cTSFQcZremfqnz6wm+nQ==}
+
+  '@ucast/mongo@3.0.0':
+    resolution: {integrity: sha512-kwuSH+kdB4GCR0LGhy/PEDm4PCflur89AlK82kNiYD0FvsA8A/p+0sx7m+/R8mMFAlmlkAd3VXp7sM/cLLYWYg==}
+
   '@use-gesture/core@10.3.1':
     resolution: {integrity: sha512-WcINiDt8WjqBdUXye25anHiNxPc0VOrlT8F6LLkU6cycrOGUDyY/yyFmsg3k8i5OLvv25llc0QC45GhR/C8llw==}
 
@@ -4896,6 +4948,10 @@ snapshots:
       keyv: 5.6.0
     optional: true
 
+  '@casl/ability@7.1.1':
+    dependencies:
+      '@ucast/mongo2js': 2.0.0
+
   '@clack/core@1.5.1':
     dependencies:
       fast-wrap-ansi: 0.2.2
@@ -6765,6 +6821,22 @@ snapshots:
 
   '@typescript/typescript-win32-x64@7.0.2':
     optional: true
+
+  '@ucast/core@2.0.0': {}
+
+  '@ucast/js@4.0.1':
+    dependencies:
+      '@ucast/core': 2.0.0
+
+  '@ucast/mongo2js@2.0.0':
+    dependencies:
+      '@ucast/core': 2.0.0
+      '@ucast/js': 4.0.1
+      '@ucast/mongo': 3.0.0
+
+  '@ucast/mongo@3.0.0':
+    dependencies:
+      '@ucast/core': 2.0.0
 
   '@use-gesture/core@10.3.1': {}
 

@@ -9,6 +9,7 @@ import {
 import { SIGN_IN_LINK } from "@orchestra/shared/constants/navigation";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
+import { customSession } from "better-auth/plugins";
 import type { FastifyBaseLogger } from "fastify";
 import type { AppConfig } from "../../config.js";
 import type { BackgroundTasks } from "../../lib/background-tasks.js";
@@ -145,6 +146,24 @@ export const createAuth = ({
         logger[level]({ args, scope: "auth" }, message);
       },
     },
+    plugins: [
+      customSession(async ({ session, user }) => {
+        const member = await database.member.findUnique({
+          include: { company: true },
+          where: { userId: user.id },
+        });
+
+        return {
+          session,
+          user: {
+            ...user,
+            company: member
+              ? { role: member.role, slug: member.company.slug }
+              : null,
+          },
+        };
+      }),
+    ],
     rateLimit: {
       ...DEFAULT_RATE_LIMIT,
       customRules: AUTH_RATE_LIMITS,

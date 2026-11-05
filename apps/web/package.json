@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@orchestra/env": "workspace:*",
+    "@orchestra/rbac": "workspace:*",
     "@orchestra/shared": "workspace:*",
     "@orchestra/ui": "workspace:*",
     "@react-three/drei": "10.7.9",

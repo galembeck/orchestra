@@ -24,11 +24,13 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:push": "prisma db push",
+    "db:seed": "tsx --env-file-if-exists=../../.env prisma/seed.ts",
     "db:studio": "prisma studio",
     "dev": "tsc --watch --preserveWatchOutput"
   },
   "dependencies": {
     "@orchestra/env": "workspace:*",
+    "@orchestra/shared": "workspace:*",
     "@prisma/adapter-pg": "7.10.1",
     "@prisma/client": "7.10.1"
   },
@@ -36,6 +38,7 @@
     "@orchestra/typescript-config": "workspace:*",
     "@types/node": "26.6.6",
     "prisma": "7.10.1",
+    "tsx": "4.23.15",
     "typescript": "7.0.2"
   }
 }
